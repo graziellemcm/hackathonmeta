@@ -16,6 +16,7 @@ export default function SignUp() {
   const { form, onChangeForm, clearForm } = useForm({
     name: "",
     email: "",
+    team:"",
     password: "",
   });
   const onSignUp = (e) => {
@@ -75,15 +76,14 @@ export default function SignUp() {
             />
             <br></br>
             <TextField
-              name={"password"}
-              value={form.password}
+              name={"team"}
+              value={form.team}
               onChange={onChangeForm}
-              label={"Senha"}
+              label={"Turma"}
               variant={"outlined"}
               sx={{ width: 350, marginBottom: 3 }}
               margin="dense"
-              required
-              type={"password"}
+              type={"text"}
               autoComplete={"on"}
             />
             <br></br>
