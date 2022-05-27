@@ -11,7 +11,7 @@ export class TeamBusiness {
       const id = idGenerator.generateId();
 
       //verifying input and token
-      if (!input.team_name || typeof input.team_name === "number")
+      if (!input.team_name || typeof input.team_name !== "string")
         throw new Error(
           "Campo inválido, certifique-se de que o nome da classe é uma 'string'."
         );
