@@ -1,0 +1,8 @@
+POST http://localhost:3003/responsible/signup
+Content-Type: application/json  
+
+{       "name": "bla",
+        "email": "blabla@email.com",
+        "password": "1234567",
+        "role":"ADMIN",
+        "team":"teams" }

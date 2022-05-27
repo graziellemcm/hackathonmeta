@@ -1,4 +1,3 @@
-import { response } from "express";
 import { Team } from "../model/TeamModel";
 import { BaseDatabase } from "./BaseDatabase";
 
@@ -15,6 +14,7 @@ export class TeamDatabase extends BaseDatabase {
         .into(TeamDatabase.TABLE_NAME);
     } catch (err: any) {
       console.log(err.sqlMessage || err.message);
+      throw new Error(err.sqlMessage || err.message);
     }
   }
   public async getTeamByName(name: string) {
@@ -24,8 +24,9 @@ export class TeamDatabase extends BaseDatabase {
         .from(TeamDatabase.TABLE_NAME)
         .where({ team_name: name });
       return result[0] && Team.toTeamModel(result[0]);
-    } catch (error: any) {
-      console.log(error.sqlMessage || error.message);
+    } catch (err: any) {
+      
+      throw new Error(err.sqlMessage || err.message);
     }
   }
   public async getAllTeams(): Promise<Team[]> {
@@ -34,8 +35,9 @@ export class TeamDatabase extends BaseDatabase {
         TeamDatabase.TABLE_NAME
       ).select("*");
       return allTeamsData.map((team) => Team.toTeamModel(team));
-    } catch (e: any) {
-      throw new Error(e.sqlMessage || e.message);
+    } catch (err: any) {
+      
+      throw new Error(err.sqlMessage || err.message);
     }
   }
 }

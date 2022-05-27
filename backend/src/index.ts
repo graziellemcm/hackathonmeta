@@ -5,7 +5,8 @@ import cors from "cors";
 import { teamRouter } from "./routes/teamRouter";
 import { responsibleRouter } from "./routes/userRouter";
 import { leaguerRouter } from "./routes/leaguerRouter";
-
+import { feedbackRouter } from "./routes/feedbackRouter";
+import { evaluationRouter } from "./routes/evaluationRouter";
 
 dotenv.config();
 const app = express();
@@ -15,8 +16,9 @@ app.use(cors());
 
 app.use("/team", teamRouter);
 app.use("/responsible", responsibleRouter);
-app.use("/create", leaguerRouter)
-
+app.use("/create", leaguerRouter);
+app.use("/feedback", feedbackRouter);
+app.use("/evaluation", evaluationRouter);
 
 const server = app.listen(process.env.PORT || 3003, () => {
   if (server) {

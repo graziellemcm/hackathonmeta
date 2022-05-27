@@ -3,6 +3,6 @@ import { TeamController } from "../controller/TeamController";
 
 export const teamRouter = express.Router();
 
-//sign up and login
+//create team
 const teamController = new TeamController();
 teamRouter.post("/create", teamController.createTeam);
