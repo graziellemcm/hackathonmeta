@@ -1,18 +1,13 @@
 import React from "react";
-import { ContainerHeaderLogin } from "./styled";
-import { Link } from "react-router-dom";
+import { Header, LogoImage } from "./styled";
+import meta from "../img/meta.png"
 
-export default function Header() {
+
+export default function Headers() {
   return (
     <div>
-      <ContainerHeaderLogin>
-        <Link to="/">
-          <p>home</p>
-        </Link>
-        <Link to="/aboutus">
-          <p>about us</p>
-        </Link>
-      </ContainerHeaderLogin>
+   
+        <Header>   <LogoImage src={meta}/></Header>
     </div>
   );
 }
