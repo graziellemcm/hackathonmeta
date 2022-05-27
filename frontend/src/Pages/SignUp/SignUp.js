@@ -4,6 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
 import { base_Url } from "../../Constants/base_Url";
+import { Center, Layout, LogoImage } from "./styled";
+import metaAzull from "../../Components/img/metaAzull.png"
+import { Button, TextField } from "@mui/material"
+
+
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -15,7 +20,7 @@ export default function SignUp() {
   });
   const onSignUp = (e) => {
     e.preventDefault();
-   
+
   };
   //endpoint signup
   const signUp = () => {
@@ -23,7 +28,7 @@ export default function SignUp() {
     axios
       .post(base_Url + "/user/signup", body)
       .then((res) => {
-         clearForm();
+        clearForm();
         localStorage.setItem("token", res.data.token);
         navigate("/");
       })
@@ -34,45 +39,74 @@ export default function SignUp() {
   return (
     <div>
       <Header />
-      <h1>Cadastre-se</h1>
-      <form onSubmit={onSignUp}>
-        <p>Nome</p>
-        <input
-          type="text"
-          name={"name"}
-          placeholder="Nome"
-          onChange={onChangeForm}
-          value={form.name}
-          required
-        />
-        <p>Email</p>
-        <input
-          type="text"
-          name={"email"}
-          placeholder="Email"
-          onChange={onChangeForm}
-          value={form.email}
-          required
-        />
+      <Layout>
+        <div></div>
 
-        <p>Senha</p>
-        <input
-          type="password"
-          name={"password"}
-          placeholder="Senha"
-          onChange={onChangeForm}
-          value={form.password}
-          required
-        />
-        <div>
-          <button type={"submit"} onClick={signUp}>
-            Enviar
-          </button>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-        </div>
-      </form>
+        <Center>
+          <LogoImage src={metaAzull} />
+          <h2>Cadastre-se</h2>
+          <form onSubmit={onSignUp}>
+
+            <TextField
+
+              name={"name"}
+              value={form.name}
+              onChange={onChangeForm}
+              label={"Nome completo"}
+              variant={"outlined"}
+              sx={{ width: 350, marginBottom: 3 }}
+              margin="dense"
+              required
+              autoFocus
+              type={"name"}
+            />
+            <br></br>
+
+            <TextField
+              name={"email"}
+              value={form.email}
+              onChange={onChangeForm}
+              label={"Email"}
+              variant={"outlined"}
+              sx={{ width: 350, marginBottom: 3 }}
+              margin="dense"
+              required
+              type={"email"}
+            />
+            <br></br>
+            <TextField
+              name={"password"}
+              value={form.password}
+              onChange={onChangeForm}
+              label={"Senha"}
+              variant={"outlined"}
+              sx={{ width: 350, marginBottom: 3 }}
+              margin="dense"
+              required
+              type={"password"}
+              autoComplete={"on"}
+            />
+            <br></br>
+            <TextField
+              name={"password"}
+              value={form.password}
+              onChange={onChangeForm}
+              label={"Senha"}
+              variant={"outlined"}
+              sx={{ width: 350, marginBottom: 3 }}
+              margin="dense"
+              required
+              type={"password"}
+              autoComplete={"on"}
+            />
+            <div>
+              <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={signUp} > Enviar</Button>
+
+            </div>
+          </form>
+
+        </Center>
+      </Layout>
     </div>
   );
 }

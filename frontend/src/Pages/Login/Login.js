@@ -1,9 +1,13 @@
 import axios from "axios";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
 import { base_Url } from "../../Constants/base_Url";
+import { PhotoLogin } from "../../Components/loginStyle/styled";
+// import botaodelogin from "../img/botaodelogin.png"
+
+
+
 export default function Login() {
   const navigate = useNavigate();
 
@@ -33,10 +37,14 @@ export default function Login() {
       });
   };
   return (
-    <>
-      <Header />
+    <PhotoLogin>
+     
       <div>Login</div>
-
+      
+      
+      
+      
+      
       <form onSubmit={onLogin}>
         <p>Email</p>
         <input
@@ -65,6 +73,7 @@ export default function Login() {
           </Link>
         </div>
       </form>
-    </>
-  );
+      
+    </PhotoLogin>
+  )
 }
