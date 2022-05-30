@@ -123,8 +123,8 @@ background-color: #122870;
 	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
 	color: #B3B8CD;
     margin-top: 16px;
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 16px;
+    margin-right: 16px;
 	padding-top: 10px;
 
 	width: 800px;
