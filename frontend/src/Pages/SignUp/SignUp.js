@@ -84,30 +84,55 @@ export default function SignUp() {
                 autoComplete={"on"}
               />
 
-              <TextField
-                name={"team"}
-                value={form.team}
-                onChange={onChangeForm}
-                label={"Turma"}
-                variant={"outlined"}
-                sx={{ width: 350, marginBottom: 3 }}
-                margin="dense"
-                type={"text"}
-                autoComplete={"on"}
-              />
-
-              <TextField
-                name={"password"}
-                value={form.password}
-                onChange={onChangeForm}
-                label={"Senha"}
-                variant={"outlined"}
-                sx={{ width: 350, marginBottom: 3 }}
-                margin="dense"
-                required
-                type={"password"}
-                autoComplete={"on"}
-              />
+              name={"name"}
+              value={form.name}
+              onChange={onChangeForm}
+              label={"Nome completo"}
+              variant={"outlined"}
+              sx={{ width: 350, marginBottom: 3 }}
+              margin="dense"
+              required
+              autoFocus
+              type={"name"}
+            />
+            <br></br>
+            <TextField
+              name={"email"}
+              value={form.email}
+              onChange={onChangeForm}
+              label={"Email"}
+              variant={"outlined"}
+              sx={{ width: 350, marginBottom: 3 }}
+              margin="dense"
+              required
+              type={"email"}
+            />
+            <br></br>
+            <TextField
+              name={"team"}
+              value={form.team}
+              onChange={onChangeForm}
+              label={"Turma"}
+              variant={"outlined"}
+              sx={{ width: 350, marginBottom: 3 }}
+              margin="dense"
+              type={"text"}
+              autoComplete={"on"}
+            />
+            <br></br>
+            <TextField
+              name={"password"}
+              value={form.password}
+              onChange={onChangeForm}
+              label={"Senha"}
+              variant={"outlined"}
+              sx={{ width: 350, marginBottom: 3 }}
+              margin="dense"
+              required
+              type={"password"}
+              autoComplete={"on"}
+            />
+            <div>
               <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={signUp} > Enviar</Button>
             </form>
           </Center>
