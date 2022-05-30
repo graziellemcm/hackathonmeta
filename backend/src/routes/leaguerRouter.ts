@@ -9,5 +9,6 @@ const leaguerController = new LeaguerContoller();
 leaguerRouter.get("/getAll", leaguerController.getAllLeaguers);
 
 //edit leaguers
-// leaguerRouter.put("/edit", leaguerController.editLeaguer)
 leaguerRouter.post("/create", leaguerController.createLeaguer);
+leaguerRouter.put("/edit/:idLeaguer", leaguerController.editLeaguer)
+leaguerRouter.delete("/delete/:idLeaguer", leaguerController.deleteLeaguer)

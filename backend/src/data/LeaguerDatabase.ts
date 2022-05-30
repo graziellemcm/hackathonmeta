@@ -1,5 +1,5 @@
 import { Leaguer } from "../model/Leaguer";
-import { leaguerType } from "../types/leaguerType";
+import { editiLeaguerType, leaguerType } from "../types/leaguerType";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class LeaguerDatabase extends BaseDatabase {
@@ -13,20 +13,28 @@ export class LeaguerDatabase extends BaseDatabase {
     return user[0];
   };
 
-  create = async (leaguer: leaguerType) => {
+  create = async(leaguer:leaguerType)=>{
+
     await this.connection.raw(`
-        INSERT INTO leaguer_meta (id, name, email, class, phase, tecnologies, languages)
-            VALUES (
-                "${leaguer.id}",
-                "${leaguer.name}",
-                "${leaguer.email}",
-                "${leaguer.team}",
-                "${leaguer.phase}",
-                "${leaguer.tecnologies}",
-                "${leaguer.languages}"
-                );
-        `);
-  };
+    INSERT INTO leaguer_meta (id, photo_leaguer, position, hiring_model, created_at, name, email, phase, tecnologies, languages, id_mentor, id_manager, id_admin, name_class)
+        VALUES (
+            "${leaguer.id}",
+            "${leaguer.photo_leaguer}",
+            "${leaguer.position}",
+            "${leaguer.hiring_model}",
+            "${leaguer.created_at}",
+            "${leaguer.name}",
+            "${leaguer.email}",
+            "${leaguer.phase}",
+            "${leaguer.tecnologies}",
+            "${leaguer.languages}",
+            "${leaguer.id_mentor}",
+            "${leaguer.id_manager}",
+            "${leaguer.id_admin}",
+            "${leaguer.name_class}"
+        );
+    `)
+} 
   public async getLeaguerByEmail(email: string): Promise<Leaguer> {
     try {
       const result = await this.connection(LeaguerDatabase.TABLE_NAME)
@@ -48,5 +56,32 @@ export class LeaguerDatabase extends BaseDatabase {
     } catch (e: any) {
       throw new Error(e.sqlMessage || e.message);
     }
+  }
+
+  editLeaguer = async(leaguer:editiLeaguerType, idLeaguer:any)=> {
+    await this.connection.raw(`
+    UPDATE leaguer_meta
+      SET photo_leaguer = "${leaguer.photo_leaguer}",
+      position = "${leaguer.position}",
+      hiring_model = "${leaguer.hiring_model}",
+      created_at = "${leaguer.created_at}",
+      name = "${leaguer.name}",
+      email = "${leaguer.email}", 
+      phase = "${leaguer.phase}", 
+      tecnologies = "${leaguer.tecnologies}", 
+      languages = "${leaguer.languages}", 
+      id_mentor = "${leaguer.id_mentor}", 
+      id_manager = "${leaguer.id_manager}", 
+      id_admin = "${leaguer.id_admin}", 
+      name_class = "${leaguer.name_class}"
+      WHERE id = "${idLeaguer}"
+    `)
+  }
+
+  deleteLeaguer = async(idLeaguer:any) => {
+    await this.connection.raw(`
+    DELETE FROM leaguer_meta
+    WHERE id = "${idLeaguer}"
+    `)
   }
 }

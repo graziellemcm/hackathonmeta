@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ResponsibleBusiness } from "../business/ResponsibleBusiness";
-import { LoginInputDTO, SignupResponsibleInputDTO } from "../model/Responsible";
+import { LoginInputDTO, RoleInputDTO, SignupResponsibleInputDTO } from "../model/Responsible";
+import { Authenticator } from "../services/Authenticator";
 
 const responsibleBusiness = new ResponsibleBusiness()
 
@@ -47,5 +48,37 @@ export class ResponsibleController{
             res.status(400).send({ error: error.message });
         }
 
+    }
+
+    async editRole (req: Request, res: Response){
+        try {
+
+            const tokenHeaders = req.headers.authorization as string
+
+            const input:RoleInputDTO = {
+                id: req.body.id,
+                role: req.body.role
+            }
+
+            const role = await responsibleBusiness.editRole(input, tokenHeaders);
+
+            res.status(200).send({message: "Role alterado com sucesso!", token:role });
+
+        } catch (error: any) {
+            res.status(400).send({ error: error.message });
+        }
+    }
+
+    async getAllResponsibles(req: Request, res: Response): Promise<void>{
+
+        try {
+            const token_headers = req.headers.authorization as string;
+
+            const responsibleBusiness = new ResponsibleBusiness();
+            const responsible = await responsibleBusiness.getAllResponsibles(token_headers);
+            res.status(200).send(responsible);
+        } catch (error: any) {
+            res.status(400).send({ error: error.message });
+        }
     }
 }
