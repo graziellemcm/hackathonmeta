@@ -9,8 +9,7 @@ export class ResponsibleDatabase extends BaseDatabase {
     name: string,
     email: string,
     password: string,
-    role: string,
-    team: string
+    role: string
   ): Promise<void> {
     try {
       await this.connection(ResponsibleDatabase.TABLE_NAME).insert({
@@ -19,7 +18,6 @@ export class ResponsibleDatabase extends BaseDatabase {
         email,
         password,
         role,
-        team,
       });
     } catch (error: any) {
       throw new Error(error.sqlMessage || error.message);
@@ -28,29 +26,14 @@ export class ResponsibleDatabase extends BaseDatabase {
 
   public async findUserByEmail(email: string) {
     try {
-      const user = await this.connection("responsible_meta")
+      const user = await this.connection(ResponsibleDatabase.TABLE_NAME)
         .select("*")
-        .where({ email });
-      return user[0];
+        .where({ email:email });
+      return user[0] && Responsibles.toShowModel(user[0]);
     } catch (error: any) {
+      console.log(error)
       throw new Error(error.sqlMessage || error.message);
     }
   }
 
-  public async loginUser(email: string) {
-    try {
-      const result = await this.connection("responsible_meta")
-        .select("*")
-        .where({ email });
-      return {
-        id: result[0].id,
-        email: result[0].email,
-        name: result[0].name,
-        password: result[0].password,
-        role: result[0].role,
-      };
-    } catch (error: any) {
-      throw new Error(error.slqMessage || error.message);
-    }
-  }
 }

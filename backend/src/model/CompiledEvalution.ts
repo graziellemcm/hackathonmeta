@@ -1,10 +1,9 @@
-export class Evaluation {
+export class CompiledEvaluation {
   constructor(
     private id: string,
-    private leaguer_email: string,
-    private email_creator_feedback: string,
-    private email_evaluator: string,
-    private created_at_: Date | string,
+    private email_creator_compiled: string,
+    private email_leaguer: string,
+    private created_at: Date | string,
     private performance: number,
     private quality_on_delivery: number,
     private proactivity: number,
@@ -23,11 +22,11 @@ export class Evaluation {
     return this.id;
   }
 
-  getEmailCreator() {
-    return this.email_creator_feedback;
+  getEmailFeedbackCreator() {
+    return this.email_creator_compiled;
   }
   getCreatedAt() {
-    return this.created_at_;
+    return this.created_at;
   }
 
   getPerformance() {
@@ -52,13 +51,12 @@ export class Evaluation {
   getComment() {
     return this.comment;
   }
-  static toEvaluationModel(evaluation: any): Evaluation {
-    return new Evaluation(
+  static toCompiledEvaluationModel(evaluation: any): CompiledEvaluation {
+    return new CompiledEvaluation(
       evaluation.id,
-      evaluation.leaguer_email,
-      evaluation.email_creator_feedback,
-      evaluation.email_evaluator,
-      evaluation.created_at_,
+      evaluation.email_creator_compiled,
+      evaluation.email_leaguer,
+      evaluation.created_at,
       evaluation.performance,
       evaluation.quality_on_delivery,
       evaluation.proactivity,
@@ -75,10 +73,9 @@ export class Evaluation {
     );
   }
 }
-export interface EvaluationInputDTO {
-  leaguer_email: string;
-  email_creator_feedback: string;
-  email_evaluator: string;
+export interface CompiledEvaluationInputDTO {
+  email_creator_compiled: string;
+  email_leaguer: string;
   performance: number;
   quality_on_delivery: number;
   proactivity: number;

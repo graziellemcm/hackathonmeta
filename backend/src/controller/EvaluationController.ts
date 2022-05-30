@@ -13,26 +13,33 @@ export class EvaluationController {
         email_evaluator: req.body.email_evaluator,
         performance: req.body.performance,
         quality_on_delivery: req.body.quality_on_delivery,
+        proactivity: req.body.proactivity,
         commitment: req.body.commitment,
         team_work: req.body.team_work,
-        participation: req.body.participation,
+        skillset_growth: req.body.skillset_growth,
+        leadership: req.body.leadership,
         punctuality: req.body.punctuality,
+        work_under_pressure: req.body.work_under_pressure,
+        participation: req.body.participation,
+        administrative_tasks: req.body.administrative_tasks,
+        highlights_leaguer: req.body.highlights_leaguer,
         comment: req.body.comment,
       };
 
       //creating feedback request in databank
       const evaluationBusiness = new EvaluationBusiness();
       await evaluationBusiness.createEvaluation(input, token_headers);
-      res.status(200).send({
+      res.status(201).send({
         message: "Avaliação respondida, obrigada!",
         email_creator_feedback: input.email_creator_feedback,
+        leaguer_email: input.leaguer_email,
       });
     } catch (error: any) {
       res.status(400).send({ error: error.message });
     }
   }
 
-  async getEvaluations(req: Request, res: Response) {
+  async getEvaluationsByCreatorEmail(req: Request, res: Response) {
     try {
       //inputs req
       const token_headers = req.headers.authorization as string;
@@ -40,8 +47,26 @@ export class EvaluationController {
 
       //getting evaluations from databank
       const evaluationBusiness = new EvaluationBusiness();
-      const evaluations = await evaluationBusiness.getAllEvaluations(
-        email_creator,
+      const evaluations =
+        await evaluationBusiness.getAllEvaluationsByEmailCreator(
+          email_creator,
+          token_headers
+        );
+      res.status(200).send(evaluations);
+    } catch (error: any) {
+      res.status(400).send({ error: error.message });
+    }
+  }
+  async getEvaluationsByLeaguerEmail(req: Request, res: Response) {
+    try {
+      //inputs req
+      const token_headers = req.headers.authorization as string;
+      const leaguer_email = req.params.leaguer_email;
+
+      //getting evaluations from databank
+      const evaluationBusiness = new EvaluationBusiness();
+      const evaluations = await evaluationBusiness.getEvaluationsByEmailLeaguer(
+        leaguer_email,
         token_headers
       );
       res.status(200).send(evaluations);

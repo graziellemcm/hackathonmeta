@@ -16,7 +16,7 @@ app.use(cors());
 
 app.use("/team", teamRouter);
 app.use("/responsible", responsibleRouter);
-app.use("/create", leaguerRouter);
+app.use("/leaguer", leaguerRouter);
 app.use("/feedback", feedbackRouter);
 app.use("/evaluation", evaluationRouter);
 

@@ -1,14 +1,12 @@
 import { ResponsibleDatabase } from "../data/ResponsibleDatabase";
 import {
-  Responsibles,
+  LoginInputDTO,
   SignupResponsibleInputDTO,
   stringToUserRole,
 } from "../model/Responsible";
-import { USER_ROLES } from "../model/User_Roles";
 import { Authenticator } from "../services/Authenticator";
 import { HashManager } from "../services/HashManager";
 import { Idgenerator } from "../services/IdGenerator";
-import { TokenGenerator } from "../services/TokenGenerator";
 
 const responsibleDatabase = new ResponsibleDatabase();
 const hashManager = new HashManager();
@@ -16,21 +14,19 @@ const authenticator = new Authenticator();
 const idGenerator = new Idgenerator();
 export class ResponsibleBusiness {
   create = async (input: SignupResponsibleInputDTO) => {
-    const { name, email, password } = input;
-
-    if (!name) {
+    if (!input.name) {
       throw new Error("Nome inválido");
     }
 
-    if (!password || input.password.length < 6) {
+    if (!input.password || input.password.length < 6) {
       throw new Error("A senha deve conter no minimo 6 caracteres");
     }
-    if (!email || input.email.indexOf("@") === -1) {
+    if (!input.email || input.email.indexOf("@") === -1) {
       throw new Error("Email invalido");
     }
-    const user = responsibleDatabase.findUserByEmail(email);
+    const user = await responsibleDatabase.findUserByEmail(input.email);
 
-    if (await user) {
+    if (user) {
       throw new Error("Email já cadastrado");
     }
 
@@ -45,8 +41,7 @@ export class ResponsibleBusiness {
       input.name,
       input.email,
       hashPassword,
-      role,
-      input.team
+      role
     );
 
     const accessToken = authenticator.generateToken({
@@ -56,11 +51,12 @@ export class ResponsibleBusiness {
 
     return accessToken;
   };
-  login = async (email: string, password: string) => {
-    const userFromDB = await responsibleDatabase.loginUser(email);
+  
+  login = async (input:LoginInputDTO) => {
+    const userFromDB = await responsibleDatabase.findUserByEmail(input.email);
 
     const hashCompare = await hashManager.compare(
-      password,
+      input.password,
       userFromDB.password
     );
 

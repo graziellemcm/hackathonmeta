@@ -1,4 +1,4 @@
-import { Feedback } from "../model/FeedBack";
+import { Feedback } from "../model/Feedback";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class FeedbackDatabase extends BaseDatabase {
@@ -25,7 +25,7 @@ export class FeedbackDatabase extends BaseDatabase {
       throw new Error(err.sqlMessage || err.message);
     }
   }
-  public async getFeedbackById(id: string) {
+  public async getFeedbackById(id: string): Promise<Feedback> {
     try {
       const result = await this.connection(FeedbackDatabase.TABLE_NAME)
         .select("*")

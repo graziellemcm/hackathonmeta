@@ -1,9 +1,12 @@
 import { ResponsibleDatabase } from "../data/ResponsibleDatabase";
-import { FeedbackInputDTO } from "../model/FeedBack";
 import { Authenticator } from "../services/Authenticator";
 import { Idgenerator } from "../services/IdGenerator";
 import { FeedbackDatabase } from "../data/FeedbackDatabase";
 import { USER_ROLES } from "../model/User_Roles";
+import { FeedbackInputDTO } from "../model/Feedback";
+
+
+
 export class FeedbackBusiness {
   async createFeedback(
     input: FeedbackInputDTO,
@@ -58,8 +61,6 @@ export class FeedbackBusiness {
       if (tokenData.role !== USER_ROLES.ADMIN) {
         throw new Error("Somente administradores podem criar novas turmas.");
       }
-
-      //   const id_creator=tokenData.id
 
       //creating feedback
       const feedbackDatabase = new FeedbackDatabase();

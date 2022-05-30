@@ -1,6 +1,5 @@
 import { Leaguer } from "../model/Leaguer";
 import { leaguerType } from "../types/leaguerType";
-import { User } from "../types/userType";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class LeaguerDatabase extends BaseDatabase {
@@ -11,8 +10,6 @@ export class LeaguerDatabase extends BaseDatabase {
         SELECT * FROM leaguer_meta
         WHERE email = "${email}";
     `);
-  
-
     return user[0];
   };
 
@@ -34,11 +31,22 @@ export class LeaguerDatabase extends BaseDatabase {
     try {
       const result = await this.connection(LeaguerDatabase.TABLE_NAME)
         .select("*")
-        .from(LeaguerDatabase.TABLE_NAME)
         .where({ email: email });
       return result[0] && Leaguer.toLeaguerModel(result[0]);
     } catch (err: any) {
       throw new Error(err.sqlMessage || err.message);
+    }
+  }
+
+  public async getAllLeaguers(): Promise<Leaguer[]> {
+    try {
+      const result = await this.connection(LeaguerDatabase.TABLE_NAME)
+        .select("*")
+        .from(LeaguerDatabase.TABLE_NAME);
+
+      return result.map((leaguer) => Leaguer.toLeaguerModel(leaguer));
+    } catch (e: any) {
+      throw new Error(e.sqlMessage || e.message);
     }
   }
 }

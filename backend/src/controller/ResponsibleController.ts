@@ -14,8 +14,7 @@ export class ResponsibleController{
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password,
-                role: req.body.role,
-                team: req.body.team
+                role: req.body.role
             }
             
             const token = await responsibleBusiness.create(input) 
@@ -40,9 +39,9 @@ export class ResponsibleController{
                 password: req.body.password
             }
 
-            const token = await responsibleBusiness.login(input.email, input.password);
+            const token = await responsibleBusiness.login(input);
 
-            res.status(200).send({message: "Usuário logado", token });
+            res.status(200).send({message: "Usuário logado", token:token });
 
         } catch (error: any) {
             res.status(400).send({ error: error.message });
