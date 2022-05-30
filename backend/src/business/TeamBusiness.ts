@@ -4,7 +4,7 @@ import { Authenticator } from "../services/Authenticator";
 import { Idgenerator } from "../services/IdGenerator";
 
 export class TeamBusiness {
-  async createTeam(input: TeamInputDTO, token:string): Promise<void> {
+  async createTeam(input: TeamInputDTO, token: string): Promise<void> {
     try {
       //generating id
       const idGenerator = new Idgenerator();
@@ -35,8 +35,10 @@ export class TeamBusiness {
       const tokenData = authenticator.getTokenData(token);
 
       //validating user role
-      if (tokenData.role !== "ADMIN" && tokenData.role!=="GESTOR") {
-      throw new Error("Somente gestores e administradores podem criar novas turmas.");
+      if (tokenData.role !== "ADMIN" && tokenData.role !== "GESTOR") {
+        throw new Error(
+          "Somente gestores e administradores podem criar novas turmas."
+        );
       }
 
       //creating team

@@ -5,7 +5,6 @@ export interface SignupResponsibleInputDTO {
   email: string;
   password: string;
   role: USER_ROLES;
-  team: string;
 }
 export interface LoginInputDTO {
   email: string;

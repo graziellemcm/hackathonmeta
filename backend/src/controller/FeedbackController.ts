@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { FeedbackBusiness } from "../business/FeedbackBusiness";
-import { FeedbackInputDTO } from "../model/FeedBack";
+import { FeedbackInputDTO } from "../model/Feedback";
 
 export class FeedbackController {
   async createFeedback(req: Request, res: Response) {
@@ -17,10 +17,11 @@ export class FeedbackController {
       const feedbackBusiness = new FeedbackBusiness();
       const token = await feedbackBusiness.createFeedback(input, token_headers);
 
-      res.status(200).send({
+      res.status(201).send({
         message: "Avaliação criada!",
         token: token,
         email_creator: input.email_creator,
+        email_leaguer:input.email_leaguer,
       });
     } catch (error: any) {
       res.status(400).send({ error: error.message });

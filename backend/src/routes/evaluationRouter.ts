@@ -4,12 +4,17 @@ import { EvaluationController } from "../controller/EvaluationController";
 export const evaluationRouter = express.Router();
 const evaluationController = new EvaluationController();
 
-//get evaluations
+//get evaluations by creator
 evaluationRouter.get(
-  "/get/:email_creator",
-  evaluationController.getEvaluations
+  "/creator/:email_creator",
+  evaluationController.getEvaluationsByCreatorEmail
+);
+
+//get evaluations by leaguer
+evaluationRouter.get(
+  "/leaguer/:leaguer_email",
+  evaluationController.getEvaluationsByLeaguerEmail
 );
 
 //create evaluation
-
 evaluationRouter.post("/create", evaluationController.createEvaluation);

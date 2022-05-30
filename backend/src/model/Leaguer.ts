@@ -1,6 +1,9 @@
 export class Leaguer {
   constructor(
     private id: string,
+    private photo_leaguer: string,
+    private position: string,
+    private hiring_model: string,
     private created_at: Date | string,
     private name: string,
     private email: string,
@@ -16,6 +19,9 @@ export class Leaguer {
   static toLeaguerModel(leaguer: any): Leaguer {
     return new Leaguer(
       leaguer.id,
+      leaguer.photo_leaguer,
+      leaguer.position,
+      leaguer.hiring_model,
       leaguer.created_at,
       leaguer.name,
       leaguer.email,
@@ -31,10 +37,16 @@ export class Leaguer {
 }
 
 export interface LeaguerInputDTO {
+  photo_leaguer: string;
+  position: string;
+  hiring_model: string;
   name: string;
   email: string;
-  team: string;
   phase: string;
   tecnologies: string[];
   languages: string[];
+  id_mentor: string;
+  id_manager: string;
+  id_admin: string;
+  name_class: string;
 }

@@ -14,7 +14,7 @@ export class CreateTables extends BaseDatabase {
           team_name VARCHAR(255) UNIQUE NOT NULL
        );
        
-      CREATE TABLE IF NOT EXISTS leaguer_meta1(
+      CREATE TABLE IF NOT EXISTS leaguer_meta(
           id VARCHAR(255) PRIMARY KEY,
           photo_leaguer TEXT,
           created_at DATE NOT NULL,

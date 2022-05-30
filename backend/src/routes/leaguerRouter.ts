@@ -3,6 +3,11 @@ import { LeaguerContoller } from "../controller/LeaguerController";
 
 export const leaguerRouter = express.Router();
 
-const leaguerController = new LeaguerContoller
+const leaguerController = new LeaguerContoller();
 
-leaguerRouter.post("/leaguer", leaguerController.createLeaguer)
+//get all leaguers
+leaguerRouter.get("/getAll", leaguerController.getAllLeaguers);
+
+//edit leaguers
+// leaguerRouter.put("/edit", leaguerController.editLeaguer)
+leaguerRouter.post("/create", leaguerController.createLeaguer);

@@ -14,7 +14,7 @@ export class TeamController {
       //inserting team in databank
       const teamBusiness = new TeamBusiness();
       await teamBusiness.createTeam(input, token);
-      res.status(200).send({ message: "Criado!" });
+      res.status(201).send({ message: "Classe criada!" });
     } catch (error: any) {
       res.status(400).send({ error: error.message });
     }
