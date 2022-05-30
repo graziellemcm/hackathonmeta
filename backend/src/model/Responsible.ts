@@ -9,6 +9,11 @@ export interface SignupResponsibleInputDTO {
 export interface LoginInputDTO {
   email: string;
   password: string;
+} 
+
+export interface RoleInputDTO {
+  id: string;
+  role: USER_ROLES;
 }
 
 export class Responsibles {
