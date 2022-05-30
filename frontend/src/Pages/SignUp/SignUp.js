@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
 import { base_Url } from "../../Constants/base_Url";
@@ -62,7 +62,6 @@ export default function SignUp() {
               type={"name"}
             />
             <br></br>
-
             <TextField
               name={"email"}
               value={form.email}
