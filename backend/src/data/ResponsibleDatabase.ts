@@ -36,4 +36,23 @@ export class ResponsibleDatabase extends BaseDatabase {
     }
   }
 
+  editRole = async(id:string, role:string)=> {
+    await this.connection.raw(`
+    UPDATE responsible_meta
+      SET role = "${role}"
+      WHERE id = "${id}"
+    `);
+  }
+
+  public async getAllResponsibles(): Promise<Responsibles[]> {
+    try {
+      const result = await this.connection(ResponsibleDatabase.TABLE_NAME)
+        .select("*")
+        .from(ResponsibleDatabase.TABLE_NAME);
+
+      return result.map((responsibles) => Responsibles.toShowModel(responsibles));
+    } catch (e: any) {
+      throw new Error(e.sqlMessage || e.message);
+    }
+  }
 }
