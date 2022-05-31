@@ -3,7 +3,7 @@ import { AddressInfo } from "net";
 import express from "express";
 import cors from "cors";
 import { teamRouter } from "./routes/teamRouter";
-import { responsibleRouter } from "./routes/userRouter";
+import { responsibleRouter } from "./routes/responsiblesRouter";
 import { leaguerRouter } from "./routes/leaguerRouter";
 import { feedbackRouter } from "./routes/feedbackRouter";
 import { evaluationRouter } from "./routes/evaluationRouter";

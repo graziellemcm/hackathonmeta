@@ -1,25 +1,47 @@
 import { Request, Response } from "express";
 import { LeaguerBusiness } from "../business/LeaguerBusiness";
-import { Leaguer } from "../model/Leaguer";
-import { SignupLeaguerInputDTO } from "../types/signupLeaguerInputDTO";
+import { EditiLeaguerInputDTO, SignupLeaguerInputDTO } from "../types/signupLeaguerInputDTO";
 
 const leaguerBusiness = new LeaguerBusiness();
 
 export class LeaguerContoller {
   createLeaguer = async (req: Request, res: Response): Promise<any> => {
     try {
-      const { name, email, team, phase, tecnologies, languages } = req.body; //não aceita o termo class, usei team
+      const token = req.headers.authorization as string;
 
-      const input: SignupLeaguerInputDTO = {
+      const {
+        photo_leaguer,
+        position,
+        hiring_model,
+        created_at,
         name,
         email,
-        team,
         phase,
         tecnologies,
         languages,
+        id_mentor,
+        id_manager,
+        id_admin,
+        name_class,
+      } = req.body;
+
+      const input: SignupLeaguerInputDTO = {
+        photo_leaguer,
+        position,
+        hiring_model,
+        created_at,
+        name,
+        email,
+        phase,
+        tecnologies,
+        languages,
+        id_mentor,
+        id_manager,
+        id_admin,
+        name_class,
       };
 
-      await leaguerBusiness.createLeaguer(input);
+      await leaguerBusiness.createLeaguer(input, token);
 
       res.status(201).send({ message: "Leaguer cadastrado com sucesso!" });
     } catch (error: any) {
@@ -41,6 +63,72 @@ export class LeaguerContoller {
       res.status(200).send(leaguers);
     } catch (error: any) {
       res.status(400).send({ error: error.message });
+    }
+  }
+
+  editLeaguer = async (req: Request, res: Response): Promise<any> => {
+    try {
+        const token = req.headers.authorization as string;
+        const idLeaguer = req.params.idLeaguer
+
+        const {
+            photo_leaguer,
+            position,
+            hiring_model,
+            created_at,
+            name,
+            email,
+            phase,
+            tecnologies,
+            languages,
+            id_mentor,
+            id_manager,
+            id_admin,
+            name_class,
+        } = req.body;
+
+        const input: EditiLeaguerInputDTO = {
+            photo_leaguer,
+            position,
+            hiring_model,
+            created_at,
+            name,
+            email,
+            phase,
+            tecnologies,
+            languages,
+            id_mentor,
+            id_manager,
+            id_admin,
+            name_class,
+        };
+
+        await leaguerBusiness.editLeaguer(input, token, idLeaguer); 
+
+        res.status(201).send({ message: "Leaguer editado com sucesso!" });
+
+    } catch (error: any) {
+        if (error instanceof Error) {
+          return res.status(400).send(error.message);
+        }
+        res.status(500).send("Erro no cadastro");
+    }
+  }
+
+  deleteLeaguer = async (req: Request, res: Response): Promise<any> => {
+    try {
+      const token = req.headers.authorization as string;
+      const idLeaguer = req.params.idLeaguer
+
+      await leaguerBusiness.deleteLeaguer(token, idLeaguer); 
+
+      res.status(201).send({ message: "Leaguer deletado com sucesso!" });
+      
+    } catch (error: any) {
+      if (error instanceof Error) {
+        return res.status(400).send(error.message);
+      }
+      res.status(500).send("Erro no cadastro");
     }
   }
 }

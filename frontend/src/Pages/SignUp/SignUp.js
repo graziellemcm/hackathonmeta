@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
 import { base_Url } from "../../Constants/base_Url";
-import { Center, Layout, LogoImage } from "./styled";
+import { Background, Center, Layout, LogoImage } from "./styled";
 import metaAzull from "../../Components/img/metaAzull.png"
-import { Button, TextField } from "@mui/material"
+import { Button, TextField, Typography } from "@mui/material"
 
 
 
@@ -16,7 +16,8 @@ export default function SignUp() {
   const { form, onChangeForm, clearForm } = useForm({
     name: "",
     email: "",
-    team:"",
+    team: "",
+    role: "",
     password: "",
   });
   const onSignUp = (e) => {
@@ -38,42 +39,51 @@ export default function SignUp() {
       });
   };
   return (
-    <div>
-      <Header />
-      <Layout>
-        <div></div>
+    <>
+      {/* <Header /> */}
+      <Background >
+        <Layout>
+          <Center>
+            <LogoImage src={metaAzull} />
+            <Typography variant="h2" fontSize={19} >Cadastre-se</Typography>
+            <form onSubmit={onSignUp}>
+              <TextField
+                name={"name"}
+                value={form.name}
+                onChange={onChangeForm}
+                label={"Nome completo"}
+                variant={"outlined"}
+                sx={{ width: 350, marginBottom: 3 }}
+                margin="dense"
+                required
+                autoFocus
+                type={"name"}
+              />
 
-        <Center>
-          <LogoImage src={metaAzull} />
-          <h2>Cadastre-se</h2>
-          <form onSubmit={onSignUp}>
+              <TextField
+                name={"email"}
+                value={form.email}
+                onChange={onChangeForm}
+                label={"Email"}
+                variant={"outlined"}
+                sx={{ width: 350, marginBottom: 3 }}
+                margin="dense"
+                required
+                type={"email"}
+              />
 
-            <TextField
-
-              name={"name"}
-              value={form.name}
-              onChange={onChangeForm}
-              label={"Nome completo"}
-              variant={"outlined"}
-              sx={{ width: 350, marginBottom: 3 }}
-              margin="dense"
-              required
-              autoFocus
-              type={"name"}
-            />
-            <br></br>
-            <TextField
-              name={"email"}
-              value={form.email}
-              onChange={onChangeForm}
-              label={"Email"}
-              variant={"outlined"}
-              sx={{ width: 350, marginBottom: 3 }}
-              margin="dense"
-              required
-              type={"email"}
-            />
-            <br></br>
+              <TextField
+                name={"role"}
+                value={form.role}
+                onChange={onChangeForm}
+                label={"Função"}
+                variant={"outlined"}
+                sx={{ width: 350, marginBottom: 3 }}
+                margin="dense"
+                type={"text"}
+                autoComplete={"on"}
+              />
+ 
             <TextField
               name={"team"}
               value={form.team}
@@ -85,7 +95,7 @@ export default function SignUp() {
               type={"text"}
               autoComplete={"on"}
             />
-            <br></br>
+         
             <TextField
               name={"password"}
               value={form.password}
@@ -98,14 +108,12 @@ export default function SignUp() {
               type={"password"}
               autoComplete={"on"}
             />
-            <div>
               <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={signUp} > Enviar</Button>
+            </form>
+          </Center>
+        </Layout>
+      </Background>
+    </>
 
-            </div>
-          </form>
-
-        </Center>
-      </Layout>
-    </div>
   );
 }

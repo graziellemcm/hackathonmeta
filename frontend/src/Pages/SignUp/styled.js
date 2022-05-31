@@ -1,58 +1,45 @@
 import styled from 'styled-components'
-
-export const ScreenContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100vw;
-  margin-top: 10vh;
-`
-
-export const InputsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 80vw;
-  max-width: 450px;
-  align-items: center;
-  margin-bottom: 20px;
-`
-
-export const LoginFormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 80vw;
-  max-width: 450px;
-  align-items: center;
-  margin-bottom: 20px;
-`
-
-export const SignUpButtonContainer = styled.div`
-  width: 80vw;
-  max-width: 450px;
-`
+import background from '../../Components/img/background.png';
 
 export const LogoImage = styled.img`
 width: 250px;
 height: 104px;
-
 `
-export const Center= styled.div`
-margin-top: 3%;
+
+export const Center = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
+border-radius: 17px 17px 0 0;
+background-color: #fff;
+width: 30%;
+padding-bottom: 5%;
+
+
+form{
+  display: flex;
+  flex-direction: column;
+}
+
+input{
+  
+}
 
 `
-export const CenterButton=styled.div`
+
+export const Background = styled.div `
+background-image: url(${background});
+width: 100%;
+height: 100vh;
+background-size: cover;
+
+ `
+export const Layout = styled.div`
 display: flex;
-
-
-
-`
-
-export const Layout=styled.div`
-display: grid ;
-grid-template-columns: 1fr 3fr 1fr;
+justify-content: end;
+margin-right: 10%;
 
 
 `
+
+

@@ -6,6 +6,8 @@ import SignUp from "../Pages/SignUp/SignUp";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage"; 
 import LeaguerProfile from "../Pages/LeaguerProfile/LeaguerProfile"; 
 import SignUpTeam from "../Pages/SignUpTeam/SignUpTeam";
+import LeaguerRegistration from "../Pages/LeaguerRegistration/LeaguerRegistration";
+
  
 export default function Router() { 
   return ( 
@@ -17,6 +19,7 @@ export default function Router() {
           <Route exact path="/signup" element={<SignUp />} /> 
           <Route exact path="/signup-team" element={<SignUpTeam />} /> 
           <Route exact path="/leaguerProfile" element={<LeaguerProfile/>} /> 
+          <Route exact path="/leaguerRegistration" element={<LeaguerRegistration/>}/>
           <Route exact path="*" element={<ErrorPage />} /> 
         </Routes> 
       </BrowserRouter> 

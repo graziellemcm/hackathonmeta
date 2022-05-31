@@ -1,8 +1,92 @@
 POST http://localhost:3003/responsible/signup
-Content-Type: application/json  
+Content-Type: application/json
 
-{       "name": "bla",
-        "email": "blabla@email.com",
-        "password": "1234567",
-        "role":"ADMIN",
-        "team":"teams" }
+{
+"name": "Resp fran",
+"email": "teste@teste2.com",
+"password": "123456",
+"role": "MENTOR"
+}
+
+###
+# @name login
+POST http://localhost:3003/responsible/login
+Content-Type: application/json
+
+{
+"email": "teste@teste.com",
+"password": "123456"
+}
+
+###
+POST http://localhost:3003/team/create
+Content-Type: application/json
+Authorization: {{login.response.body.token}}
+
+{
+"team_name": "Turma eliel"
+}
+
+###
+POST http://localhost:3003/leaguer/create
+Content-Type: application/json
+Authorization: {{login.response.body.token}}
+
+{
+"photo_leaguer":"teste",
+"position":"intro",
+"hiring_model":"ctps",
+"created_at":"2022-05-30",
+"name":"eliel",
+"email":"eliel@eliel.com",
+"phase":"intro",
+"tecnologies":"react",
+"languages":"",
+"id_mentor":"",
+"id_manager":"",
+"id_admin":"",
+"name_class":"Turma eliel"
+}
+###
+
+PUT http://localhost:3003/leaguer/edit/d5bec0e1-e958-492a-b002-27835156c67c
+Content-Type: application/json
+Authorization: {{login.response.body.token}}
+
+{
+"photo_leaguer":"teste1",
+"position":"intro1",
+"hiring_model":"ctps1",
+"created_at":"2022-05-31",
+"name":"eliel1",
+"email":"eliel@eliel.com1",
+"phase":"intro1",
+"tecnologies":"1",
+"languages":"portugues1",
+"id_mentor":"zdfvdsafsf",
+"id_manager":"",
+"id_admin":"",
+"name_class":"Turma eliel"
+}
+
+###
+DELETE http://localhost:3003/leaguer/delete/d5bec0e1-e958-492a-b002-27835156c67c
+Content-Type: application/json
+Authorization: {{login.response.body.token}}
+
+
+###
+PUT http://localhost:3003/responsible/editRole/
+Content-Type: application/json
+Authorization: {{login.response.body.token}}
+
+{
+"id":"f7ea93ea-ebf8-424e-ad1c-04816542c34b", 
+"role":"ADMIN"
+}
+
+###
+
+GET http://localhost:3003/responsible/getAll
+Content-Type: application/json
+Authorization: {{login.response.body.token}}
