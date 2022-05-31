@@ -40,7 +40,7 @@ export default function SignUp() {
   };
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <Background >
         <Layout>
           <Center>
