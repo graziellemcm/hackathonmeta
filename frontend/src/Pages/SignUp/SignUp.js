@@ -40,7 +40,7 @@ export default function SignUp() {
   };
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Background >
         <Layout>
           <Center>
@@ -83,31 +83,31 @@ export default function SignUp() {
                 type={"text"}
                 autoComplete={"on"}
               />
-
-              <TextField
-                name={"team"}
-                value={form.team}
-                onChange={onChangeForm}
-                label={"Turma"}
-                variant={"outlined"}
-                sx={{ width: 350, marginBottom: 3 }}
-                margin="dense"
-                type={"text"}
-                autoComplete={"on"}
-              />
-
-              <TextField
-                name={"password"}
-                value={form.password}
-                onChange={onChangeForm}
-                label={"Senha"}
-                variant={"outlined"}
-                sx={{ width: 350, marginBottom: 3 }}
-                margin="dense"
-                required
-                type={"password"}
-                autoComplete={"on"}
-              />
+ 
+            <TextField
+              name={"team"}
+              value={form.team}
+              onChange={onChangeForm}
+              label={"Turma"}
+              variant={"outlined"}
+              sx={{ width: 350, marginBottom: 3 }}
+              margin="dense"
+              type={"text"}
+              autoComplete={"on"}
+            />
+         
+            <TextField
+              name={"password"}
+              value={form.password}
+              onChange={onChangeForm}
+              label={"Senha"}
+              variant={"outlined"}
+              sx={{ width: 350, marginBottom: 3 }}
+              margin="dense"
+              required
+              type={"password"}
+              autoComplete={"on"}
+            />
               <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={signUp} > Enviar</Button>
             </form>
           </Center>
