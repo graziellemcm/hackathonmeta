@@ -9,5 +9,5 @@ export const useProtectedPage = () => {
     if (token === null) {
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
 };
