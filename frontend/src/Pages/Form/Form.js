@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
 import { Button, Rating, TextField, Typography } from "@mui/material"
-import { Center, Layout, DivButton, Title } from "./styled";
+import { Center, Layout, DivButton, Title, DivStar } from "./styled";
 
 
 export default function Form() {
@@ -67,9 +67,10 @@ export default function Form() {
                             required
                             type={"email"}
                         />
-                        <br></br>
+                        <DivStar>
+                        
                         <Typography variant="h7"><b>Desempenho</b></Typography>
-                        <br></br>
+                        
                         <Rating
                             name={"performance"}
                             value={form.performance}
@@ -80,8 +81,9 @@ export default function Form() {
                             defaultValue={1}
                             precision={0.5}
                         />
+                      
                         <Typography variant="h7"><b>Qualidade de entrega</b></Typography>
-                        <br></br>
+                        
                         <Rating
                             name={"quality_on_delivery"}
                             value={form.quality_on_delivery}
@@ -93,7 +95,7 @@ export default function Form() {
                             precision={0.5}
                         />
                         <Typography variant="h7"><b>Proatividade</b></Typography>
-                        <br></br>
+                        
                         <Rating
                             name={"proactivity"}
                             value={form.proactivity}
@@ -105,7 +107,7 @@ export default function Form() {
                             precision={0.5}
                         />
                         <Typography variant="h7"><b>Compromisso</b></Typography>
-                        <br></br>
+                        
                         <Rating
                             name={"commitment"}
                             value={form.commitment}
@@ -117,7 +119,7 @@ export default function Form() {
                             precision={0.5}
                         />
                         <Typography variant="h7"><b>Trabalho em equipe</b></Typography>
-                        <br></br>
+                        
                         <Rating
                             name={"team_work"}
                             value={form.team_work}
@@ -129,7 +131,7 @@ export default function Form() {
                             precision={0.5}
                         />
                         <Typography variant="h7"><b>Crescimento</b></Typography>
-                        <br></br>
+                        
                         <Rating
                             name={"skillset_growth"}
                             value={form.skillset_growth}
@@ -141,7 +143,7 @@ export default function Form() {
                             precision={0.5}
                         />
                         <Typography variant="h7"><b>Liderança</b></Typography>
-                        <br></br>
+                        
                         <Rating
                             name={"leadership"}
                             value={form.leadership}
@@ -154,7 +156,7 @@ export default function Form() {
                         />
 
                         <Typography variant="h7"><b>Pontualidade</b></Typography>
-                        <br></br>
+                        
                         <Rating
                             name={"punctuality"}
                             value={form.punctuality}
@@ -166,7 +168,7 @@ export default function Form() {
                             precision={0.5}
                         />
                         <Typography variant="h7"><b>Trabalhar sob pressão</b></Typography>
-                        <br></br>
+                        
                         <Rating
                             name={"work_under_pressure"}
                             value={form.work_under_pressure}
@@ -178,7 +180,7 @@ export default function Form() {
                             precision={0.5}
                         />
                         <Typography variant="h7"><b>Participação</b></Typography>
-                        <br></br>
+                        
                         <Rating
                            name={"participation"}
                            value={form.participation}
@@ -190,7 +192,7 @@ export default function Form() {
                             precision={0.5}
                         />
                         <Typography variant="h7"><b>Tarefas administrativas</b></Typography>
-                        <br></br>
+                        
                         <Rating
                             name={"administrative_tasks"}
                             value={form.administrative_tasks}
@@ -222,6 +224,7 @@ export default function Form() {
                             margin="dense"
                             type={"text"}
                         />
+                        </DivStar>
                         <DivButton>
                         <Button fullWidth color="primary" variant="contained" type={"submit"} > Enviar</Button>
                         </DivButton>
