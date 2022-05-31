@@ -1,11 +1,12 @@
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-// import Header from "../../Components/Header/Header";
+import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
 import { base_Url } from "../../Constants/base_Url";
-import { Background, Center, Layout, LogoImage } from "../SignUp/styled";
-import metaAzull from "../../Components/img/metaAzull.png"
+import { Logometa, Background} from "../LeaguerRegistration/styled";
+import {  Center, Layout} from "../SignUp/styled";
+import metalogin from "../../Components/img/metalogin.png"
 import { Button, TextField, Typography } from "@mui/material"
 
 
@@ -46,11 +47,11 @@ export default function LeaguerRegistration() {
     };
     return (
         <>
-            {/* <Header /> */}
+            <Header />
             <Background >
                 <Layout>
                     <Center>
-                        <LogoImage src={metaAzull} />
+                    <Logometa src={metalogin}></Logometa>
                         <Typography variant="h2" fontSize={19} sx={{marginBottom: 1}} >Realize o cadastro do Leaguer!</Typography>
                         <form onSubmit={onSignUp}>
                             <TextField
