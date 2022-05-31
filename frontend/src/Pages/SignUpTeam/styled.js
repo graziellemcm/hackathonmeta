@@ -30,6 +30,13 @@ export const SignUpButtonContainer = styled.div`
   width: 80vw;
   max-width: 450px;
 `
+export const Background = styled.div `
+background-color: #ddd;
+width: 100%;
+height: 100vh;
+background-size: cover;
+
+`
 
 export const LogoImage = styled.img`
 width: 250px;
@@ -37,20 +44,19 @@ height: 104px;
 
 `
 export const Center= styled.div`
-margin-top: 20%;
+margin: 1.5% 1%;
 display: flex;
 flex-direction: column;
 align-items: center;
-
+background-color: white;
+border-radius: 17px;
+padding: 5%;
 `
 export const CenterButton=styled.div`
 display: flex;
 
-
-
 `
 export const Layout = styled.div`
 display: flex;
-justify-content: end;
-margin-right: 10%;
+justify-content: center
 `

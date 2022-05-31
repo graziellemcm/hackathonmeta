@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
 import { base_Url } from "../../Constants/base_Url";
-import { Center, Layout, LogoImage } from "./styled";
+import { Center, Layout, LogoImage, Background } from "./styled";
 import metaAzull from "../../Components/img/metaAzull.png"
 import { Button, TextField } from "@mui/material"
 
@@ -40,6 +40,7 @@ export default function SignUpTeam() {
   return (
     <div>
       <Header />
+      <Background>
       <Layout>
         <div></div>
 
@@ -70,6 +71,7 @@ export default function SignUpTeam() {
 
         </Center>
       </Layout>
+      </Background>
     </div>
   );
 }
