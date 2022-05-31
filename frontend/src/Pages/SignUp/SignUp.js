@@ -40,7 +40,7 @@ export default function SignUp() {
   };
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Background >
         <Layout>
           <Center>
@@ -83,31 +83,7 @@ export default function SignUp() {
                 type={"text"}
                 autoComplete={"on"}
               />
-
-              name={"name"}
-              value={form.name}
-              onChange={onChangeForm}
-              label={"Nome completo"}
-              variant={"outlined"}
-              sx={{ width: 350, marginBottom: 3 }}
-              margin="dense"
-              required
-              autoFocus
-              type={"name"}
-            />
-            <br></br>
-            <TextField
-              name={"email"}
-              value={form.email}
-              onChange={onChangeForm}
-              label={"Email"}
-              variant={"outlined"}
-              sx={{ width: 350, marginBottom: 3 }}
-              margin="dense"
-              required
-              type={"email"}
-            />
-            <br></br>
+ 
             <TextField
               name={"team"}
               value={form.team}
@@ -119,7 +95,7 @@ export default function SignUp() {
               type={"text"}
               autoComplete={"on"}
             />
-            <br></br>
+         
             <TextField
               name={"password"}
               value={form.password}
@@ -132,7 +108,6 @@ export default function SignUp() {
               type={"password"}
               autoComplete={"on"}
             />
-            <div>
               <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={signUp} > Enviar</Button>
             </form>
           </Center>
