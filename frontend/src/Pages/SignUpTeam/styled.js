@@ -49,10 +49,8 @@ display: flex;
 
 
 `
-
-export const Layout=styled.div`
-display: grid ;
-grid-template-columns: 1fr 3fr 1fr;
-
-
+export const Layout = styled.div`
+display: flex;
+justify-content: end;
+margin-right: 10%;
 `

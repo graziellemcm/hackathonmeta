@@ -21,9 +21,14 @@ justify-content: center;
 padding: 60px 0;
 width: 100%;
 `
+
 export const DivButton = styled.div`
 
 padding: 30px 0;
+`
+export const DivStar = styled.div`
+display: flex;
+flex-direction: column;
 `
 
 
