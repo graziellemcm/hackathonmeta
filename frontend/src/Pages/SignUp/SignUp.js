@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
 import { base_Url } from "../../Constants/base_Url";
-import { Background, Center, Layout, LogoImage } from "./styled";
-import metaAzull from "../../Components/img/metaAzull.png"
+import { Background, Center, Layout, Logometa } from "./styled";
+import metalogin from "../../Components/img/metalogin.png"
 import { Button, TextField, Typography } from "@mui/material"
 
 
@@ -40,11 +40,11 @@ export default function SignUp() {
   };
   return (
     <>
-      {/* <Header /> */}
-      <Background >
+      <Header />
+      <Background>
         <Layout>
           <Center>
-            <LogoImage src={metaAzull} />
+          <Logometa src={metalogin}></Logometa>
             <Typography variant="h2" fontSize={19} >Cadastre-se</Typography>
             <form onSubmit={onSignUp}>
               <TextField
@@ -83,31 +83,31 @@ export default function SignUp() {
                 type={"text"}
                 autoComplete={"on"}
               />
- 
-            <TextField
-              name={"team"}
-              value={form.team}
-              onChange={onChangeForm}
-              label={"Turma"}
-              variant={"outlined"}
-              sx={{ width: 350, marginBottom: 3 }}
-              margin="dense"
-              type={"text"}
-              autoComplete={"on"}
-            />
-         
-            <TextField
-              name={"password"}
-              value={form.password}
-              onChange={onChangeForm}
-              label={"Senha"}
-              variant={"outlined"}
-              sx={{ width: 350, marginBottom: 3 }}
-              margin="dense"
-              required
-              type={"password"}
-              autoComplete={"on"}
-            />
+
+              <TextField
+                name={"team"}
+                value={form.team}
+                onChange={onChangeForm}
+                label={"Turma"}
+                variant={"outlined"}
+                sx={{ width: 350, marginBottom: 3 }}
+                margin="dense"
+                type={"text"}
+                autoComplete={"on"}
+              />
+
+              <TextField
+                name={"password"}
+                value={form.password}
+                onChange={onChangeForm}
+                label={"Senha"}
+                variant={"outlined"}
+                sx={{ width: 350, marginBottom: 3 }}
+                margin="dense"
+                required
+                type={"password"}
+                autoComplete={"on"}
+              />
               <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={signUp} > Enviar</Button>
             </form>
           </Center>
