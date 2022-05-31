@@ -5,18 +5,53 @@ import { Leaguer } from "../model/Leaguer";
 import { USER_ROLES } from "../model/User_Roles";
 import { Authenticator } from "../services/Authenticator";
 import { Idgenerator } from "../services/IdGenerator";
-import { leaguerType } from "../types/leaguerType";
-import { SignupLeaguerInputDTO } from "../types/signupLeaguerInputDTO";
+import { editiLeaguerType, leaguerType } from "../types/leaguerType";
+import { EditiLeaguerInputDTO, SignupLeaguerInputDTO } from "../types/signupLeaguerInputDTO";
 
 const leaguerDatabase = new LeaguerDatabase();
+const authenticator = new Authenticator();
+const idGenerator = new Idgenerator();
 
 export class LeaguerBusiness {
-  createLeaguer = async (input: SignupLeaguerInputDTO): Promise<void> => {
-    const { name, email, team, phase, tecnologies, languages } = input;
+  createLeaguer = async (input: SignupLeaguerInputDTO, token:string): Promise<void> => {
 
-    if (!name || !email || !tecnologies) {
-      throw new Error("Os campos name, email e technologies são obrigatórios.");
+    const {
+      photo_leaguer,
+      position,
+      hiring_model,
+      created_at,
+      name,
+      email,
+      phase,
+      tecnologies,
+      languages,
+      id_mentor,
+      id_manager,
+      id_admin,
+      name_class
+    } = input;
+
+    if (!position ||
+        !hiring_model ||
+        !created_at ||
+        !name ||
+        !email ||
+        !phase ||
+        !tecnologies) {
+      throw new Error("Os campos position, hiring_model, created_at, name, email, phase, tecnologies, languages são obrigatórios.");
     }
+
+    if (!token) {
+      throw new Error(
+        "Esse endpoint requer um token no headers authorization."
+      );
+    }
+
+    const tokenData = authenticator.getTokenData(token);
+
+    if (tokenData.role !== "ADMIN" && tokenData.role !== "MENTOR") {
+      throw new Error("Somente MENTOR e ADMIN podem cadastrar um leaguer.");
+      }
 
     const registeredUser = await leaguerDatabase.findByEmail(email);
     if (registeredUser.length !== 0) {
@@ -27,17 +62,23 @@ export class LeaguerBusiness {
       throw new Error("Formato de email inválido.");
     }
 
-    const idGenerator = new Idgenerator();
     const id = idGenerator.generateId();
 
     const leaguer: leaguerType = {
       id,
+      photo_leaguer,
+      position,
+      hiring_model,
+      created_at,
       name,
       email,
-      team,
       phase,
       tecnologies,
       languages,
+      id_mentor,
+      id_manager,
+      id_admin,
+      name_class
     };
 
     await leaguerDatabase.create(leaguer);
@@ -74,5 +115,83 @@ export class LeaguerBusiness {
     } catch (error: any) {
       throw new Error(error.message);
     }
+  }
+
+  editLeaguer = async (input: EditiLeaguerInputDTO, token:string, idLeaguer:any): Promise<void> => {
+    
+    const {
+      photo_leaguer,
+      position,
+      hiring_model,
+      created_at,
+      name,
+      email,
+      phase,
+      tecnologies,
+      languages,
+      id_mentor,
+      id_manager,
+      id_admin,
+      name_class
+    } = input;
+
+    if (!idLeaguer) {
+      throw new Error(
+        "Esse endpoint requer um idLeaguer como req.params ."
+      );
+    }
+
+    if (!token) {
+      throw new Error(
+        "Esse endpoint requer um token no headers authorization."
+      );
+    }
+
+    const tokenData = authenticator.getTokenData(token);
+
+    if (tokenData.role !== "ADMIN" && tokenData.role !== "MENTOR") {
+      throw new Error("Somente MENTOR e ADMIN podem editar um leaguer.");
+    }
+
+    const leaguer: editiLeaguerType = {
+      photo_leaguer,
+      position,
+      hiring_model,
+      created_at,
+      name,
+      email,
+      phase,
+      tecnologies,
+      languages,
+      id_mentor,
+      id_manager,
+      id_admin,
+      name_class
+    };
+
+    await leaguerDatabase.editLeaguer(leaguer, idLeaguer);
+  }
+
+  deleteLeaguer  = async (token:string, idLeaguer:any): Promise<void> =>{
+
+    if (!idLeaguer) {
+      throw new Error(
+        "Esse endpoint requer um idLeaguer como req.params ."
+      );
+    }
+
+    if (!token) {
+      throw new Error(
+        "Esse endpoint requer um token no headers authorization."
+      );
+    }
+
+    const tokenData = authenticator.getTokenData(token);
+
+    if (tokenData.role !== "ADMIN") {
+      throw new Error("Somente ADMIN podem deletar um leaguer.");
+    }
+
+    await leaguerDatabase.deleteLeaguer(idLeaguer);
   }
 }

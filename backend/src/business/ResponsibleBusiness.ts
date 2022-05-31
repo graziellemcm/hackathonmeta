@@ -1,9 +1,12 @@
 import { ResponsibleDatabase } from "../data/ResponsibleDatabase";
 import {
   LoginInputDTO,
+  Responsibles,
+  RoleInputDTO,
   SignupResponsibleInputDTO,
   stringToUserRole,
 } from "../model/Responsible";
+import { USER_ROLES } from "../model/User_Roles";
 import { Authenticator } from "../services/Authenticator";
 import { HashManager } from "../services/HashManager";
 import { Idgenerator } from "../services/IdGenerator";
@@ -71,4 +74,74 @@ export class ResponsibleBusiness {
 
     return accessToken;
   };
+
+  editRole = async (input:RoleInputDTO, tokenHeaders:string):Promise<string> => {
+    try {
+      const {id, role} = input
+
+      if (!id || !role) {
+        throw new Error(
+          "Esse endpoint requer um id e role como req.params ."
+        );
+      }
+  
+      if (!tokenHeaders) {
+        throw new Error(
+          "Esse endpoint requer um token no headers authorization."
+        );
+      }
+  
+      const tokenData = authenticator.getTokenData(tokenHeaders);
+  
+      if (tokenData.role !== "ADMIN") {
+        throw new Error("Somente ADMIN podem editar um leaguer.");
+      }
+
+      const accessToken = authenticator.generateToken({
+        id: id,
+        role: role,
+      });
+
+      await responsibleDatabase.editRole(id, role);
+
+      return accessToken
+
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+
+  async getAllResponsibles(token_headers: string): Promise<Responsibles[] | undefined>{
+
+    try {
+      if (!token_headers) {
+        throw new Error(
+          "Esse endpoint requer um token no headers authorization."
+        );
+      }
+
+      const authenticator = new Authenticator();
+      const tokenData = authenticator.getTokenData(token_headers);
+
+      if (
+        tokenData.role !== USER_ROLES.ADMIN 
+      ) {
+        throw new Error(
+          "Somente ADMIN pode ver avaliações."
+        );
+      }
+
+      const responsiblesDatabase = new ResponsibleDatabase();
+      const responsibles = await responsiblesDatabase.getAllResponsibles();
+      if (!responsibles) {
+        throw new Error("Ocorreu um erro, por favor tente novamente.");
+      }
+      return responsibles;
+
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+
+
+  }
 }

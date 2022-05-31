@@ -5,9 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev ./src/index.ts",
-    "start": "tsc && node ./build/index.js",
+    "start": "node ./build/src/index.js",
     "migrations": "tsnd ./src/data/migration.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "postinstall":"tsc"
+  },
+  "engines":{
+    "node": "v16.14.2"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +25,7 @@
   },
   "dependencies": {
     "@types/dotenv": "^8.2.0",
+    "@types/jest": "^27.5.1",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/knex": "^0.16.1",
     "@types/mysql": "^2.15.21",
@@ -29,9 +34,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "jest": "^28.1.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^1.0.7",
     "mysql": "^2.18.1",
+    "ts-jest": "^28.0.2",
     "ts-node-dev": "^1.1.8",
     "uuid": "^8.3.2"
   }

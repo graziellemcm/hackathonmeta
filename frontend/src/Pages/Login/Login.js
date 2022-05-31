@@ -3,9 +3,10 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useForm from "../../Hooks/useForm";
 import { base_Url } from "../../Constants/base_Url";
-import { PhotoLogin } from "../../Components/loginStyle/styled";
-// import botaodelogin from "../img/botaodelogin.png"
-
+import { PhotoLogin, RectangleLogin, Form, Logometa, CardButton, Logofeedback, Layout, DivLogofeedback, DivRectangleLogin } from "../../Pages/Login/styled";
+import metalogin from "../../Components/img/metalogin.png"
+import logometafeedback from "../../Components/img/logometafeedback.png"
+import { Button, Typography, TextField } from "@mui/material";
 
 
 export default function Login() {
@@ -38,42 +39,51 @@ export default function Login() {
   };
   return (
     <PhotoLogin>
-     
-      <div>Login</div>
       
+      <DivLogofeedback>
       
-      
-      
-      
-      <form onSubmit={onLogin}>
-        <p>Email</p>
-        <input
-          type="text"
-          name={"email"}
-          placeholder="Email"
-          onChange={onChangeForm}
-          value={form.email}
-          required
-        />
-        <p>Senha</p>
-        <input
-          type="password"
-          name={"password"}
-          placeholder="Senha"
-          onChange={onChangeForm}
-          value={form.password}
-          required
-        />
-        <div>
-          <button type={"submit"} onClick={loginUser}>
-            Enviar
-          </button>
-          <Link to="/signup">
-            <button>Cadrastrar</button>
-          </Link>
-        </div>
-      </form>
-      
+      <Logofeedback src={logometafeedback}></Logofeedback>
+         
+      </DivLogofeedback>
+      <DivRectangleLogin>
+        <RectangleLogin>
+
+          <Form onSubmit={onLogin}>
+            <Logometa src={metalogin}></Logometa>
+            <Typography variant="h4"><b>Bem-Vindo!</b></Typography>
+            <Typography variant="h5">Faça seu login.</Typography>
+
+            <TextField
+              name={"email"}
+              value={form.email}
+              onChange={onChangeForm}
+              label={"Email"}
+              variant={"outlined"}
+              sx={{ width: 350, marginBottom: 3 }}
+              margin="dense"
+              required
+              type={"email"}
+            />
+            <TextField
+              name={"password"}
+              value={form.password}
+              onChange={onChangeForm}
+              label={"Senha"}
+              variant={"outlined"}
+              sx={{ width: 350, marginBottom: 3 }}
+              margin="dense"
+              required
+              type={"password"}
+              autoComplete={"on"}
+            />
+            <CardButton>
+              <Button fullWidth color="primary" variant="contained" type={"submit"} > Entrar</Button>
+              <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={Login}>Cadastrar</Button>
+            </CardButton>
+          </Form>
+
+        </RectangleLogin>
+        </DivRectangleLogin>
     </PhotoLogin>
   )
 }

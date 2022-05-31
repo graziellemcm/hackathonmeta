@@ -1,8 +1,31 @@
 export type SignupLeaguerInputDTO = {
-    name:string,
-    email:string,
-    team:string,
-    phase:string, 
-    tecnologies:string[],
-    languages: string[]
-}
+  photo_leaguer?: string;
+  position: string;
+  hiring_model: string;
+  created_at: string;
+  name: string;
+  email: string;
+  phase: string;
+  tecnologies: string;
+  languages?: string;
+  id_mentor?: string;
+  id_manager?: string;
+  id_admin?: string;
+  name_class:string
+};
+
+export type EditiLeaguerInputDTO = {
+  photo_leaguer?: string;
+  position?: string;
+  hiring_model?: string;
+  created_at?: string;
+  name?: string;
+  email?: string;
+  phase?: string;
+  tecnologies?: string;
+  languages?: string;
+  id_mentor?: string;
+  id_manager?: string;
+  id_admin?: string;
+  name_class?:string
+};

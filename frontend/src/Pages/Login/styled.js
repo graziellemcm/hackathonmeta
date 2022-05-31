@@ -68,7 +68,6 @@ export const Logometa = styled.img`
 width: 50%;
 margin: 10% 10%; 
 `;
-
 export const CardButton = styled.div`
 display: flex;
 `;
