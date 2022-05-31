@@ -8,6 +8,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import LeaguerProfile from "../Pages/LeaguerProfile/LeaguerProfile"; 
 import SignUpTeam from "../Pages/SignUpTeam/SignUpTeam";
 import LeaguerRegistration from "../Pages/LeaguerRegistration/LeaguerRegistration";
+import NewEvaluation from "../Pages/NewEvaluation/NewEvaluetion";
 
  
 export default function Router() { 
@@ -22,6 +23,7 @@ export default function Router() {
           <Route exact path="/leaguerProfile" element={<LeaguerProfile/>} /> 
           <Route exact path="/leaguerRegistration" element={<LeaguerRegistration/>}/>
           <Route exact path="/form" element={<Form/>}/>
+          <Route exact path="/new-evaluation" element={<NewEvaluation/>}/>
           <Route exact path="*" element={<ErrorPage />} /> 
         </Routes> 
       </BrowserRouter> 
