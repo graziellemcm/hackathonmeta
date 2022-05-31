@@ -1,7 +1,7 @@
 
 import React from "react";
 import Header from "../../Components/Header/Header";
-import { CardMediaLeaguer, CardProfileLeaguer, CardWorkingSince, CarMProfileLeaguer, Center, CenterTitle, H5, HeaderProfile, Layout, LeaguerCardHeader, MentorProfile, ULLeaguer } from "./styled";
+import {  CardProfileLeaguer, CardWorkingSince, Center, CenterTitle, H5, HeaderProfile, Layout, LeaguerCardHeader, MentorProfile, ULLeaguer } from "./styled";
 import { NameProfile, Phase, PhaseProfile, PhotoProfile, Star, TeamImg, TeamProfile, WorkingSinceProfile } from "./styled";
 import './styled.css';
 import star from "../../Components/img/star.png"
@@ -11,7 +11,7 @@ import Mentor from "../../Components/img/Mentor.png"
 import workingsince from "../../Components/img/workingsince.png"
 import { Button } from "@mui/material"; 
 
-export default function Login() {
+export default function LeaguerProfile() {
     //   const navigate = useNavigate();
 
     //   //form
