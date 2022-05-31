@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../Pages/Home/Home"; 
 import Login from "../Pages/Login/Login"; 
 import SignUp from "../Pages/SignUp/SignUp"; 
+import Form from "../Pages/Form/Form"; 
 import ErrorPage from "../Pages/ErrorPage/ErrorPage"; 
 import LeaguerProfile from "../Pages/LeaguerProfile/LeaguerProfile"; 
 import SignUpTeam from "../Pages/SignUpTeam/SignUpTeam";
@@ -20,6 +21,7 @@ export default function Router() {
           <Route exact path="/signup-team" element={<SignUpTeam />} /> 
           <Route exact path="/leaguerProfile" element={<LeaguerProfile/>} /> 
           <Route exact path="/leaguerRegistration" element={<LeaguerRegistration/>}/>
+          <Route exact path="/form" element={<Form/>}/>
           <Route exact path="*" element={<ErrorPage />} /> 
         </Routes> 
       </BrowserRouter> 
