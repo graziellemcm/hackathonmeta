@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export class Feedback {
   constructor(
     private id: string,
@@ -30,7 +32,9 @@ export class Feedback {
       feedback.email_leaguer,
       feedback.email_creator,
       feedback.email_evaluators,
-      feedback.created_at
+      moment(feedback.created_at, "YYYY-MM-DDAAAAAAAAAAAAAA").format(
+        "DD-MM-YYYY"
+      )
     );
   }
 }

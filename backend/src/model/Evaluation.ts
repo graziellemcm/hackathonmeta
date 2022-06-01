@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export class Evaluation {
   constructor(
     private id: string,
@@ -52,13 +54,16 @@ export class Evaluation {
   getComment() {
     return this.comment;
   }
+
   static toEvaluationModel(evaluation: any): Evaluation {
     return new Evaluation(
       evaluation.id,
       evaluation.leaguer_email,
       evaluation.email_creator_feedback,
       evaluation.email_evaluator,
-      evaluation.created_at_,
+      moment(evaluation.created_at_, "YYYY-MM-DDAAAAAAAAAAAAAA").format(
+        "DD-MM-YYYY"
+      ),
       evaluation.performance,
       evaluation.quality_on_delivery,
       evaluation.proactivity,

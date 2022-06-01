@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export class CompiledEvaluation {
   constructor(
     private id: string,
@@ -56,7 +58,9 @@ export class CompiledEvaluation {
       evaluation.id,
       evaluation.email_creator_compiled,
       evaluation.email_leaguer,
-      evaluation.created_at,
+      moment(evaluation.created_at, "YYYY-MM-DDAAAAAAAAAAAAAA").format(
+        "DD-MM-YYYY"
+      ),
       evaluation.performance,
       evaluation.quality_on_delivery,
       evaluation.proactivity,

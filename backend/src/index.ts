@@ -7,6 +7,7 @@ import { responsibleRouter } from "./routes/responsiblesRouter";
 import { leaguerRouter } from "./routes/leaguerRouter";
 import { feedbackRouter } from "./routes/feedbackRouter";
 import { evaluationRouter } from "./routes/evaluationRouter";
+import { compiledRouter } from "./routes/compiledEvaluationRouter";
 
 dotenv.config();
 const app = express();
@@ -19,6 +20,7 @@ app.use("/responsible", responsibleRouter);
 app.use("/leaguer", leaguerRouter);
 app.use("/feedback", feedbackRouter);
 app.use("/evaluation", evaluationRouter);
+app.use("/compiled", compiledRouter);
 
 const server = app.listen(process.env.PORT || 3003, () => {
   if (server) {
