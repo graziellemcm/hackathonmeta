@@ -6,7 +6,6 @@ export class Leaguer {
     private photo_leaguer: string,
     private position: string,
     private hiring_model: string,
-    private created_at: Date | string,
     private name: string,
     private email: string,
     private phase: string,
@@ -24,9 +23,6 @@ export class Leaguer {
       leaguer.photo_leaguer,
       leaguer.position,
       leaguer.hiring_model,
-      moment(leaguer.created_at, "YYYY-MM-DDAAAAAAAAAAAAAA").format(
-        "DD-MM-YYYY"
-      ),
       leaguer.name,
       leaguer.email,
       leaguer.phase,

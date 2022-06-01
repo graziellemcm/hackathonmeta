@@ -1,5 +1,5 @@
 import { TeamDatabase } from "../data/TeamDatabase";
-import { Team, TeamInputDTO } from "../model/TeamModel";
+import { TeamInputDTO } from "../model/TeamModel";
 import { Authenticator } from "../services/Authenticator";
 import { Idgenerator } from "../services/IdGenerator";
 
@@ -11,7 +11,7 @@ export class TeamBusiness {
       const id = idGenerator.generateId();
 
       //verifying input and token
-      if (!input.team_name || typeof input.team_name !== "string")
+      if (!input.team_name || typeof input.team_name === "number")
         throw new Error(
           "Campo inválido, certifique-se de que o nome da classe é uma 'string'."
         );

@@ -4,9 +4,9 @@ Content-Type: application/json
 
 {
 "name": "Resp fran",
-"email": "teste@teste2.com",
+"email": "teste@teste.com",
 "password": "123456",
-"role": "MENTOR"
+"role": "ADMIN"
 }
 
 ###
@@ -40,7 +40,6 @@ Authorization: {{login.response.body.token}}
 "photo_leaguer":"teste",
 "position":"intro",
 "hiring_model":"ctps",
-"created_at":"2022-05-30",
 "name":"eliel",
 "email":"eliel@eliel.com",
 "phase":"intro",

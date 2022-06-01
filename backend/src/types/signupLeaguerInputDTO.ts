@@ -2,7 +2,6 @@ export type SignupLeaguerInputDTO = {
   photo_leaguer?: string;
   position: string;
   hiring_model: string;
-  created_at: string;
   name: string;
   email: string;
   phase: string;
@@ -11,14 +10,13 @@ export type SignupLeaguerInputDTO = {
   id_mentor?: string;
   id_manager?: string;
   id_admin?: string;
-  name_class:string
+  name_class: string;
 };
 
-export type EditiLeaguerInputDTO = {
+export type EditLeaguerInputDTO = {
   photo_leaguer?: string;
   position?: string;
   hiring_model?: string;
-  created_at?: string;
   name?: string;
   email?: string;
   phase?: string;
@@ -27,5 +25,5 @@ export type EditiLeaguerInputDTO = {
   id_mentor?: string;
   id_manager?: string;
   id_admin?: string;
-  name_class?:string
+  name_class?: string;
 };

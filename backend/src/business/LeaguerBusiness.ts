@@ -1,25 +1,27 @@
-import { EvaluationDatabase } from "../data/EvaluationDatabase";
 import { LeaguerDatabase } from "../data/LeaguerDatabase";
-import { Evaluation } from "../model/Evaluation";
 import { Leaguer } from "../model/Leaguer";
 import { USER_ROLES } from "../model/User_Roles";
 import { Authenticator } from "../services/Authenticator";
 import { Idgenerator } from "../services/IdGenerator";
-import { editiLeaguerType, leaguerType } from "../types/leaguerType";
-import { EditiLeaguerInputDTO, SignupLeaguerInputDTO } from "../types/signupLeaguerInputDTO";
+import { editLeaguerType, leaguerType } from "../types/leaguerType";
+import {
+  EditLeaguerInputDTO,
+  SignupLeaguerInputDTO,
+} from "../types/signupLeaguerInputDTO";
 
 const leaguerDatabase = new LeaguerDatabase();
 const authenticator = new Authenticator();
 const idGenerator = new Idgenerator();
 
 export class LeaguerBusiness {
-  createLeaguer = async (input: SignupLeaguerInputDTO, token:string): Promise<void> => {
-
+  createLeaguer = async (
+    input: SignupLeaguerInputDTO,
+    token: string
+  ): Promise<void> => {
     const {
       photo_leaguer,
       position,
       hiring_model,
-      created_at,
       name,
       email,
       phase,
@@ -28,17 +30,20 @@ export class LeaguerBusiness {
       id_mentor,
       id_manager,
       id_admin,
-      name_class
+      name_class,
     } = input;
 
-    if (!position ||
-        !hiring_model ||
-        !created_at ||
-        !name ||
-        !email ||
-        !phase ||
-        !tecnologies) {
-      throw new Error("Os campos position, hiring_model, created_at, name, email, phase, tecnologies, languages são obrigatórios.");
+    if (
+      !position ||
+      !hiring_model ||
+      !name ||
+      !email ||
+      !phase ||
+      !tecnologies
+    ) {
+      throw new Error(
+        "Os campos position, hiring_model, name, email, phase, tecnologies, languages são obrigatórios."
+      );
     }
 
     if (!token) {
@@ -51,7 +56,7 @@ export class LeaguerBusiness {
 
     if (tokenData.role !== "ADMIN" && tokenData.role !== "MENTOR") {
       throw new Error("Somente MENTOR e ADMIN podem cadastrar um leaguer.");
-      }
+    }
 
     const registeredUser = await leaguerDatabase.findByEmail(email);
     if (registeredUser.length !== 0) {
@@ -69,7 +74,6 @@ export class LeaguerBusiness {
       photo_leaguer,
       position,
       hiring_model,
-      created_at,
       name,
       email,
       phase,
@@ -78,7 +82,7 @@ export class LeaguerBusiness {
       id_mentor,
       id_manager,
       id_admin,
-      name_class
+      name_class,
     };
 
     await leaguerDatabase.create(leaguer);
@@ -117,13 +121,15 @@ export class LeaguerBusiness {
     }
   }
 
-  editLeaguer = async (input: EditiLeaguerInputDTO, token:string, idLeaguer:any): Promise<void> => {
-    
+  editLeaguer = async (
+    input: EditLeaguerInputDTO,
+    token: string,
+    idLeaguer: any
+  ): Promise<void> => {
     const {
       photo_leaguer,
       position,
       hiring_model,
-      created_at,
       name,
       email,
       phase,
@@ -132,13 +138,11 @@ export class LeaguerBusiness {
       id_mentor,
       id_manager,
       id_admin,
-      name_class
+      name_class,
     } = input;
 
     if (!idLeaguer) {
-      throw new Error(
-        "Esse endpoint requer um idLeaguer como req.params ."
-      );
+      throw new Error("Esse endpoint requer um idLeaguer como req.params .");
     }
 
     if (!token) {
@@ -153,11 +157,10 @@ export class LeaguerBusiness {
       throw new Error("Somente MENTOR e ADMIN podem editar um leaguer.");
     }
 
-    const leaguer: editiLeaguerType = {
+    const leaguer: editLeaguerType = {
       photo_leaguer,
       position,
       hiring_model,
-      created_at,
       name,
       email,
       phase,
@@ -166,18 +169,15 @@ export class LeaguerBusiness {
       id_mentor,
       id_manager,
       id_admin,
-      name_class
+      name_class,
     };
 
     await leaguerDatabase.editLeaguer(leaguer, idLeaguer);
-  }
+  };
 
-  deleteLeaguer  = async (token:string, idLeaguer:any): Promise<void> =>{
-
+  deleteLeaguer = async (token: string, idLeaguer: any): Promise<void> => {
     if (!idLeaguer) {
-      throw new Error(
-        "Esse endpoint requer um idLeaguer como req.params ."
-      );
+      throw new Error("Esse endpoint requer um idLeaguer como req.params .");
     }
 
     if (!token) {
@@ -193,5 +193,5 @@ export class LeaguerBusiness {
     }
 
     await leaguerDatabase.deleteLeaguer(idLeaguer);
-  }
+  };
 }

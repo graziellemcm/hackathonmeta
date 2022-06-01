@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS leaguer_meta(
     photo_leaguer TEXT,
     position VARCHAR(255) NOT NULL,
     hiring_model VARCHAR(255) NOT NULL,
-    created_at DATE NOT NULL,
     name VARCHAR(255) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     phase VARCHAR(255) NOT NULL default "Introdução",
@@ -89,7 +88,7 @@ CREATE TABLE IF NOT EXISTS received_feedbacks_meta(
     comment TEXT
 );
 
-SELECT * FROM received_feedbacks_meta
+#SELECT * FROM received_feedbacks_meta
 
 #drop table feedbacks_compiled_meta;
 

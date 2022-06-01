@@ -3,7 +3,6 @@ export type leaguerType = {
   photo_leaguer?: string;
   position: string;
   hiring_model: string;
-  created_at: string;
   name: string;
   email: string;
   phase: string;
@@ -12,13 +11,12 @@ export type leaguerType = {
   id_mentor?: string;
   id_manager?: string;
   id_admin?: string;
-  name_class:string
+  name_class: string;
 };
-export type editiLeaguerType = {
+export type editLeaguerType = {
   photo_leaguer?: string;
   position?: string;
   hiring_model?: string;
-  created_at?: string;
   name?: string;
   email?: string;
   phase?: string;
@@ -27,5 +25,5 @@ export type editiLeaguerType = {
   id_mentor?: string;
   id_manager?: string;
   id_admin?: string;
-  name_class?:string
+  name_class?: string;
 };
