@@ -126,40 +126,4 @@ export class EvaluationDatabase extends BaseDatabase {
       throw new Error(err.sqlMessage || err.message);
     }
   };
-
-  // async iniciateEvaluation(
-  //   id:string,
-  //   email_evaluators:string,
-  //   formatedDate:string,
-  //   idLeaguer:string,
-  //   idCreator:string):
-  //   Promise<void>{
-
-  //   try {
-  //     const leaguer = await this.connection.raw(`
-  //       SELECT email
-  //       FROM leaguer_meta
-  //       WHERE id = "${idLeaguer}";
-  //       `)
-
-  //     const creator = await this.connection.raw(`
-  //       SELECT email
-  //       FROM responsible_meta
-  //       WHERE id = "${idCreator}";
-  //       `)
-
-  //     await this.connection("create_feedback_meta")
-  //       .insert({
-  //         id,
-  //         email_leaguer: leaguer[0][0].email,
-  //         email_creator: creator[0][0].email,
-  //         email_evaluators,
-  //         created_at: formatedDate
-  //       })
-  //       .into("create_feedback_meta");
-
-  //   } catch (err: any) {
-  //     throw new Error(err.message || err.sqlMessage);
-  //   }
-  // }
 }
