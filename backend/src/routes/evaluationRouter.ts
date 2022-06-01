@@ -16,8 +16,8 @@ evaluationRouter.get(
   evaluationController.getEvaluationsByLeaguerEmail
 );
 evaluationRouter.get(
-  "/leaguer/compiled/:idLeaguer",
-  evaluationController.getCompiledEvaluationsById
+  "/leaguer/averaged/:idLeaguer",
+  evaluationController.getAveragedEvaluationsById
 );
 
 //create evaluation
