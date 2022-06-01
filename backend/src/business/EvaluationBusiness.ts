@@ -5,6 +5,12 @@ import { EvaluationDatabase } from "../data/EvaluationDatabase";
 import { ResponsibleDatabase } from "../data/ResponsibleDatabase";
 import { LeaguerDatabase } from "../data/LeaguerDatabase";
 import { USER_ROLES } from "../model/User_Roles";
+import moment from "moment";
+
+
+const authenticator = new Authenticator();
+const evaluationDatabase = new EvaluationDatabase();
+
 
 export class EvaluationBusiness {
   async createEvaluation(
@@ -187,7 +193,7 @@ export class EvaluationBusiness {
         throw new Error("Acesso negado, usuário não cadastrado.");
       }
       //token authentication
-      const authenticator = new Authenticator();
+      
       const tokenData = authenticator.getTokenData(token_headers);
 
       //validating user role
@@ -197,7 +203,7 @@ export class EvaluationBusiness {
         );
       }
       //fetching feedback
-      const evaluationDatabase = new EvaluationDatabase();
+
       const evaluations = await evaluationDatabase.getEvaluationsByEmailLeaguer(
         leaguer_email
       );
@@ -205,6 +211,67 @@ export class EvaluationBusiness {
         throw new Error("Avaliação não cadastrada.");
       }
       return evaluations;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+
+  getCompiledEvaluationsById = async (idLeaguer:string, token_headers:string): Promise<any> =>{
+    try {
+      
+      if (!token_headers && !idLeaguer) {
+        throw new Error(
+          "Esse endpoint requer um token no headers authorization e o idLeaguer."
+        );
+      }
+
+      const tokenData = authenticator.getTokenData(token_headers);
+
+      if (tokenData.role !== "ADMIN" && tokenData.role !== "MENTOR" && tokenData.role !== "GESTOR") {
+        throw new Error(
+          "Somente ADMIN, MENTOR e GESTOR podem ver o compilado de avaliações."
+        );
+      }
+
+      const compiled = await evaluationDatabase.getCompiledEvaluationsById(idLeaguer);
+
+      return compiled
+
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+
+  async iniciateEvaluation(input: any, token_headers: string, idLeaguer:string, idCreator:string):Promise<void>{
+    try {
+      if (!input.email_evaluators) {
+        throw new Error(
+          "Insira o(s) email(s) que farão as avaliações."
+        );
+      }
+
+      if (!token_headers) {
+        throw new Error(
+          "Esse endpoint requer um token no headers authorization."
+        );
+      }
+
+      const tokenData = authenticator.getTokenData(token_headers);
+
+      if (tokenData.role !== USER_ROLES.ADMIN && tokenData.role !== USER_ROLES.MENTOR) {
+        throw new Error(
+          "Somente ADMIN e MENTOR podem criar novas avaliações."
+        );
+      }
+
+      const idGenerator = new Idgenerator();
+      const id = idGenerator.generateId();
+
+      const date = new Date() //2022-06-01T10:27:23.475Z
+      const formatedDate = moment(date, "YYYY-MM-DDAAAAAAAAAAAAAA").format("YYYY-MM-DD")
+
+      await evaluationDatabase.iniciateEvaluation(id, input.email_evaluators, formatedDate, idLeaguer, idCreator)
+
     } catch (error: any) {
       throw new Error(error.message);
     }

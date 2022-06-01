@@ -8,9 +8,9 @@
     "start": "node ./build/src/index.js",
     "migrations": "tsnd ./src/data/migration.ts",
     "test": "jest",
-    "postinstall":"tsc"
+    "postinstall": "tsc"
   },
-  "engines":{
+  "engines": {
     "node": "v16.14.2"
   },
   "keywords": [],
@@ -37,6 +37,7 @@
     "jest": "^28.1.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^1.0.7",
+    "moment": "^2.29.3",
     "mysql": "^2.18.1",
     "ts-jest": "^28.0.2",
     "ts-node-dev": "^1.1.8",
