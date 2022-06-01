@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export class Leaguer {
   constructor(
     private id: string,
@@ -22,7 +24,9 @@ export class Leaguer {
       leaguer.photo_leaguer,
       leaguer.position,
       leaguer.hiring_model,
-      leaguer.created_at,
+      moment(leaguer.created_at, "YYYY-MM-DDAAAAAAAAAAAAAA").format(
+        "DD-MM-YYYY"
+      ),
       leaguer.name,
       leaguer.email,
       leaguer.phase,

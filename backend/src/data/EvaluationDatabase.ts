@@ -82,18 +82,18 @@ export class EvaluationDatabase extends BaseDatabase {
     }
   }
 
-  getCompiledEvaluationsById = async (idLeaguer:string): Promise<any> => {
+  getCompiledEvaluationsById = async (idLeaguer: string): Promise<any> => {
     try {
       const leaguer = await this.connection.raw(`
       SELECT name, email, phase
       FROM leaguer_meta
       WHERE id = "${idLeaguer}";
-      `)
+      `);
 
       const creatorCompiled = await this.connection.raw(`
       SELECT email_creator_compiled
       FROM feedbacks_compiled_meta
-      `)
+      `);
 
       const compiled = await this.connection.raw(`
       SELECT
@@ -110,7 +110,7 @@ export class EvaluationDatabase extends BaseDatabase {
         AVG (administrative_tasks) administrative_tasks
       FROM received_feedbacks_meta
       WHERE leaguer_email = "${leaguer[0][0].email}";
-      `)
+      `);
 
       const result = {
         idLeaguer,
@@ -118,49 +118,48 @@ export class EvaluationDatabase extends BaseDatabase {
         email: leaguer[0][0].email,
         phase: leaguer[0][0].phase,
         creatorCompiled: creatorCompiled[0][0], //.email_creator_compiled
-        compiled: compiled[0][0]
-      }
+        compiled: compiled[0][0],
+      };
 
-      return result
-      
+      return result;
     } catch (err: any) {
       throw new Error(err.sqlMessage || err.message);
     }
-  }
+  };
 
-  async iniciateEvaluation(
-    id:string,
-    email_evaluators:string,
-    formatedDate:string,
-    idLeaguer:string,
-    idCreator:string):
-    Promise<void>{
-      
-    try {
-      const leaguer = await this.connection.raw(`
-        SELECT email
-        FROM leaguer_meta
-        WHERE id = "${idLeaguer}";
-        `)
+  // async iniciateEvaluation(
+  //   id:string,
+  //   email_evaluators:string,
+  //   formatedDate:string,
+  //   idLeaguer:string,
+  //   idCreator:string):
+  //   Promise<void>{
 
-      const creator = await this.connection.raw(`
-        SELECT email
-        FROM responsible_meta
-        WHERE id = "${idCreator}";
-        `)
+  //   try {
+  //     const leaguer = await this.connection.raw(`
+  //       SELECT email
+  //       FROM leaguer_meta
+  //       WHERE id = "${idLeaguer}";
+  //       `)
 
-      await this.connection("create_feedback_meta")
-        .insert({
-          id,
-          email_leaguer: leaguer[0][0].email,
-          email_creator: creator[0][0].email,
-          email_evaluators,
-          created_at: formatedDate
-        })
-        .into("create_feedback_meta");
+  //     const creator = await this.connection.raw(`
+  //       SELECT email
+  //       FROM responsible_meta
+  //       WHERE id = "${idCreator}";
+  //       `)
 
-    } catch (err: any) {
-      throw new Error(err.message || err.sqlMessage);
-    }
-  }
+  //     await this.connection("create_feedback_meta")
+  //       .insert({
+  //         id,
+  //         email_leaguer: leaguer[0][0].email,
+  //         email_creator: creator[0][0].email,
+  //         email_evaluators,
+  //         created_at: formatedDate
+  //       })
+  //       .into("create_feedback_meta");
+
+  //   } catch (err: any) {
+  //     throw new Error(err.message || err.sqlMessage);
+  //   }
+  // }
 }

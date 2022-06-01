@@ -5,8 +5,6 @@ import { FeedbackDatabase } from "../data/FeedbackDatabase";
 import { USER_ROLES } from "../model/User_Roles";
 import { FeedbackInputDTO } from "../model/Feedback";
 
-
-
 export class FeedbackBusiness {
   async createFeedback(
     input: FeedbackInputDTO,
@@ -50,7 +48,7 @@ export class FeedbackBusiness {
         input.email_creator
       );
       if (!isRegisteredUser) {
-        throw new Error("Acesso negado, usuário não cadastrado.");
+        throw new Error("Usuário não cadastrado.");
       }
 
       //token authentication
