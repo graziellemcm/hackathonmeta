@@ -1,48 +1,57 @@
 import axios from "axios";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
 import { base_Url } from "../../Constants/base_Url";
-import { Logometa, Background} from "../LeaguerRegistration/styled";
-import {  Center, Layout} from "../SignUp/styled";
+import { Logometa, Background } from "../LeaguerRegistration/styled";
+import { Center, Layout } from "../SignUp/styled";
 import metalogin from "../../Components/img/metalogin.png"
 import { Button, TextField, Typography } from "@mui/material"
 
 
 
 export default function LeaguerRegistration() {
-    const navigate = useNavigate();
-    //form
+    const isTokenSet = localStorage.getItem("token");
+
     const { form, onChangeForm, clearForm } = useForm({
+        photo_leaguer: "",
+        position: "",
+        hiring_model: "",
         name: "",
         email: "",
-        team: "",
         phase: "",
-        technologies: "",
+        tecnologies: "",
         languages: "",
-        mentor: "",
-        manager: "",
-        admin: "",
-
-
+        id_mentor: "",
+        id_manager: "",
+        id_admin: "",
+        name_class: ""
     });
-    const onSignUp = (e) => {
-        e.preventDefault();
 
+    const onRegistration = (e) => {
+        e.preventDefault();
+        clearForm()
     };
-    //endpoint signup
-    const signUp = () => {
+
+    const registration = () => {
         const body = form;
+        console.log(body)
         axios
-            .post(base_Url + "/user/signup", body)
+            .post(base_Url + "/leaguer/create", body,
+
+            {
+                
+                headers: {
+                    authorization: isTokenSet
+                }
+            })
             .then((res) => {
-                clearForm();
                 localStorage.setItem("token", res.data.token);
-                navigate("/");
+                alert("Cadastro realizado!");
             })
             .catch((err) => {
-                alert(`${err.response.data}`);
+                console.log(err.response)
+                // alert(`${err.response.data}`);
             });
     };
     return (
@@ -51,9 +60,9 @@ export default function LeaguerRegistration() {
             <Background >
                 <Layout>
                     <Center>
-                    <Logometa src={metalogin}></Logometa>
-                        <Typography variant="h2" fontSize={19} sx={{marginBottom: 1}} >Realize o cadastro do Leaguer!</Typography>
-                        <form onSubmit={onSignUp}>
+                        <Logometa src={metalogin}></Logometa>
+                        <Typography variant="h2" fontSize={19} sx={{ marginBottom: 1 }} >Realize o cadastro do Leaguer!</Typography>
+                        <form onSubmit={onRegistration}>
                             <TextField
                                 name={"name"}
                                 value={form.name}
@@ -80,8 +89,8 @@ export default function LeaguerRegistration() {
                             />
 
                             <TextField
-                                name={"team"}
-                                value={form.team}
+                                name={"name_class"}
+                                value={form.name_class}
                                 onChange={onChangeForm}
                                 label={"Turma"}
                                 variant={"outlined"}
@@ -105,8 +114,8 @@ export default function LeaguerRegistration() {
                                 required
                             />
                             <TextField
-                                name={"technologies"}
-                                value={form.technologies}
+                                name={"tecnologies"}
+                                value={form.tecnologies}
                                 onChange={onChangeForm}
                                 label={"Tecnologias"}
                                 variant={"outlined"}
@@ -126,21 +135,22 @@ export default function LeaguerRegistration() {
                                 margin="dense"
                                 type={"text"}
                                 autoComplete={"on"}
+                                required
                             />
                             <TextField
-                                name={"admin"}
-                                value={form.admin}
+                                name={"id_admin"}
+                                value={form.id_admin}
                                 onChange={onChangeForm}
                                 label={"Administrador"}
                                 variant={"outlined"}
                                 sx={{ width: 350, marginBottom: 1 }}
                                 margin="dense"
                                 type={"text"}
-                                required
+                                
                             />
                             <TextField
-                                name={"mentor"}
-                                value={form.mentor}
+                                name={"id_mentor"}
+                                value={form.id_mentor}
                                 onChange={onChangeForm}
                                 label={"Mentor"}
                                 variant={"outlined"}
@@ -150,19 +160,44 @@ export default function LeaguerRegistration() {
                                 autoComplete={"on"}
                             />
                             <TextField
-                                name={"manager"}
-                                value={form.manager}
+                                name={"id_manager"}
+                                value={form.id_manager}
                                 onChange={onChangeForm}
                                 label={"Gestor"}
+                                variant={"outlined"}
+                                sx={{ width: 350, marginBottom: 1 }}
+                                margin="dense"
+                                type={"text"}
+                                autoComplete={"on"}
+                            />
+
+                            <TextField
+                                name={"hiring_model"}
+                                value={form.hiring_model}
+                                onChange={onChangeForm}
+                                label={"Tipo de contrato"}
+                                variant={"outlined"}
+                                sx={{ width: 350, marginBottom: 1 }}
+                                margin="dense"
+                                type={"text"}
+                                autoComplete={"on"}
+                            />
+
+                            <TextField
+                                name={"position"}
+                                value={form.position}
+                                onChange={onChangeForm}
+                                label={"Função ex: Estagiário"}
                                 variant={"outlined"}
                                 sx={{ width: 350, marginBottom: 3 }}
                                 margin="dense"
                                 type={"text"}
                                 autoComplete={"on"}
+                                required
                             />
-                            
 
-                            <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={signUp} > Cadastrar Leaguer</Button>
+
+                            <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={registration} > Cadastrar Leaguer</Button>
                         </form>
                     </Center>
                 </Layout>
