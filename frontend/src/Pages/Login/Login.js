@@ -7,30 +7,29 @@ import { PhotoLogin, RectangleLogin, Form, Logometa, CardButton, Logofeedback, L
 import metalogin from "../../Components/img/metalogin.png"
 import logometafeedback from "../../Components/img/logometafeedback.png"
 import { Button, Typography, TextField } from "@mui/material";
-
+import {goToHomePage, goToSignUp} from "../../Router/coordinator"
 
 export default function Login() {
   const navigate = useNavigate();
 
-  //form
   const { form, onChangeForm, clearForm } = useForm({
     email: "",
-    password: "",
+    password: ""
   });
+
   const onLogin = (e) => {
     e.preventDefault();
   };
 
-  //login endpoint
   const loginUser = () => {
     const body = form;
-    const url = base_Url + "/user/login";
+    const url = base_Url + "/responsible/login";
     axios
       .post(url, body)
       .then((res) => {
         clearForm();
         localStorage.setItem("token", res.data.token);
-        navigate("/agro/user/wallet");
+        goToHomePage(navigate);
       })
       .catch((err) => {
         console.log(err);
@@ -77,8 +76,8 @@ export default function Login() {
               autoComplete={"on"}
             />
             <CardButton>
-              <Button fullWidth color="primary" variant="contained" type={"submit"} > Entrar</Button>
-              <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={Login}>Cadastrar</Button>
+              <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={loginUser}> Entrar</Button>
+              <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={goToSignUp}>Cadastrar</Button>
             </CardButton>
           </Form>
 
