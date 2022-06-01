@@ -91,28 +91,4 @@ export class EvaluationController {
       res.status(400).send({ error: error.message });
     }
   }
-
-  
-
-  // async iniciateEvaluation(req: Request, res: Response):Promise<void> {
-  //   try {
-  //     const token_headers = req.headers.authorization as string;
-  //     const idLeaguer = req.params.idLeaguer as string 
-  //     const idCreator = req.params.idCreator as string
-      
-  //     const input:any = {
-  //       email_evaluators: req.body.email_evaluators,
-  //     };
-
-  //     await evaluationBusiness.iniciateEvaluation(input, token_headers, idLeaguer, idCreator);
-
-  //     res.status(201).send({
-  //       message: "Avaliação criada!",
-  //       email_evaluators: input.email_evaluators
-  //     });
-
-  //   } catch (error: any) {
-  //     res.status(400).send({ error: error.message });
-  //   }
-  // }
 }

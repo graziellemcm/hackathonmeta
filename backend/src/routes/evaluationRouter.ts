@@ -22,5 +22,3 @@ evaluationRouter.get(
 
 //create evaluation
 evaluationRouter.post("/create", evaluationController.createEvaluation);
-//evaluationRouter.post("/iniciate/:idLeaguer/:idCreator", evaluationController.iniciateEvaluation);
-

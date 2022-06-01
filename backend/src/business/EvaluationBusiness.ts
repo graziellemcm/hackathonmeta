@@ -242,39 +242,4 @@ export class EvaluationBusiness {
       throw new Error(error.message);
     }
   };
-
-  // async iniciateEvaluation(input: any, token_headers: string, idLeaguer:string, idCreator:string):Promise<void>{
-  //   try {
-  //     if (!input.email_evaluators) {
-  //       throw new Error(
-  //         "Insira o(s) email(s) que farão as avaliações."
-  //       );
-  //     }
-
-  //     if (!token_headers) {
-  //       throw new Error(
-  //         "Esse endpoint requer um token no headers authorization."
-  //       );
-  //     }
-
-  //     const tokenData = authenticator.getTokenData(token_headers);
-
-  //     if (tokenData.role !== USER_ROLES.ADMIN && tokenData.role !== USER_ROLES.MENTOR) {
-  //       throw new Error(
-  //         "Somente ADMIN e MENTOR podem criar novas avaliações."
-  //       );
-  //     }
-
-  //     const idGenerator = new Idgenerator();
-  //     const id = idGenerator.generateId();
-
-  //     const date = new Date() //2022-06-01T10:27:23.475Z
-  //     const formatedDate = moment(date, "YYYY-MM-DDAAAAAAAAAAAAAA").format("YYYY-MM-DD")
-
-  //     await evaluationDatabase.iniciateEvaluation(id, input.email_evaluators, formatedDate, idLeaguer, idCreator)
-
-  //   } catch (error: any) {
-  //     throw new Error(error.message);
-  //   }
-  // }
 }
