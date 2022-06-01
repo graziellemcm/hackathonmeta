@@ -7,34 +7,36 @@ import { base_Url } from "../../Constants/base_Url";
 import { Background, Center, Layout, Logometa } from "./styled";
 import metalogin from "../../Components/img/metalogin.png"
 import { Button, TextField, Typography } from "@mui/material"
-
+import {goToHomePage} from "../../Router/coordinator"
 
 
 export default function SignUp() {
   const navigate = useNavigate();
-  //form
+  
   const { form, onChangeForm, clearForm } = useForm({
     name: "",
     email: "",
-    team: "",
-    role: "",
     password: "",
+    role: ""
+    
   });
+
   const onSignUp = (e) => {
     e.preventDefault();
-
+    clearForm();
   };
-  //endpoint signup
+ 
   const signUp = () => {
     const body = form;
     axios
-      .post(base_Url + "/user/signup", body)
+      .post(base_Url + "/responsible/signup", body)
       .then((res) => {
-        clearForm();
         localStorage.setItem("token", res.data.token);
-        navigate("/");
+        alert("Cadastro realizado!");
+        goToHomePage(navigate);
       })
       .catch((err) => {
+        
         alert(`${err.response.data}`);
       });
   };
