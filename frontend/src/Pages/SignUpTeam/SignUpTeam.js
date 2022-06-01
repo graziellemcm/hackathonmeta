@@ -7,36 +7,43 @@ import { base_Url } from "../../Constants/base_Url";
 import { Center, Layout, LogoImage, Background } from "./styled";
 import metaAzull from "../../Components/img/metaAzull.png"
 import { Button, TextField } from "@mui/material"
+import {goToHomePage} from "../../Router/coordinator"
 
 
 
 export default function SignUpTeam() {
   const navigate = useNavigate();
-  //form
+  const isTokenSet = localStorage.getItem("token");
+
   const { form, onChangeForm, clearForm } = useForm({
-    name: "",
-    email: "",
-    team:"",
-    password: "",
+    team_name: ""
   });
   const onSignUpTeam = (e) => {
     e.preventDefault();
-
+    clearForm();
   };
-  //endpoint signupTeam
-  const signUpTeam = () => {
-    const body = form;
-    axios
-      .post(base_Url + "/user/signup-team", body)
-      .then((res) => {
-        clearForm();
-        localStorage.setItem("token", res.data.token);
-        navigate("/");
-      })
-      .catch((err) => {
-        alert(`${err.response.data}`);
-      });
-  };
+ 
+  const signUp = () => {
+        
+        axios
+        
+            .post(base_Url + "/team/create", form,
+            
+                {
+                    
+                    headers: {
+                        authorization: isTokenSet
+                    }
+                }
+            )
+            .then((resposta) => {
+                
+                alert("Cadastro de turma realizado!");
+            })
+            .catch((erro) =>
+             alert(`${erro.response.data}`)
+            )
+    }
   return (
     <div>
       <Header />
@@ -64,7 +71,7 @@ export default function SignUpTeam() {
             />
       
             <div>
-              <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={signUpTeam} > Enviar</Button>
+              <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={signUp} > Enviar</Button>
 
             </div>
           </form>
