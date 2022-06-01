@@ -210,7 +210,7 @@ export class EvaluationBusiness {
     }
   }
 
-  getCompiledEvaluationsById = async (
+  getAveragedEvaluationsById = async (
     idLeaguer: string,
     token_headers: string
   ): Promise<any> => {
@@ -233,7 +233,7 @@ export class EvaluationBusiness {
         );
       }
 
-      const compiled = await evaluationDatabase.getCompiledEvaluationsById(
+      const compiled = await evaluationDatabase.getAveragedEvaluationsById(
         idLeaguer
       );
 
