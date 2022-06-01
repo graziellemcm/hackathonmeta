@@ -9,7 +9,7 @@ align-items: center;
 background-color: white;
 border-radius: 17px;
 padding: 5%;
-width: 30%;
+width: 400px;
 
 form{
   display: flex;

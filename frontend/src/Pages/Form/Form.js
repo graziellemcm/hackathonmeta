@@ -4,14 +4,16 @@ import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
 import { Button, Rating, TextField, Typography } from "@mui/material"
 import { Center, Layout, DivButton, Title, DivStar } from "./styled";
-
+import { base_Url } from "../../Constants/base_Url";
+import axios from "axios";
 
 export default function Form() {
-    // const navigate = useNavigate();
-    // const isTokenSet = localStorage.getItem("token");
+    const navigate = useNavigate();
+    const isTokenSet = localStorage.getItem("token");
 
     const { form, onChangeForm } = useForm({
         leaguer_email: "",
+        email_creator_feedback: "",
         email_evaluator: "",
         performance: "",
         quality_on_delivery: "",
@@ -27,24 +29,46 @@ export default function Form() {
         highlights_leaguer: "",
         comment: "",
     });
-    const onSignUp = (e) => {
+    const onForm = (e) => {
         e.preventDefault();
 
     };
 
+    const send = () => {
+        const body = {...form, performance: Number(form.performance),quality_on_delivery: Number(form.quality_on_delivery),proactivity: Number(form.proactivity),commitment: Number(form.commitment),team_work: Number(form.team_work),skillset_growth: Number(form.skillset_growth),leadership: Number(form.leadership),punctuality: Number(form.punctuality),work_under_pressure: Number(form.work_under_pressure),participation: Number(form.participation),administrative_tasks: Number(form.administrative_tasks)};
+        console.log(body)
+        axios
+        
+            .post(base_Url + "/evaluation/create", body,
+            
+                {
+                    
+                    headers: {
+                        authorization: isTokenSet
+                    }
+                }
+            )
+            .then((resposta) => {
+                
+                alert("Feedback realizado!");
+            })
+            .catch((erro) =>
+            alert(`${erro.response.data}`)
+            )
+    }
     return (
         <div>
             <Header />
             <Layout>
                 <Center>
 
-                    <form onSubmit={onSignUp}>
+                    <form onSubmit={onForm}>
                         <Title>
                             <Typography variant="h5"><b>Formulário de Feedback</b></Typography>
                         </Title>
 
                         <TextField
-                            name={"email"}
+                            name={"email_evaluator"}
                             value={form.email_evaluator}
                             onChange={onChangeForm}
                             label={"Digite seu email"}
@@ -55,9 +79,22 @@ export default function Form() {
                             autoFocus
                             type={"email"}
                         />
+                        <TextField
+                            name={"email_creator_feedback"}
+                            value={form.email_creator_feedback}
+                            onChange={onChangeForm}
+                            label={"Digite o email do criador da avaliação"}
+                            variant={"outlined"}
+                            sx={{ width: 350, marginBottom: 3 }}
+                            margin="dense"
+                            required
+                            autoFocus
+                            type={"email"}
+                        />
+                       
 
                         <TextField
-                            name={"email"}
+                            name={"leaguer_email"}
                             value={form.leaguer_email}
                             onChange={onChangeForm}
                             label={"Digite o email do leaguer"}
@@ -226,7 +263,7 @@ export default function Form() {
                         />
                         </DivStar>
                         <DivButton>
-                        <Button fullWidth color="primary" variant="contained" type={"submit"} > Enviar</Button>
+                        <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={send}> Enviar</Button>
                         </DivButton>
                     </form>
 

@@ -28,15 +28,23 @@ export default function NewEvaluation() {
 
     const newEvaluation = () => {
         const body = form;
+        
         axios
-            .post(base_Url, body)
+            .post(base_Url + "/feedback/create", body,
+            {
+                    
+                headers: {
+                    authorization: isTokenSet
+                }
+            })
             .then((res) => {
                 clearForm();
                 localStorage.setItem("token", res.data.token);
-                navigate("/");
+                alert("Nova avaliação criada!");
             })
             .catch((err) => {
-                alert(`${err.response.data}`);
+                 //  alert(`${erro.response.data}`)
+            console.log(err.response)
             });
     };
 
