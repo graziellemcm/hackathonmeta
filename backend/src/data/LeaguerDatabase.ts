@@ -1,5 +1,5 @@
 import { Leaguer } from "../model/Leaguer";
-import { editiLeaguerType, leaguerType } from "../types/leaguerType";
+import { editLeaguerType, leaguerType } from "../types/leaguerType";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class LeaguerDatabase extends BaseDatabase {
@@ -13,16 +13,14 @@ export class LeaguerDatabase extends BaseDatabase {
     return user[0];
   };
 
-  create = async(leaguer:leaguerType)=>{
-
+  create = async (leaguer: leaguerType) => {
     await this.connection.raw(`
-    INSERT INTO leaguer_meta (id, photo_leaguer, position, hiring_model, created_at, name, email, phase, tecnologies, languages, id_mentor, id_manager, id_admin, name_class)
+    INSERT INTO leaguer_meta (id, photo_leaguer, position, hiring_model, name, email, phase, tecnologies, languages, id_mentor, id_manager, id_admin, name_class)
         VALUES (
             "${leaguer.id}",
             "${leaguer.photo_leaguer}",
             "${leaguer.position}",
             "${leaguer.hiring_model}",
-            "${leaguer.created_at}",
             "${leaguer.name}",
             "${leaguer.email}",
             "${leaguer.phase}",
@@ -33,8 +31,8 @@ export class LeaguerDatabase extends BaseDatabase {
             "${leaguer.id_admin}",
             "${leaguer.name_class}"
         );
-    `)
-} 
+    `);
+  };
   public async getLeaguerByEmail(email: string): Promise<Leaguer> {
     try {
       const result = await this.connection(LeaguerDatabase.TABLE_NAME)
@@ -58,13 +56,12 @@ export class LeaguerDatabase extends BaseDatabase {
     }
   }
 
-  editLeaguer = async(leaguer:editiLeaguerType, idLeaguer:any)=> {
+  editLeaguer = async (leaguer: editLeaguerType, idLeaguer: any) => {
     await this.connection.raw(`
     UPDATE leaguer_meta
       SET photo_leaguer = "${leaguer.photo_leaguer}",
       position = "${leaguer.position}",
       hiring_model = "${leaguer.hiring_model}",
-      created_at = "${leaguer.created_at}",
       name = "${leaguer.name}",
       email = "${leaguer.email}", 
       phase = "${leaguer.phase}", 
@@ -75,13 +72,13 @@ export class LeaguerDatabase extends BaseDatabase {
       id_admin = "${leaguer.id_admin}", 
       name_class = "${leaguer.name_class}"
       WHERE id = "${idLeaguer}"
-    `)
-  }
+    `);
+  };
 
-  deleteLeaguer = async(idLeaguer:any) => {
+  deleteLeaguer = async (idLeaguer: any) => {
     await this.connection.raw(`
     DELETE FROM leaguer_meta
     WHERE id = "${idLeaguer}"
-    `)
-  }
+    `);
+  };
 }
