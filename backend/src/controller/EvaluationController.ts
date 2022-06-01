@@ -75,20 +75,22 @@ export class EvaluationController {
     }
   }
 
-  getCompiledEvaluationsById = async (req: Request, res: Response): Promise<any> => {
+  getAveragedEvaluationsById = async (
+    req: Request,
+    res: Response
+  ): Promise<any> => {
     try {
       const token_headers = req.headers.authorization as string;
-      const idLeaguer = req.params.idLeaguer;      
+      const idLeaguer = req.params.idLeaguer;
 
-      const compiled = await evaluationBusiness.getCompiledEvaluationsById(
+      const compiled = await evaluationBusiness.getAveragedEvaluationsById(
         idLeaguer,
         token_headers
       );
 
       res.status(200).send(compiled);
-
     } catch (error: any) {
       res.status(400).send({ error: error.message });
     }
-  }
+  };
 }
