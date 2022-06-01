@@ -41,7 +41,8 @@ export default function SignUpTeam() {
                 alert("Cadastro de turma realizado!");
             })
             .catch((erro) =>
-             alert(`${erro.response.data}`)
+            console.log(erro.response)
+            //  alert(`${erro.response.data}`)
             )
     }
   return (
@@ -58,15 +59,14 @@ export default function SignUpTeam() {
 
            
             <TextField
-              name={"team"}
-              value={form.team}
+              name={"team_name"}
+              value={form.team_name}
               onChange={onChangeForm}
               label={"Turma"}
               variant={"outlined"}
               sx={{ width: 350, marginBottom: 3 }}
               margin="dense"
               type={"text"}
-              autoComplete={"on"}
               required
             />
       
