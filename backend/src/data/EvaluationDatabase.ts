@@ -82,7 +82,7 @@ export class EvaluationDatabase extends BaseDatabase {
     }
   }
 
-  getCompiledEvaluationsById = async (idLeaguer: string): Promise<any> => {
+  getAveragedEvaluationsById = async (idLeaguer: string): Promise<any> => {
     try {
       const leaguer = await this.connection.raw(`
       SELECT name, email, phase
