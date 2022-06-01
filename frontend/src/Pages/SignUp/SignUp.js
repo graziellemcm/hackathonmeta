@@ -6,26 +6,26 @@ import useForm from "../../Hooks/useForm";
 import { base_Url } from "../../Constants/base_Url";
 import { Background, Center, Layout, Logometa } from "./styled";
 import metalogin from "../../Components/img/metalogin.png"
-import { Button, TextField, Typography } from "@mui/material"
-import {goToHomePage} from "../../Router/coordinator"
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material"
+import { goToHomePage } from "../../Router/coordinator"
 
 
 export default function SignUp() {
   const navigate = useNavigate();
-  
+
   const { form, onChangeForm, clearForm } = useForm({
     name: "",
     email: "",
     password: "",
     role: ""
-    
+
   });
 
   const onSignUp = (e) => {
     e.preventDefault();
     clearForm();
   };
- 
+
   const signUp = () => {
     const body = form;
     axios
@@ -36,7 +36,7 @@ export default function SignUp() {
         goToHomePage(navigate);
       })
       .catch((err) => {
-        
+
         alert(`${err.response.data}`);
       });
   };
@@ -46,7 +46,7 @@ export default function SignUp() {
       <Background>
         <Layout>
           <Center>
-          <Logometa src={metalogin}></Logometa>
+            <Logometa src={metalogin}></Logometa>
             <Typography variant="h2" fontSize={19} >Cadastre-se</Typography>
             <form onSubmit={onSignUp}>
               <TextField
@@ -73,18 +73,24 @@ export default function SignUp() {
                 required
                 type={"email"}
               />
-
-              <TextField
-                name={"role"}
-                value={form.role}
-                onChange={onChangeForm}
-                label={"Função"}
-                variant={"outlined"}
-                sx={{ width: 350, marginBottom: 3 }}
-                margin="dense"
-                type={"text"}
-                autoComplete={"on"}
-              />
+              <FormControl>
+                <InputLabel id="function">Função</InputLabel>
+                <Select
+                  labelId="function-label"
+                  id="function"
+                  name={"role"}
+                  value={form.role}
+                  onChange={onChangeForm}
+                  label="Função"
+                  variant={"outlined"}
+                  sx={{ width: 350, marginBottom: 3 }}
+                  margin="dense"
+                >
+                  <MenuItem value={"ADMIN"}>Administrador</MenuItem>
+                  <MenuItem value={"GESTOR"}>Gestor</MenuItem>
+                  <MenuItem value={"MENTOR"}>Mentor</MenuItem>
+                </Select>
+              </FormControl>
 
               <TextField
                 name={"team"}
