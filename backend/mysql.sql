@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS create_feedback_meta(
     email_evaluators VARCHAR(255) NOT NULL,
     created_at DATE NOT NULL
 );
+SELECT * FROM create_feedback_meta;
 
 CREATE TABLE IF NOT EXISTS received_feedbacks_meta(
     id VARCHAR(255) PRIMARY KEY,
@@ -87,6 +88,8 @@ CREATE TABLE IF NOT EXISTS received_feedbacks_meta(
     highlights_leaguer TEXT,
     comment TEXT
 );
+
+SELECT * FROM received_feedbacks_meta
 
 #drop table feedbacks_compiled_meta;
 

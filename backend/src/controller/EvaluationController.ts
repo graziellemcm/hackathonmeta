@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
+import moment from "moment";
 import { EvaluationBusiness } from "../business/EvaluationBusiness";
 import { EvaluationInputDTO } from "../model/Evaluation";
+
+const evaluationBusiness = new EvaluationBusiness();
 
 export class EvaluationController {
   async createEvaluation(req: Request, res: Response) {
@@ -27,7 +30,6 @@ export class EvaluationController {
       };
 
       //creating feedback request in databank
-      const evaluationBusiness = new EvaluationBusiness();
       await evaluationBusiness.createEvaluation(input, token_headers);
       res.status(201).send({
         message: "Avaliação respondida, obrigada!",
@@ -64,12 +66,50 @@ export class EvaluationController {
       const leaguer_email = req.params.leaguer_email;
 
       //getting evaluations from databank
-      const evaluationBusiness = new EvaluationBusiness();
       const evaluations = await evaluationBusiness.getEvaluationsByEmailLeaguer(
         leaguer_email,
         token_headers
       );
       res.status(200).send(evaluations);
+    } catch (error: any) {
+      res.status(400).send({ error: error.message });
+    }
+  }
+
+  getCompiledEvaluationsById = async (req: Request, res: Response): Promise<any> => {
+    try {
+      const token_headers = req.headers.authorization as string;
+      const idLeaguer = req.params.idLeaguer;      
+
+      const compiled = await evaluationBusiness.getCompiledEvaluationsById(
+        idLeaguer,
+        token_headers
+      );
+
+      res.status(200).send(compiled);
+
+    } catch (error: any) {
+      res.status(400).send({ error: error.message });
+    }
+  }
+
+  async iniciateEvaluation(req: Request, res: Response):Promise<void> {
+    try {
+      const token_headers = req.headers.authorization as string;
+      const idLeaguer = req.params.idLeaguer as string 
+      const idCreator = req.params.idCreator as string
+      
+      const input:any = {
+        email_evaluators: req.body.email_evaluators,
+      };
+
+      await evaluationBusiness.iniciateEvaluation(input, token_headers, idLeaguer, idCreator);
+
+      res.status(201).send({
+        message: "Avaliação criada!",
+        email_evaluators: input.email_evaluators
+      });
+
     } catch (error: any) {
       res.status(400).send({ error: error.message });
     }

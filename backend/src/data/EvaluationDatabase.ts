@@ -81,4 +81,86 @@ export class EvaluationDatabase extends BaseDatabase {
       throw new Error(err.sqlMessage || err.message);
     }
   }
+
+  getCompiledEvaluationsById = async (idLeaguer:string): Promise<any> => {
+    try {
+      const leaguer = await this.connection.raw(`
+      SELECT name, email, phase
+      FROM leaguer_meta
+      WHERE id = "${idLeaguer}";
+      `)
+
+      const creatorCompiled = await this.connection.raw(`
+      SELECT email_creator_compiled
+      FROM feedbacks_compiled_meta
+      `)
+
+      const compiled = await this.connection.raw(`
+      SELECT
+        AVG (performance) performance,
+        AVG (quality_on_delivery) quality_on_delivery,
+        AVG (proactivity) proactivity,
+        AVG (commitment) commitment,
+        AVG (team_work) team_work,
+        AVG (skillset_growth) skillset_growth,
+        AVG (leadership) leadership,
+        AVG (punctuality) punctuality,
+        AVG (work_under_pressure) work_under_pressure,
+        AVG (participation) participation,
+        AVG (administrative_tasks) administrative_tasks
+      FROM received_feedbacks_meta
+      WHERE leaguer_email = "${leaguer[0][0].email}";
+      `)
+
+      const result = {
+        idLeaguer,
+        name: leaguer[0][0].name,
+        email: leaguer[0][0].email,
+        phase: leaguer[0][0].phase,
+        creatorCompiled: creatorCompiled[0][0], //.email_creator_compiled
+        compiled: compiled[0][0]
+      }
+
+      return result
+      
+    } catch (err: any) {
+      throw new Error(err.sqlMessage || err.message);
+    }
+  }
+
+  async iniciateEvaluation(
+    id:string,
+    email_evaluators:string,
+    formatedDate:string,
+    idLeaguer:string,
+    idCreator:string):
+    Promise<void>{
+      
+    try {
+      const leaguer = await this.connection.raw(`
+        SELECT email
+        FROM leaguer_meta
+        WHERE id = "${idLeaguer}";
+        `)
+
+      const creator = await this.connection.raw(`
+        SELECT email
+        FROM responsible_meta
+        WHERE id = "${idCreator}";
+        `)
+
+      await this.connection("create_feedback_meta")
+        .insert({
+          id,
+          email_leaguer: leaguer[0][0].email,
+          email_creator: creator[0][0].email,
+          email_evaluators,
+          created_at: formatedDate
+        })
+        .into("create_feedback_meta");
+
+    } catch (err: any) {
+      throw new Error(err.message || err.sqlMessage);
+    }
+  }
 }
