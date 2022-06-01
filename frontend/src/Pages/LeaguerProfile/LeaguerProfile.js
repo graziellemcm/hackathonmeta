@@ -10,6 +10,7 @@ import Labs from "../../Components/img/Labs.png"
 import Mentor from "../../Components/img/Mentor.png"
 import workingsince from "../../Components/img/workingsince.png"
 import { Button } from "@mui/material"; 
+import { goToFormPage } from "../../Router/coordinator";
 
 export default function LeaguerProfile() {
     //   const navigate = useNavigate();
@@ -49,7 +50,14 @@ export default function LeaguerProfile() {
 
                     <Button >HISTORICO</Button>
 
-                    <Button>  Criar nova avaliação</Button>
+                    <Button
+                   onClick={() => {
+                    goToFormPage();
+                  }}
+                    
+                    
+                    
+                    >  Criar nova avaliação</Button>
                 </div>
 
             </HeaderProfile>
