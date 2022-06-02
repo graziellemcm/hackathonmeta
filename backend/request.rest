@@ -3,10 +3,11 @@ POST http://localhost:3003/responsible/signup
 Content-Type: application/json
 
 {
-"name": "Resp fran",
-"email": "teste@teste.com",
+"name": "Resp fran2",
+"email": "teste@testea.com",
 "password": "123456",
-"role": "ADMIN"
+"role": "ADMIN",
+"access_key":"grupo1-meta-hackathon"
 }
 
 ###
@@ -27,7 +28,7 @@ Content-Type: application/json
 Authorization: {{login.response.body.token}}
 
 {
-"team_name": "Turma eliel"
+"team_name": "Turma eliel2"
 }
 
 ###
@@ -40,8 +41,8 @@ Authorization: {{login.response.body.token}}
 "photo_leaguer":"teste",
 "position":"intro",
 "hiring_model":"ctps",
-"name":"eliel",
-"email":"eliel@eliel.com",
+"name":"elicdvfel",
+"email":"elvfziel@eliel.com",
 "phase":"intro",
 "technologies":"react",
 "languages":"",
@@ -74,7 +75,7 @@ Authorization: {{login.response.body.token}}
 
 ###
 //deletar leaguer
-DELETE http://localhost:3003/leaguer/delete/d5bec0e1-e958-492a-b002-27835156c67c
+DELETE http://localhost:3003/leaguer/delete/3b7eb92b-ea69-46c5-89c5-20721fd27488
 Content-Type: application/json
 Authorization: {{login.response.body.token}}
 
@@ -86,8 +87,8 @@ Content-Type: application/json
 Authorization: {{login.response.body.token}}
 
 {
-"id":"f7ea93ea-ebf8-424e-ad1c-04816542c34b", 
-"role":"ADMIN"
+"id":"a67874da-4554-498d-be4e-ae679fd2da1d", 
+"role":"GESTOR"
 }
 
 ###
@@ -114,9 +115,9 @@ Content-Type: application/json
 Authorization: {{login.response.body.token}}
 
 {
-"leaguer_email": "eliel@eliel.com",
-"email_creator_feedback": "teste@teste.com",
-"email_evaluator": "teste@teste2.com",
+"leaguer_email": "dff@elsgiel.com",
+"email_creator_feedback": "flavia@email.com",
+"email_evaluator": "tesccte@teste2.com",
 "performance": 5,
 "quality_on_delivery": 5.5,
 "proactivity": 4,
@@ -134,6 +135,6 @@ Authorization: {{login.response.body.token}}
 ###
 
 //pegar o compilado das avaliações de um leaguer
-GET http://localhost:3003/evaluation/leaguer/compiled/a691333f-c86f-405d-8c56-846d2f32f444
+GET http://localhost:3003/compiled/get/de95e913-0207-47ac-bd9f-e0cc627914c4
 Content-Type: application/json
 Authorization: {{login.response.body.token}}

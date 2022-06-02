@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import dotenv from "dotenv"
 import { AddressInfo } from "net";
 import express from "express";
 import cors from "cors";
