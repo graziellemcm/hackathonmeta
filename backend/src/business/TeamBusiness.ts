@@ -1,5 +1,6 @@
 import { TeamDatabase } from "../data/TeamDatabase";
-import { TeamInputDTO } from "../model/TeamModel";
+import { Team, TeamInputDTO } from "../model/TeamModel";
+import { USER_ROLES } from "../model/User_Roles";
 import { Authenticator } from "../services/Authenticator";
 import { Idgenerator } from "../services/IdGenerator";
 
@@ -43,6 +44,38 @@ export class TeamBusiness {
 
       //creating team
       await teamDatabase.createTeam(id, input.team_name);
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+  async getAllTeams(token: string): Promise<Team[] | undefined> {
+    try {
+      //token authentication
+      const authenticator = new Authenticator();
+      const tokenData = authenticator.getTokenData(token);
+
+      //verifying token
+      if (!tokenData) {
+        throw new Error(
+          "Esse endpoint requer um token no headers authorization."
+        );
+      }
+      //validating user role
+      if (
+        tokenData.role !== "ADMIN" &&
+        tokenData.role !== "MENTOR" &&
+        tokenData.role !== USER_ROLES.GESTOR
+      ) {
+        throw new Error(
+          "Somente mentores, gestores e administradores podem ver todas turmas."
+        );
+      }
+
+      //creating team
+
+      const teamDatabase = new TeamDatabase();
+      const teams = await teamDatabase.getAllTeams();
+      return teams;
     } catch (error: any) {
       throw new Error(error.message);
     }
