@@ -121,7 +121,44 @@ export class LeaguerBusiness {
       throw new Error(error.message);
     }
   }
+  async getLeaguerById(
+    token_headers: string,
+    idLeaguer: string
+  ): Promise<Leaguer | undefined> {
+    try {
+      //verifying token
+      if (!token_headers) {
+        throw new Error(
+          "Esse endpoint requer um token no headers authorization."
+        );
+      }
 
+      //token authentication
+      const authenticator = new Authenticator();
+      const tokenData = authenticator.getTokenData(token_headers);
+
+      //validating user role
+      if (
+        tokenData.role !== USER_ROLES.ADMIN &&
+        tokenData.role !== USER_ROLES.MENTOR &&
+        tokenData.role !== USER_ROLES.GESTOR
+      ) {
+        throw new Error(
+          "Somente gestores, mentores e administradores e gestores podem ver leaguer."
+        );
+      }
+      //fecthing leaguers
+      const leaguersDatabase = new LeaguerDatabase();
+      const leaguers = await leaguersDatabase.getLeaguerById(idLeaguer);
+      if (!leaguers) {
+        throw new Error("Id inválido.");
+      }
+  
+      return leaguers;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
   editLeaguer = async (
     input: EditLeaguerInputDTO,
     token: string,
