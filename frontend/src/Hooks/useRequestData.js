@@ -15,7 +15,8 @@ const useRequestData = (initialData, url) => {
       })
       .catch((error) => {
         console.log(error)
-        alert('Ocorreu um erro, tente novamente')
+        // alert('Ocorreu um erro, tente novamente')
+        
       })
   }, [url])
 

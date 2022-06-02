@@ -1,4 +1,4 @@
-
+import { base_Url } from "../../Constants/base_Url";
 import React from "react";
 import Header from "../../Components/Header/Header";
 import {  CardProfileLeaguer, CardWorkingSince, Center, CenterTitle, H5, HeaderProfile, Layout, LeaguerCardHeader, MentorProfile, ULLeaguer } from "./styled";
@@ -11,35 +11,37 @@ import Mentor from "../../Components/img/Mentor.png"
 import workingsince from "../../Components/img/workingsince.png"
 import { Button } from "@mui/material"; 
 import { goToFormPage } from "../../Router/coordinator";
+import axios from "axios";
 
 export default function LeaguerProfile() {
-    //   const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    //   //form
-    //   const { form, onChangeForm, clearForm } = useForm({
-    //     email: "",
-    //     password: "",
-    //   });
-    //   const onLogin = (e) => {
-    //     e.preventDefault();
-    //   };
-
-    //   //login endpoint
-    //   const loginUser = () => {
-    //     const body = form;
-    //     const url = base_Url + "/user/login";
-    //     axios
-    //       .post(url, body)
-    //       .then((res) => {
-    //         clearForm();
-    //         localStorage.setItem("token", res.data.token);
-    //         navigate("/agro/user/wallet");
-    //       })
-    //       .catch((err) => {
-    //         console.log(err);
-    //         alert("Email ou senha incorreta, por favor tente novamente.");
-    //       });
-    //   };
+    // const { form, onChangeForm, clearForm } = useForm({
+    //   name: "",
+    //   email: "",
+    //   password: "",
+    //   role: ""
+  
+    // });
+  
+    // const onLeaguerProfile = (e) => {
+    //   e.preventDefault();
+    //   clearForm();
+    // };
+  
+    // const leaguerProfile = () => {
+    //   const body = form;
+    //   axios
+    //     .post(base_Url + "/leaguerProfile", body)
+    //     .then((res) => {
+    //       localStorage.setItem("token", res.data.token);
+          
+    //       goToHomePage(navigate);
+    //     })
+    //     .catch((err) => {
+    //       alert(`${err.response.data}`);
+    //     });
+    // };
     return (
 
         <div>
@@ -47,16 +49,12 @@ export default function LeaguerProfile() {
             <HeaderProfile>
                 <Button >INICIO</Button>
                 <div>
-
                     <Button >HISTORICO</Button>
-
                     <Button
-                   onClick={() => {
+                   onClick={(leaguerProfile) => {
                     goToFormPage();
                   }}
-                    
-                    
-                    
+                 
                     >  Criar nova avaliação</Button>
                 </div>
 
