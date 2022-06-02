@@ -4,7 +4,6 @@ import { ResponsibleDatabase } from "../data/ResponsibleDatabase";
 import { LeaguerDatabase } from "../data/LeaguerDatabase";
 import { USER_ROLES } from "../model/User_Roles";
 import { CompiledEvaluationDatabase } from "../data/CompiledEvaluationDatabase";
-import { CompiledEvaluationController } from "../controller/CompiledEvaluationController";
 import {
   CompiledEvaluation,
   CompiledEvaluationInputDTO,
@@ -83,10 +82,11 @@ export class CompiledEvaluationBusiness {
       //validating user role
       if (
         tokenData.role !== USER_ROLES.ADMIN &&
-        tokenData.role !== USER_ROLES.MENTOR
+        tokenData.role !== USER_ROLES.MENTOR &&
+        tokenData.role !==USER_ROLES.GESTOR
       ) {
         throw new Error(
-          "Somente mentores e administradores podem ver as avaliações compiladas."
+          "Somente mentores, gestores e administradores podem ver as avaliações compiladas."
         );
       }
       //validating user creator email
@@ -149,14 +149,15 @@ export class CompiledEvaluationBusiness {
 
       const tokenData = authenticator.getTokenData(token_headers);
 
-      if (
-        tokenData.role !== "ADMIN" &&
-        tokenData.role !== "MENTOR"
-      ) {
-        throw new Error(
-          "Somente ADMINS e MENTORES podem ver o compilado de avaliações."
-        );
-      }
+       if (
+         tokenData.role !== USER_ROLES.ADMIN &&
+         tokenData.role !== USER_ROLES.MENTOR &&
+         tokenData.role !== USER_ROLES.GESTOR
+       ) {
+         throw new Error(
+           "Somente mentores, gestores e administradores podem ver as avaliações compiladas."
+         );
+       }
 
       const compiled = await compiledEvaluationDatabase.getEvaluationCompiledByIdLeaguer(
         idLeaguer

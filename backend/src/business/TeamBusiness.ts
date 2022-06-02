@@ -27,7 +27,7 @@ export class TeamBusiness {
         input.team_name
       );
       if (isRegisteredClass) {
-        throw new Error("Já existe uma classe com este nome.");
+        throw new Error("Já existe uma turma com este nome.");
       }
 
       //token authentication
@@ -35,9 +35,9 @@ export class TeamBusiness {
       const tokenData = authenticator.getTokenData(token);
 
       //validating user role
-      if (tokenData.role !== "ADMIN" && tokenData.role !== "GESTOR") {
+      if (tokenData.role !== "ADMIN" && tokenData.role !== "MENTOR") {
         throw new Error(
-          "Somente gestores e administradores podem criar novas turmas."
+          "Somente mentores e administradores podem criar novas turmas."
         );
       }
 
