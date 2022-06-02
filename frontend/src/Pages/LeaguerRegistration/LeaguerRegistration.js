@@ -20,7 +20,7 @@ export default function LeaguerRegistration() {
         name: "",
         email: "",
         phase: "",
-        tecnologies: "",
+        technologies: "",
         languages: "",
         id_mentor: "",
         id_manager: "",
@@ -114,8 +114,8 @@ export default function LeaguerRegistration() {
                                 required
                             />
                             <TextField
-                                name={"tecnologies"}
-                                value={form.tecnologies}
+                                name={"technologies"}
+                                value={form.technologies}
                                 onChange={onChangeForm}
                                 label={"Tecnologias"}
                                 variant={"outlined"}

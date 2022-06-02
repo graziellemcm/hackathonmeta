@@ -25,7 +25,7 @@ export class LeaguerBusiness {
       name,
       email,
       phase,
-      tecnologies,
+      technologies,
       languages,
       id_mentor,
       id_manager,
@@ -39,10 +39,10 @@ export class LeaguerBusiness {
       !name ||
       !email ||
       !phase ||
-      !tecnologies
+      !technologies
     ) {
       throw new Error(
-        "Os campos position, hiring_model, name, email, phase, tecnologies, languages são obrigatórios."
+        "Os campos position, hiring_model, name, email, phase, technologies, languages são obrigatórios."
       );
     }
 
@@ -77,7 +77,7 @@ export class LeaguerBusiness {
       name,
       email,
       phase,
-      tecnologies,
+      technologies,
       languages,
       id_mentor,
       id_manager,
@@ -133,7 +133,7 @@ export class LeaguerBusiness {
       name,
       email,
       phase,
-      tecnologies,
+      technologies,
       languages,
       id_mentor,
       id_manager,
@@ -164,7 +164,7 @@ export class LeaguerBusiness {
       name,
       email,
       phase,
-      tecnologies,
+      technologies,
       languages,
       id_mentor,
       id_manager,

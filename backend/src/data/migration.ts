@@ -22,7 +22,7 @@ export class CreateTables extends BaseDatabase {
     name VARCHAR(255) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     phase VARCHAR(255) NOT NULL default "Introdução",
-    tecnologies VARCHAR(255) NOT NULL,
+    technologies VARCHAR(255) NOT NULL,
     languages VARCHAR(255),
     id_mentor VARCHAR(255),
     id_manager VARCHAR(255),

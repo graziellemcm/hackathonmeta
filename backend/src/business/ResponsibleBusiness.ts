@@ -18,7 +18,7 @@ const idGenerator = new Idgenerator();
 export class ResponsibleBusiness {
   create = async (
     input: SignupResponsibleInputDTO,
-    // access_key: string | undefined
+    access_key: string | undefined
   ) => {
     if (!input.name) {
       throw new Error("Nome inválido");
@@ -39,14 +39,14 @@ export class ResponsibleBusiness {
     const id = idGenerator.generateId();
 
     const hashPassword = await hashManager.hash(input.password);
-    // const key = process.env.KEY;
+    const key = process.env.KEY;
     const role = stringToUserRole(input.role);
-    // if (role === USER_ROLES.ADMIN && !access_key) {
-    //   throw new Error("Digite a 'access_key' para cadastrar-se como ADMIN.");
-    // }
-    // if (role === USER_ROLES.ADMIN && access_key !== key) {
-    //   throw new Error("A 'access_key' está incorreta.");
-    // }
+    if (role === USER_ROLES.ADMIN && !access_key) {
+       throw new Error("Digite a 'access_key' para cadastrar-se como ADMIN.");
+     }
+    if (role === USER_ROLES.ADMIN && access_key !== key) {
+       throw new Error("A 'access_key' está incorreta.");
+    }
     await responsibleDatabase.create(
       id,
       input.name,
