@@ -41,8 +41,7 @@ export default function SignUpTeam() {
                 alert("Cadastro de turma realizado!");
             })
             .catch((erro) =>
-            console.log(erro.response)
-            //  alert(`${erro.response.data}`)
+             alert(`${erro.response.data}`)
             )
     }
   return (
