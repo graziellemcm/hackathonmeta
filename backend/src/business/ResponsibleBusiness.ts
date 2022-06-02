@@ -10,6 +10,9 @@ import { USER_ROLES } from "../model/User_Roles";
 import { Authenticator } from "../services/Authenticator";
 import { HashManager } from "../services/HashManager";
 import { Idgenerator } from "../services/IdGenerator";
+import dotenv from "dotenv"
+
+dotenv.config();
 
 const responsibleDatabase = new ResponsibleDatabase();
 const hashManager = new HashManager();
@@ -42,10 +45,10 @@ export class ResponsibleBusiness {
     const key = process.env.KEY;
     const role = stringToUserRole(input.role);
     if (role === USER_ROLES.ADMIN && !access_key) {
-       throw new Error("Digite a 'access_key' para cadastrar-se como ADMIN.");
-     }
+      throw new Error("Digite a 'access_key' para cadastrar-se como ADMIN.");
+    }
     if (role === USER_ROLES.ADMIN && access_key !== key) {
-       throw new Error("A 'access_key' está incorreta.");
+      throw new Error("A 'access_key' está incorreta.");
     }
     await responsibleDatabase.create(
       id,
@@ -103,7 +106,7 @@ export class ResponsibleBusiness {
       const tokenData = authenticator.getTokenData(tokenHeaders);
 
       if (tokenData.role !== "ADMIN") {
-        throw new Error("Somente ADMIN podem editar um leaguer.");
+        throw new Error("Somente ADMIN podem editar um role.");
       }
 
       const accessToken = authenticator.generateToken({
@@ -133,7 +136,7 @@ export class ResponsibleBusiness {
       const tokenData = authenticator.getTokenData(token_headers);
 
       if (tokenData.role !== USER_ROLES.ADMIN) {
-        throw new Error("Somente ADMIN pode ver avaliações.");
+        throw new Error("Somente ADMIN pode ver os usuários cadastrados.");
       }
 
       const responsiblesDatabase = new ResponsibleDatabase();

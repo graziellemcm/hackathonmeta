@@ -70,6 +70,7 @@ margin: 10% 10%;
 `;
 export const CardButton = styled.div`
 display: flex;
+margin-bottom: 16px;
 `;
 
 

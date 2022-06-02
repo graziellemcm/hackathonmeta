@@ -1,27 +1,31 @@
 // const nodemailer = require("nodemailer");
 import nodemailer from "nodemailer";
+import dotenv from "dotenv"
+
+dotenv.config();
 
 export async function transporter(emails: string[]) {
   const email = process.env.EMAIL;
   const senha = process.env.SENHA;
-  const transporter = nodemailer.createTransport({
-    //remetente
-    host: "smtp-mail.outlook.com", //SMTP usado no gmail
-    port: 587,
-    secure: false, // diz se estamos usando SSL
-    auth: {
-      //autenticação, fica no dotenv
-      user: email, //email remetente
-      pass: senha, //senha
-    },
-  });
+  try {
+    const transporter = nodemailer.createTransport({
+      //remetente
+      host: "smtp-mail.outlook.com", //SMTP usado no gmail
+      port: 587,
+      secure: false, // diz se estamos usando SSL
+      auth: {
+        //autenticação, fica no dotenv
+        user: email, //email remetente
+        pass: senha, //senha
+      },
+    });
 
-  transporter.sendMail({
-    from: `Hackathon Meta, grupo 1 <${email}>`,
-    to: emails,
-    subject: "Avaliação de leaguer", //titulo
-    text: "Este é um texto de exemplo",
-    html: ` 	<div style="color:navy;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">
+    await transporter.sendMail({
+      from: `Hackathon Meta, grupo 1 <${email}>`,
+      to: emails,
+      subject: "Avaliação de leaguer", //titulo
+      text: "Este é um texto de exemplo",
+      html: ` 	<div style="color:navy;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">
 		<h3 >Formulário de avaliação do leaguer</h3>
     <h4 >
       Chegou a hora de avaliar o leaguer
@@ -50,5 +54,8 @@ export async function transporter(emails: string[]) {
 
 
     `,
-  });
+    });
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
