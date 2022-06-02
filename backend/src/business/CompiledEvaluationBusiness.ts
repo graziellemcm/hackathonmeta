@@ -95,7 +95,7 @@ export class CompiledEvaluationBusiness {
         input.email_creator_compiled
       );
       if (!isRegisteredUser) {
-        throw new Error("Acesso negado, usuário não cadastrado.");
+        throw new Error("Usuário não cadastrado.");
       }
 
       //validating leaguer name

@@ -138,7 +138,7 @@ export class EvaluationBusiness {
         email_creator
       );
       if (!isRegisteredUser) {
-        throw new Error("Acesso negado, usuário não cadastrado.");
+        throw new Error("Usuário não cadastrado.");
       }
 
       //token authentication
@@ -186,7 +186,7 @@ export class EvaluationBusiness {
         leaguer_email
       );
       if (!isRegisteredLeaguer) {
-        throw new Error("Acesso negado, usuário não cadastrado.");
+        throw new Error("Usuário não cadastrado.");
       }
       //token authentication
 
