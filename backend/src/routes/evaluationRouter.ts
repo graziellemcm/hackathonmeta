@@ -6,13 +6,13 @@ const evaluationController = new EvaluationController();
 
 //get evaluations by creator
 evaluationRouter.get(
-  "/creator/:email_creator",
+  "/creator",
   evaluationController.getEvaluationsByCreatorEmail
 );
 
 //get evaluations by leaguer /
 evaluationRouter.get(
-  "/leaguer/:leaguer_email",
+  "/leaguer",
   evaluationController.getEvaluationsByLeaguerEmail
 );
 evaluationRouter.get(

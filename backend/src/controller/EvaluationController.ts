@@ -28,7 +28,7 @@ export class EvaluationController {
         comment: req.body.comment,
       };
 
-      //creating feedback request in databank
+      //creating evaluation request in databank
       await evaluationBusiness.createEvaluation(input, token_headers);
       res.status(201).send({
         message: "Avaliação respondida, obrigada!",
@@ -44,7 +44,7 @@ export class EvaluationController {
     try {
       //inputs req
       const token_headers = req.headers.authorization as string;
-      const email_creator = req.params.email_creator;
+      const email_creator = req.headers.email_creator as string;
 
       //getting evaluations from databank
       const evaluationBusiness = new EvaluationBusiness();
@@ -62,7 +62,7 @@ export class EvaluationController {
     try {
       //inputs req
       const token_headers = req.headers.authorization as string;
-      const leaguer_email = req.params.leaguer_email;
+      const leaguer_email = req.headers.leaguer_email as string;
 
       //getting evaluations from databank
       const evaluations = await evaluationBusiness.getEvaluationsByEmailLeaguer(
