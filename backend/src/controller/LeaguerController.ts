@@ -61,6 +61,24 @@ export class LeaguerContoller {
       //getting leaguers from databank
       const leaguersBusiness = new LeaguerBusiness();
       const leaguers = await leaguersBusiness.getAllLeaguers(token_headers);
+
+      res.status(200).send(leaguers);
+    } catch (error: any) {
+      res.status(400).send({ error: error.message });
+    }
+  }
+  async getLeaguerById(req: Request, res: Response): Promise<void> {
+    try {
+      //input req
+      const token_headers = req.headers.authorization as string;
+      const idLeaguer = req.params.id;
+
+      //getting leaguers from databank by id
+      const leaguersBusiness = new LeaguerBusiness();
+      const leaguers = await leaguersBusiness.getLeaguerById(
+        token_headers,
+        idLeaguer
+      );
       res.status(200).send(leaguers);
     } catch (error: any) {
       res.status(400).send({ error: error.message });
