@@ -50,8 +50,7 @@ export default function LeaguerRegistration() {
                 alert("Cadastro realizado!");
             })
             .catch((err) => {
-                console.log(err.response)
-                // alert(`${err.response.data}`);
+                alert(`${err.response.data}`)
             });
     };
     return (
