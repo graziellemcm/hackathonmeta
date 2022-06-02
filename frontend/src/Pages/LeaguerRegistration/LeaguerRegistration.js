@@ -6,7 +6,8 @@ import { base_Url } from "../../Constants/base_Url";
 import { Logometa, Background } from "../LeaguerRegistration/styled";
 import { Center, Layout } from "../SignUp/styled";
 import metalogin from "../../Components/img/metalogin.png"
-import { Button, TextField, Typography } from "@mui/material"
+import { Button, FormControl, InputLabel, Menu, MenuItem, Select, TextField, Typography } from "@mui/material"
+import useRequestData from "../../Hooks/useRequestData";
 
 
 
@@ -28,31 +29,40 @@ export default function LeaguerRegistration() {
         name_class: ""
     });
 
+
+
+    const dataTeam = useRequestData([], `${base_Url}/team/all`)
+  
+   
+    const selectTeam = dataTeam && dataTeam.map(team => {
+        return <MenuItem value={team.team_name}>{team.team_name}</MenuItem>
+    })
+
+  
+
+    const registration = () => {
+        const body = form;
+        axios
+            .post(base_Url + "/leaguer/create", body,
+                {
+                    headers: {
+                        authorization: isTokenSet
+                    }
+                })
+            .then((res) => {
+                alert("Cadastro realizado!");
+            })
+            .catch((err) => {
+                alert(`${err.response.data}`);
+            });
+    };
+
     const onRegistration = (e) => {
         e.preventDefault();
         clearForm()
     };
 
-    const registration = () => {
-        const body = form;
-        console.log(body)
-        axios
-            .post(base_Url + "/leaguer/create", body,
 
-            {
-                
-                headers: {
-                    authorization: isTokenSet
-                }
-            })
-            .then((res) => {
-                localStorage.setItem("token", res.data.token);
-                alert("Cadastro realizado!");
-            })
-            .catch((err) => {
-                alert(`${err.response.data}`)
-            });
-    };
     return (
         <>
             <Header />
@@ -87,31 +97,48 @@ export default function LeaguerRegistration() {
                                 type={"email"}
                             />
 
-                            <TextField
-                                name={"name_class"}
-                                value={form.name_class}
-                                onChange={onChangeForm}
-                                label={"Turma"}
-                                variant={"outlined"}
-                                sx={{ width: 350, marginBottom: 1 }}
-                                margin="dense"
-                                type={"text"}
-                                autoComplete={"on"}
-                                required
-                            />
+                            <FormControl>
+                                <InputLabel id="team">Turma</InputLabel>
+                                <Select
+                                    labelId="team-label"
+                                    id="team"
+                                    name={"name_class"}
+                                    value={form.name_class}
+                                    onChange={onChangeForm}
+                                    label={"Turma"}
+                                    variant={"outlined"}
+                                    sx={{ width: 350, marginBottom: 1 }}
+                                    margin="dense"
+                                    type={"text"}
+                                    autoComplete={"on"}
+                                    required
+                                >
+                                    {selectTeam}
+                                </Select>
+                            </FormControl>
 
-                            <TextField
-                                name={"phase"}
-                                value={form.phase}
-                                onChange={onChangeForm}
-                                label={"Fase"}
-                                variant={"outlined"}
-                                sx={{ width: 350, marginBottom: 1 }}
-                                margin="dense"
-                                type={"text"}
-                                autoComplete={"on"}
-                                required
-                            />
+                            <FormControl>
+                                <InputLabel id="phase">Fase</InputLabel>
+                                <Select
+                                    labelId="phase-label"
+                                    id="phase"
+                                    name={"phase"}
+                                    value={form.phase}
+                                    onChange={onChangeForm}
+                                    label={"Fase"}
+                                    variant={"outlined"}
+                                    sx={{ width: 350, marginBottom: 1 }}
+                                    margin="dense"
+                                    type={"text"}
+                                    autoComplete={"on"}
+                                    required
+                                >
+                                    <MenuItem value={"Introdução"}>Introdução</MenuItem>
+                                    <MenuItem value={"Labs"}>Labs</MenuItem>
+                                    <MenuItem value={"Beta"}>Beta</MenuItem>
+                                </Select>
+                            </FormControl>
+
                             <TextField
                                 name={"technologies"}
                                 value={form.technologies}
@@ -124,6 +151,7 @@ export default function LeaguerRegistration() {
                                 autoComplete={"on"}
                                 required
                             />
+
                             <TextField
                                 name={"languages"}
                                 value={form.languages}
@@ -136,6 +164,7 @@ export default function LeaguerRegistration() {
                                 autoComplete={"on"}
                                 required
                             />
+
                             <TextField
                                 name={"id_admin"}
                                 value={form.id_admin}
@@ -145,7 +174,7 @@ export default function LeaguerRegistration() {
                                 sx={{ width: 350, marginBottom: 1 }}
                                 margin="dense"
                                 type={"text"}
-                                
+
                             />
                             <TextField
                                 name={"id_mentor"}
