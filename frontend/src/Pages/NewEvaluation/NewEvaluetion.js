@@ -43,8 +43,7 @@ export default function NewEvaluation() {
                 alert("Nova avaliação criada!");
             })
             .catch((err) => {
-                 //  alert(`${erro.response.data}`)
-            console.log(err.response)
+            alert(` ${err.response.data.error}`)
             });
     };
 

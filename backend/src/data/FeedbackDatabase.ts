@@ -8,7 +8,7 @@ export class FeedbackDatabase extends BaseDatabase {
     id: string,
     email_leaguer: string,
     email_creator: string,
-    email_evaluators: string,
+    email_evaluators: string[],
     created_at: Date | string
   ): Promise<void> {
     try {

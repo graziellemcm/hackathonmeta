@@ -66,10 +66,11 @@ export class EvaluationBusiness {
       //validating user role
       if (
         tokenData.role !== USER_ROLES.ADMIN &&
-        tokenData.role !== USER_ROLES.MENTOR
+        tokenData.role !== USER_ROLES.MENTOR &&
+        tokenData.role !== USER_ROLES.GESTOR
       ) {
         throw new Error(
-          "Somente mentores e administradores podem criar novas avaliações."
+          "Somente mentores, gestores e administradores podem criar novas avaliações."
         );
       }
       //validating user creator email
@@ -81,7 +82,7 @@ export class EvaluationBusiness {
         throw new Error("Usuário não cadastrado.");
       }
 
-      //validating leaguer name
+      //validating leaguer email
       const leaguerDatabase = new LeaguerDatabase();
       const isRegisteredLeaguer = await leaguerDatabase.getLeaguerByEmail(
         input.leaguer_email
@@ -138,7 +139,7 @@ export class EvaluationBusiness {
         email_creator
       );
       if (!isRegisteredUser) {
-        throw new Error("Acesso negado, usuário não cadastrado.");
+        throw new Error("Usuário não cadastrado.");
       }
 
       //token authentication
@@ -146,9 +147,13 @@ export class EvaluationBusiness {
       const tokenData = authenticator.getTokenData(token_headers);
 
       //validating user role
-      if (tokenData.role !== "ADMIN" && tokenData.role !== "GESTOR") {
+      if (
+        tokenData.role !== USER_ROLES.ADMIN &&
+        tokenData.role !== USER_ROLES.MENTOR &&
+        tokenData.role !== USER_ROLES.GESTOR
+      ) {
         throw new Error(
-          "Somente gestores e administradores e gestores podem ver avaliações."
+          "Somente gestores, administradores e mentores podem ver avaliações."
         );
       }
       //fecthing feedback
@@ -186,14 +191,18 @@ export class EvaluationBusiness {
         leaguer_email
       );
       if (!isRegisteredLeaguer) {
-        throw new Error("Acesso negado, usuário não cadastrado.");
+        throw new Error("Usuário não cadastrado.");
       }
       //token authentication
 
       const tokenData = authenticator.getTokenData(token_headers);
 
       //validating user role
-      if (tokenData.role !== "ADMIN") {
+      if (
+        tokenData.role !== USER_ROLES.ADMIN &&
+        tokenData.role !== USER_ROLES.MENTOR &&
+        tokenData.role !== USER_ROLES.GESTOR
+      ) {
         throw new Error("Somente administradores podem ver avaliações.");
       }
       //fetching feedback

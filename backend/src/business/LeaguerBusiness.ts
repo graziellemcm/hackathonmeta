@@ -25,7 +25,7 @@ export class LeaguerBusiness {
       name,
       email,
       phase,
-      tecnologies,
+      technologies,
       languages,
       id_mentor,
       id_manager,
@@ -39,10 +39,10 @@ export class LeaguerBusiness {
       !name ||
       !email ||
       !phase ||
-      !tecnologies
+      !technologies
     ) {
       throw new Error(
-        "Os campos position, hiring_model, name, email, phase, tecnologies, languages são obrigatórios."
+        "Os campos position, hiring_model, name, email, phase, technologies, languages são obrigatórios."
       );
     }
 
@@ -77,7 +77,7 @@ export class LeaguerBusiness {
       name,
       email,
       phase,
-      tecnologies,
+      technologies,
       languages,
       id_mentor,
       id_manager,
@@ -103,10 +103,11 @@ export class LeaguerBusiness {
       //validating user role
       if (
         tokenData.role !== USER_ROLES.ADMIN &&
-        tokenData.role !== USER_ROLES.MENTOR
+        tokenData.role !== USER_ROLES.MENTOR &&
+        tokenData.role !== USER_ROLES.GESTOR
       ) {
         throw new Error(
-          "Somente gestores e administradores e gestores podem ver avaliações."
+          "Somente gestores, mentores e administradores e gestores podem ver avaliações."
         );
       }
       //fecthing leaguers
@@ -133,7 +134,7 @@ export class LeaguerBusiness {
       name,
       email,
       phase,
-      tecnologies,
+      technologies,
       languages,
       id_mentor,
       id_manager,
@@ -164,7 +165,7 @@ export class LeaguerBusiness {
       name,
       email,
       phase,
-      tecnologies,
+      technologies,
       languages,
       id_mentor,
       id_manager,
@@ -188,7 +189,7 @@ export class LeaguerBusiness {
 
     const tokenData = authenticator.getTokenData(token);
 
-    if (tokenData.role !== "ADMIN") {
+    if (tokenData.role !== "ADMIN" && tokenData.role !== "MENTOR") {
       throw new Error("Somente ADMIN podem deletar um leaguer.");
     }
 

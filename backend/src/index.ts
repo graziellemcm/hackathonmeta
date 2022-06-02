@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import dotenv from "dotenv"
 import { AddressInfo } from "net";
 import express from "express";
 import cors from "cors";
@@ -8,6 +8,7 @@ import { leaguerRouter } from "./routes/leaguerRouter";
 import { feedbackRouter } from "./routes/feedbackRouter";
 import { evaluationRouter } from "./routes/evaluationRouter";
 import { compiledRouter } from "./routes/compiledEvaluationRouter";
+import { initRouter } from "./routes/initRouter";
 
 dotenv.config();
 const app = express();
@@ -21,7 +22,7 @@ app.use("/leaguer", leaguerRouter);
 app.use("/feedback", feedbackRouter);
 app.use("/evaluation", evaluationRouter);
 app.use("/compiled", compiledRouter);
-
+app.use("", initRouter);
 const server = app.listen(process.env.PORT || 3003, () => {
   if (server) {
     const address = server.address() as AddressInfo;

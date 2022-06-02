@@ -20,6 +20,9 @@ export default function Login() {
   const onLogin = (e) => {
     e.preventDefault();
   };
+  const gotosignup = (e) => {
+    goToSignUp(navigate);
+  };
 
   const loginUser = () => {
     const body = form;
@@ -58,7 +61,7 @@ export default function Login() {
               onChange={onChangeForm}
               label={"Email"}
               variant={"outlined"}
-              sx={{ width: 350, marginBottom: 3 }}
+              sx={{ width: 350, marginBottom: 3, marginTop: 3}}
               margin="dense"
               required
               type={"email"}
@@ -77,7 +80,9 @@ export default function Login() {
             />
             <CardButton>
               <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={loginUser}> Entrar</Button>
-              <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={goToSignUp}>Cadastrar</Button>
+            </CardButton>
+            <CardButton>
+            <Button fullWidth color="primary" variant="text" onClick={gotosignup}>Não tem cadastro? <b> Cadastre-se aqui!</b></Button>
             </CardButton>
           </Form>
 
