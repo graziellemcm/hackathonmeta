@@ -1,5 +1,8 @@
 // const nodemailer = require("nodemailer");
 import nodemailer from "nodemailer";
+import dotenv from "dotenv"
+
+dotenv.config();
 
 export async function transporter(emails: string[]) {
   const email = process.env.EMAIL;

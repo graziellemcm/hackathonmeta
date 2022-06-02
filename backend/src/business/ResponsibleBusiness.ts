@@ -10,6 +10,9 @@ import { USER_ROLES } from "../model/User_Roles";
 import { Authenticator } from "../services/Authenticator";
 import { HashManager } from "../services/HashManager";
 import { Idgenerator } from "../services/IdGenerator";
+import dotenv from "dotenv"
+
+dotenv.config();
 
 const responsibleDatabase = new ResponsibleDatabase();
 const hashManager = new HashManager();
