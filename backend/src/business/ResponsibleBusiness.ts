@@ -135,10 +135,6 @@ export class ResponsibleBusiness {
       const authenticator = new Authenticator();
       const tokenData = authenticator.getTokenData(token_headers);
 
-      if (tokenData.role !== USER_ROLES.ADMIN) {
-        throw new Error("Somente ADMIN pode ver os usuários cadastrados.");
-      }
-
       const responsiblesDatabase = new ResponsibleDatabase();
       const responsibles = await responsiblesDatabase.getAllResponsibles();
       if (!responsibles) {
