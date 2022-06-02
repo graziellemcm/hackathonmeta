@@ -17,8 +17,8 @@ export default function SignUp() {
     name: "",
     email: "",
     password: "",
-    role: ""
-
+    role: "",
+    access_key: ""
   });
 
   const onSignUp = (e) => {
@@ -92,10 +92,10 @@ export default function SignUp() {
               </FormControl>
 
               <TextField
-                name={"team"}
-                value={form.team}
+                name={"access_key"}
+                value={form.access_key}
                 onChange={onChangeForm}
-                label={"Turma"}
+                label={"Chave de Acesso"}
                 variant={"outlined"}
                 sx={{ width: 350, marginBottom: 3 }}
                 margin="dense"
