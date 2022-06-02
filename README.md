@@ -73,9 +73,3 @@ Visual Studio Code
 | :---: | :---: | :---: |
 | [<img src="https://avatars.githubusercontent.com/u/76756821?v=4" width=115><br><sub>Udimile Oliveira -- Frontend</sub>](https://github.com/udimile) |  [<img src="https://avatars.githubusercontent.com/u/94612208?v=4" width=115><br><sub>Vitor Simões --</sub>](https://github.com/Vsux17) | 
 
-
-
-
-  [<img src="https://avatars.githubusercontent.com/u/94612208?v=4" width=115/><br><sub>Vitor Simões -- </sub>](https://github.com/Vsux17)
-
-</div> -->
