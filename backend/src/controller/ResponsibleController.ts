@@ -12,7 +12,7 @@ const responsibleBusiness = new ResponsibleBusiness();
 export class ResponsibleController {
   async create(req: Request, res: Response) {
     try {
-      //const access_key: string | undefined = req?.body.access_key;
+      const access_key: string | undefined = req?.body.access_key;
       const input: SignupResponsibleInputDTO = {
         name: req.body.name,
         email: req.body.email,
@@ -20,8 +20,7 @@ export class ResponsibleController {
         role: req.body.role,
       };
 
-      //const token = await responsibleBusiness.create(input, access_key);
-      const token = await responsibleBusiness.create(input);
+      const token = await responsibleBusiness.create(input, access_key);
 
       res.status(201).send({
         message: "Usuário cadastrado com sucesso!",

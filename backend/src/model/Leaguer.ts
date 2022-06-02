@@ -9,7 +9,7 @@ export class Leaguer {
     private name: string,
     private email: string,
     private phase: string,
-    private tecnologies: string,
+    private technologies: string,
     private languages: string,
     private id_mentor: string,
     private id_manager: string,
@@ -26,7 +26,7 @@ export class Leaguer {
       leaguer.name,
       leaguer.email,
       leaguer.phase,
-      leaguer.tecnologies,
+      leaguer.technologies,
       leaguer.languages,
       leaguer.id_mentor,
       leaguer.id_manager,
@@ -43,7 +43,7 @@ export interface LeaguerInputDTO {
   name: string;
   email: string;
   phase: string;
-  tecnologies: string[];
+  technologies: string[];
   languages: string[];
   id_mentor: string;
   id_manager: string;
