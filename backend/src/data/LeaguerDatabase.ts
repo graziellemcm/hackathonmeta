@@ -15,7 +15,7 @@ export class LeaguerDatabase extends BaseDatabase {
 
   create = async (leaguer: leaguerType) => {
     await this.connection.raw(`
-    INSERT INTO leaguer_meta (id, photo_leaguer, position, hiring_model, name, email, phase, tecnologies, languages, id_mentor, id_manager, id_admin, name_class)
+    INSERT INTO leaguer_meta (id, photo_leaguer, position, hiring_model, name, email, phase, technologies, languages, id_mentor, id_manager, id_admin, name_class)
         VALUES (
             "${leaguer.id}",
             "${leaguer.photo_leaguer}",
@@ -24,7 +24,7 @@ export class LeaguerDatabase extends BaseDatabase {
             "${leaguer.name}",
             "${leaguer.email}",
             "${leaguer.phase}",
-            "${leaguer.tecnologies}",
+            "${leaguer.technologies}",
             "${leaguer.languages}",
             "${leaguer.id_mentor}",
             "${leaguer.id_manager}",
@@ -65,7 +65,7 @@ export class LeaguerDatabase extends BaseDatabase {
       name = "${leaguer.name}",
       email = "${leaguer.email}", 
       phase = "${leaguer.phase}", 
-      tecnologies = "${leaguer.tecnologies}", 
+      technologies = "${leaguer.technologies}", 
       languages = "${leaguer.languages}", 
       id_mentor = "${leaguer.id_mentor}", 
       id_manager = "${leaguer.id_manager}", 

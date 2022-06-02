@@ -53,7 +53,7 @@ export default function Form() {
                 alert("Feedback realizado!");
             })
             .catch((erro) =>
-            alert(`${erro.response.data}`)
+            alert(` ${erro.response.data.error}`)
             )
     }
     return (

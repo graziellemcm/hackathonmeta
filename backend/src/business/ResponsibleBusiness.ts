@@ -10,13 +10,19 @@ import { USER_ROLES } from "../model/User_Roles";
 import { Authenticator } from "../services/Authenticator";
 import { HashManager } from "../services/HashManager";
 import { Idgenerator } from "../services/IdGenerator";
+import dotenv from "dotenv"
+
+dotenv.config();
 
 const responsibleDatabase = new ResponsibleDatabase();
 const hashManager = new HashManager();
 const authenticator = new Authenticator();
 const idGenerator = new Idgenerator();
 export class ResponsibleBusiness {
-  create = async (input: SignupResponsibleInputDTO) => {
+  create = async (
+    input: SignupResponsibleInputDTO,
+    access_key: string | undefined
+  ) => {
     if (!input.name) {
       throw new Error("Nome inválido");
     }
@@ -36,9 +42,14 @@ export class ResponsibleBusiness {
     const id = idGenerator.generateId();
 
     const hashPassword = await hashManager.hash(input.password);
-
+    const key = process.env.KEY;
     const role = stringToUserRole(input.role);
-
+    if (role === USER_ROLES.ADMIN && !access_key) {
+      throw new Error("Digite a 'access_key' para cadastrar-se como ADMIN.");
+    }
+    if (role === USER_ROLES.ADMIN && access_key !== key) {
+      throw new Error("A 'access_key' está incorreta.");
+    }
     await responsibleDatabase.create(
       id,
       input.name,
@@ -54,8 +65,8 @@ export class ResponsibleBusiness {
 
     return accessToken;
   };
-  
-  login = async (input:LoginInputDTO) => {
+
+  login = async (input: LoginInputDTO) => {
     const userFromDB = await responsibleDatabase.findUserByEmail(input.email);
 
     const hashCompare = await hashManager.compare(
@@ -75,26 +86,27 @@ export class ResponsibleBusiness {
     return accessToken;
   };
 
-  editRole = async (input:RoleInputDTO, tokenHeaders:string):Promise<string> => {
+  editRole = async (
+    input: RoleInputDTO,
+    tokenHeaders: string
+  ): Promise<string> => {
     try {
-      const {id, role} = input
+      const { id, role } = input;
 
       if (!id || !role) {
-        throw new Error(
-          "Esse endpoint requer um id e role como req.params ."
-        );
+        throw new Error("Esse endpoint requer um id e role como req.params .");
       }
-  
+
       if (!tokenHeaders) {
         throw new Error(
           "Esse endpoint requer um token no headers authorization."
         );
       }
-  
+
       const tokenData = authenticator.getTokenData(tokenHeaders);
-  
+
       if (tokenData.role !== "ADMIN") {
-        throw new Error("Somente ADMIN podem editar um leaguer.");
+        throw new Error("Somente ADMIN podem editar um role.");
       }
 
       const accessToken = authenticator.generateToken({
@@ -104,15 +116,15 @@ export class ResponsibleBusiness {
 
       await responsibleDatabase.editRole(id, role);
 
-      return accessToken
-
+      return accessToken;
     } catch (error: any) {
       throw new Error(error.message);
     }
-  }
+  };
 
-  async getAllResponsibles(token_headers: string): Promise<Responsibles[] | undefined>{
-
+  async getAllResponsibles(
+    token_headers: string
+  ): Promise<Responsibles[] | undefined> {
     try {
       if (!token_headers) {
         throw new Error(
@@ -123,25 +135,14 @@ export class ResponsibleBusiness {
       const authenticator = new Authenticator();
       const tokenData = authenticator.getTokenData(token_headers);
 
-      if (
-        tokenData.role !== USER_ROLES.ADMIN 
-      ) {
-        throw new Error(
-          "Somente ADMIN pode ver avaliações."
-        );
-      }
-
       const responsiblesDatabase = new ResponsibleDatabase();
       const responsibles = await responsiblesDatabase.getAllResponsibles();
       if (!responsibles) {
         throw new Error("Ocorreu um erro, por favor tente novamente.");
       }
       return responsibles;
-
     } catch (error: any) {
       throw new Error(error.message);
     }
-
-
   }
 }

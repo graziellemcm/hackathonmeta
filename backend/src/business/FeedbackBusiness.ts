@@ -56,8 +56,14 @@ export class FeedbackBusiness {
       const tokenData = authenticator.getTokenData(token_headers);
 
       //validating user role
-      if (tokenData.role !== USER_ROLES.ADMIN) {
-        throw new Error("Somente administradores podem criar novas turmas.");
+      if (
+        tokenData.role !== USER_ROLES.ADMIN &&
+        tokenData.role !== USER_ROLES.MENTOR &&
+        tokenData.role !== USER_ROLES.GESTOR
+      ) {
+        throw new Error(
+          "Somente administradores,gestores e mentores podem criar novas avaliações."
+        );
       }
 
       //creating feedback

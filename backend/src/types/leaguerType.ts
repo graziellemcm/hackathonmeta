@@ -6,7 +6,7 @@ export type leaguerType = {
   name: string;
   email: string;
   phase: string;
-  tecnologies: string;
+  technologies: string;
   languages?: string;
   id_mentor?: string;
   id_manager?: string;
@@ -20,7 +20,7 @@ export type editLeaguerType = {
   name?: string;
   email?: string;
   phase?: string;
-  tecnologies?: string;
+  technologies?: string;
   languages?: string;
   id_mentor?: string;
   id_manager?: string;

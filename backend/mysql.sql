@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS leaguer_meta(
     name VARCHAR(255) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     phase VARCHAR(255) NOT NULL default "Introdução",
-    tecnologies VARCHAR(255) NOT NULL,
+    technologies VARCHAR(255) NOT NULL,
     languages VARCHAR(255),
     id_mentor VARCHAR(255),
     id_manager VARCHAR(255),
@@ -88,18 +88,16 @@ CREATE TABLE IF NOT EXISTS received_feedbacks_meta(
     comment TEXT
 );
 
-#SELECT * FROM received_feedbacks_meta
+SELECT * FROM received_feedbacks_meta
+
+#drop table received_feedbacks_meta;
 
 #drop table feedbacks_compiled_meta;
 
-#drop table class_meta;
-
 #drop table leaguer_meta;
 
-#drop table create_feedback_meta;
-
-#drop table response_feedback_meta;
+#drop table class_meta;
 
 #drop table responsible_meta;
 
-#drop table received_feedbacks_meta;
+#drop table create_feedback_meta;

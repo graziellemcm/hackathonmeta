@@ -5,7 +5,7 @@ export class Feedback {
     private id: string,
     private email_leaguer: string,
     private email_creator: string,
-    private email_evaluators: string,
+    private email_evaluators: string[],
     private created_at: Date | string
   ) {}
   getId() {
@@ -41,5 +41,6 @@ export class Feedback {
 export interface FeedbackInputDTO {
   email_leaguer: string;
   email_creator: string;
-  email_evaluators: string;
+  email_evaluators: string[];
 }
+
