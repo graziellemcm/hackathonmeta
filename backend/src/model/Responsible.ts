@@ -9,7 +9,7 @@ export interface SignupResponsibleInputDTO {
 export interface LoginInputDTO {
   email: string;
   password: string;
-} 
+}
 
 export interface RoleInputDTO {
   id: string;
@@ -22,7 +22,7 @@ export class Responsibles {
     private name: string,
     private email: string,
     private password: string,
-    private role: USER_ROLES
+    private role: USER_ROLES,
   ) {}
 
   getId() {
