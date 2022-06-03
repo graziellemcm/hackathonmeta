@@ -40,7 +40,6 @@ export default function LeaguerProfile() {
             </HeaderProfile>
 
             <LeaguerCardHeader>
-                <Phase>{leaguerData.phase}</Phase>
                 <PhotoProfile src={leaguerData.photo_leaguer}/>
                 <NameProfile>{leaguerData.name}</NameProfile>
                 <TeamProfile> <TeamImg src={Vector}></TeamImg>{leaguerData.class_name}</TeamProfile>
