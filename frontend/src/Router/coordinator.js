@@ -23,7 +23,10 @@ export const goToNewEvaluation = (navigate) => {
     navigate("/new-evaluation");
 };
 export const goToAdmPage = (navigate) => {
-    navigate("/Adm");
+    navigate("/pagina do adm certo");
+};
+export const goToCompilation = (navigate, id) => {
+    navigate(`/compilation/${id}`);
 };
 export const goEditLeaguer = (navigate,id) => {
     navigate(`/editleaguer/${id}`);
