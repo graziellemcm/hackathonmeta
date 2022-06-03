@@ -28,3 +28,6 @@ export const goToAdmPage = (navigate) => {
 export const goToCompilation = (navigate, id) => {
     navigate(`/compilation/${id}`);
 };
+export const goEditLeaguer = (navigate,id) => {
+    navigate(`/editleaguer/${id}`);
+};

@@ -95,14 +95,12 @@ export class LeaguerContoller {
         position,
         hiring_model,
         name,
-        email,
         phase,
         technologies,
         languages,
         id_mentor,
         id_manager,
         id_admin,
-        name_class,
       } = req.body;
 
       const input: EditLeaguerInputDTO = {
@@ -110,14 +108,12 @@ export class LeaguerContoller {
         position,
         hiring_model,
         name,
-        email,
         phase,
         technologies,
         languages,
         id_mentor,
         id_manager,
         id_admin,
-        name_class,
       };
 
       await leaguerBusiness.editLeaguer(input, token, idLeaguer);
