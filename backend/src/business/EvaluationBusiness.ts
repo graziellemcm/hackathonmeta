@@ -11,8 +11,7 @@ const evaluationDatabase = new EvaluationDatabase();
 
 export class EvaluationBusiness {
   async createEvaluation(
-    input: EvaluationInputDTO,
-    token_headers: string
+    input: EvaluationInputDTO
   ): Promise<void> {
     try {
       //generating id
@@ -53,26 +52,7 @@ export class EvaluationBusiness {
       ) {
         throw new Error("Email inválido.");
       }
-      if (!token_headers) {
-        throw new Error(
-          "Esse endpoint requer um token no headers authorization."
-        );
-      }
-
-      //token authentication
-      const authenticator = new Authenticator();
-      const tokenData = authenticator.getTokenData(token_headers);
-
-      //validating user role
-      if (
-        tokenData.role !== USER_ROLES.ADMIN &&
-        tokenData.role !== USER_ROLES.MENTOR &&
-        tokenData.role !== USER_ROLES.GESTOR
-      ) {
-        throw new Error(
-          "Somente mentores, gestores e administradores podem criar novas avaliações."
-        );
-      }
+     
       //validating user creator email
       const responsibleDatabase = new ResponsibleDatabase();
       const isRegisteredUser = await responsibleDatabase.findUserByEmail(

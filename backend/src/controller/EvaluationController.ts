@@ -8,7 +8,6 @@ export class EvaluationController {
   async createEvaluation(req: Request, res: Response) {
     try {
       //inputs req
-      const token_headers = req.headers.authorization as string;
       const input: EvaluationInputDTO = {
         leaguer_email: req.body.leaguer_email,
         email_creator_feedback: req.body.email_creator_feedback,
@@ -29,7 +28,7 @@ export class EvaluationController {
       };
 
       //creating evaluation request in databank
-      await evaluationBusiness.createEvaluation(input, token_headers);
+      await evaluationBusiness.createEvaluation(input);
       res.status(201).send({
         message: "Avaliação respondida, obrigada!",
         email_creator_feedback: input.email_creator_feedback,
