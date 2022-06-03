@@ -6,14 +6,13 @@ Aplicação fornece uma API para criação, edição e compilação de feedbacks
 - `Funcionalidade 1`: Poder fazer login, cadastro e cadastro de leaguers.
 - `Funcionalidade 2`: Poder criar uma turma.
 - `Funcionalidade 3`: Poder editar o cadastro de um leaguer.
-- `Funcionalidade 4`: Poder deletar um leaguer.
-- `Funcionalidade 5`: Poder visualizar todas as turmas.
-- `Funcionalidade 6`: Poder visualizar todos as usuários (responsáveis).
-- `Funcionalidade 7`: Poder visualizar a média das avaliações dos leaguers.
-- `Funcionalidade 8`: Poder criar uma avaliação de leaguer e envia-la via email para os respectivos avaliadores.
-- `Funcionalidade 9`: Poder acessar as avaliações já preenchidas que foram enviadas via email.
-- `Funcionalidade 10`: Poder criar uma avaliação final compilada.
-- `Funcionalidade 11`: Poder visualizar a avaliação final compilada.
+- `Funcionalidade 4`: Poder visualizar todas as turmas.
+- `Funcionalidade 5`: Poder visualizar todos as usuários (responsáveis).
+- `Funcionalidade 6`: Poder visualizar a média das avaliações dos leaguers.
+- `Funcionalidade 7`: Poder criar uma avaliação de leaguer e envia-la via email para os respectivos avaliadores.
+- `Funcionalidade 8`: Poder acessar as avaliações já preenchidas que foram enviadas via email.
+- `Funcionalidade 9`: Poder criar uma avaliação final compilada.
+- `Funcionalidade 10`: Poder visualizar a avaliação final compilada.
 
 ### Veja o projeto: 
 Site: LINK DO PROJETO <br>
