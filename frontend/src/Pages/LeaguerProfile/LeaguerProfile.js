@@ -2,26 +2,27 @@ import { base_Url } from "../../Constants/base_Url";
 import React from "react";
 import Header from "../../Components/Header/Header";
 import { CardProfileLeaguer, CardWorkingSince, Center, CenterTitle, H5, HeaderProfile, Layout, LeaguerCardHeader, MentorProfile, ULLeaguer } from "./styled";
-import { NameProfile, Phase, PhaseProfile, PhotoProfile, Star, TeamImg, TeamProfile, WorkingSinceProfile } from "./styled";
+import { NameProfile, Phase, PhaseProfile, PhotoProfile, Star, TeamImg, TeamProfile } from "./styled";
 import './styled.css';
 import star from "../../Components/img/star.png"
 import Vector from "../../Components/img/Vector.png"
 import Labs from "../../Components/img/Labs.png"
 import Mentor from "../../Components/img/Mentor.png"
-import workingsince from "../../Components/img/workingsince.png"
 import { Button } from "@mui/material";
 import { goToNewEvaluation } from "../../Router/coordinator";
 import { useNavigate, useParams } from "react-router-dom";
 import useRequestData from "../../Hooks/useRequestData";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
+import { useGetEvaluation } from "../../Hooks/useGetEvaluation";
 
 export default function LeaguerProfile() {
     useProtectedPage()
     const navigate = useNavigate()
     const params = useParams();
     const [leaguerData, loading] = useRequestData([], `${base_Url}/leaguer/get/${params.id}`)
+    const [evaluationData, loadingEvaluation]= useGetEvaluation(leaguerData.email)
+    console.log(evaluationData)
     
-
     return (
 
         <div>
@@ -41,13 +42,13 @@ export default function LeaguerProfile() {
             <LeaguerCardHeader>
                 <Phase>{leaguerData.phase}</Phase>
                 <PhotoProfile src="https://cdn.discordapp.com/attachments/889885483402928130/980812774672334868/foto.png" />
-                <NameProfile>{ leaguerData.name}</NameProfile>
+                <NameProfile>{leaguerData.name}</NameProfile>
                 <TeamProfile> <TeamImg src={Vector}></TeamImg>{leaguerData.class_name}</TeamProfile>
-                <PhaseProfile> <Star src={Labs} ></Star> Labs</PhaseProfile>
+                <PhaseProfile> <Star src={Labs} ></Star> {leaguerData.phase}</PhaseProfile>
                 <MentorProfile><Star src={Mentor}></Star> Gabrieli Silva</MentorProfile>
-                <WorkingSinceProfile><Star src={workingsince}></Star> Leaguer desde 2010</WorkingSinceProfile>
+               
 
-
+               
 
 
             </LeaguerCardHeader>

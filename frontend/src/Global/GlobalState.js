@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { GlobalContext } from "./GlobalContext";
 import useRequestData from "../Hooks/useRequestData";
 import { base_Url } from "../Constants/base_Url";

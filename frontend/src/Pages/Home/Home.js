@@ -7,6 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../Global/GlobalContext";
 import { goToLeaguerProfile, goToLeaguerRegistration } from "../../Router/coordinator";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
+import { TeamImg } from "../LeaguerProfile/styled";
+import Vector from "../../Components/img/Vector.png"
+import Labs from "../../Components/img/Labs.png"
+
 
 export const Home = () => {
   useProtectedPage()
@@ -40,12 +44,12 @@ export const Home = () => {
         sx={{ width: 350, marginBottom: 3, alignSelf: "center" }}
       >
         <div>
-          <Avatar alt={rendLeaguer.nam} src={rendLeaguer.photo_leaguer} sx={{ width: 56, height: 56 }} />
+          <Avatar alt={rendLeaguer.name} src={"https://cdn.discordapp.com/attachments/889885483402928130/980812774672334868/foto.png"} sx={{ width: 56, height: 56 }} />
         </div>
         <div>
-          <Typography variant="h1" fontSize={18}><></>{rendLeaguer.name}</Typography>
-          <Typography variant="h1" fontSize={16}><></>{rendLeaguer.phase}</Typography>
-          <Typography variant="h1" fontSize={16}><></>{rendLeaguer.name_class}</Typography>
+          <Typography variant="h1" fontSize={18}>{rendLeaguer.name}</Typography>
+          <Typography variant="h1" fontSize={16}><TeamImg src={Vector}/>{rendLeaguer.phase}</Typography>
+          <Typography variant="h1" fontSize={16}><TeamImg src={Labs}/>{rendLeaguer.name_class}</Typography>
         </div>
       </LeaguerCard>
     )
