@@ -9,7 +9,7 @@ import Vector from "../../Components/img/Vector.png"
 import Labs from "../../Components/img/Labs.png"
 import Mentor from "../../Components/img/Mentor.png"
 import { Button } from "@mui/material";
-import { goToNewEvaluation } from "../../Router/coordinator";
+import { goEditLeaguer, goToNewEvaluation } from "../../Router/coordinator";
 import { useNavigate, useParams } from "react-router-dom";
 import useRequestData from "../../Hooks/useRequestData";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
@@ -31,6 +31,11 @@ export default function LeaguerProfile() {
                 <Button >INICIO</Button>
                 <div>
                     <Button >HISTORICO</Button>
+                    <Button
+                    onClick={()=>{
+                        goEditLeaguer(navigate,params.id)
+                    }}
+                    >EDITAR LEAGUER</Button>
                     <Button
                         onClick={() => goToNewEvaluation(navigate)}
 

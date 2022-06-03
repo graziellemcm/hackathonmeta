@@ -9,6 +9,8 @@ import LeaguerProfile from "../Pages/LeaguerProfile/LeaguerProfile";
 import SignUpTeam from "../Pages/SignUpTeam/SignUpTeam";
 import LeaguerRegistration from "../Pages/LeaguerRegistration/LeaguerRegistration";
 import NewEvaluation from "../Pages/NewEvaluation/NewEvaluetion";
+import EditLeaguer from "../Pages/EditLeaguer/EditLeaguer";
+
 
 
 export default function Router() {
@@ -21,8 +23,10 @@ export default function Router() {
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/signup-team" element={<SignUpTeam />} />
           <Route exact path="/leaguer/get/:id"element={<LeaguerProfile />} />
+          <Route exact path="/adm/get/:id"element={<LeaguerProfile />} />
           <Route exact path="/leaguerRegistration" element={<LeaguerRegistration />} />
           <Route exact path="/form" element={<Form />} />
+          <Route exact path="/editleaguer/:id" element={<EditLeaguer />} />
           <Route exact path="/new-evaluation" element={<NewEvaluation />} />
           <Route exact path="*" element={<ErrorPage />} />
         </Routes>
