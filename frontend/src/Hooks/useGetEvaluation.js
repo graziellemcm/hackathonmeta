@@ -10,7 +10,7 @@ export const useGetEvaluation = (email) => {
    const getData = (email) => {
 
     const headers = { headers: { authorization: localStorage.getItem("token"), leaguer_email: email} }
-
+    
     setLoading(true)
 
     axios.get(`${base_Url}/evaluation/leaguer`, headers)
@@ -20,7 +20,6 @@ export const useGetEvaluation = (email) => {
         setData(res.data)
       })
       .catch((err) => {
-        console.log(err.response.data)
         setLoading(false)
       })
    }

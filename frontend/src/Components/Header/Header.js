@@ -42,14 +42,7 @@ export default function Headers() {
             }}
           >Cadastro da Turma
           </Button>
-          <Button
-            color="white"
-
-            onClick={() => {
-              goToCompilation(navigate)
-            }}
-          >Compilação
-          </Button>
+          
 
         </DivHeader>
 
