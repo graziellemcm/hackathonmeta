@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
@@ -9,14 +9,19 @@ import axios from "axios";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
 import { useParams } from "react-router-dom";
 import useRequestData from "../../Hooks/useRequestData";
+import { useGetEvaluation } from "../../Hooks/useGetEvaluation";
+import { GlobalContext } from "../../Global/GlobalContext";
+
 
 export default function PageCompilation
     () {
     useProtectedPage()
     const params = useParams();
     const isTokenSet = localStorage.getItem("token");
-    const [leaguerData, loading] = useRequestData([], `${base_Url}/evaluation/leaguer/averaged/${params.id}`)
-
+    const leaguerData = useRequestData([], `${base_Url}/evaluation/leaguer/averaged/${params.id}`)
+    const evaluationData = useGetEvaluation(leaguerData.email)[0]
+    const data = useContext(GlobalContext)
+    
     const { form, onChangeForm } = useForm({
         email_creator_compiled: "",
         email_leaguer: "",
@@ -70,21 +75,22 @@ export default function PageCompilation
                         <Typography variant="h5"><b>Feedbacks recebidos</b></Typography>
 
                     </Title>
-                    <div> {console.log(leaguerData)}
-                        <p>Desempenho:{leaguerData.performance}</p>
-                        <p>Qualidade de entrega:{leaguerData.quality_on_delivery}</p>
-                        <p>Proatividade:{leaguerData.proactivity}</p>
-                        <p>Compromisso:{leaguerData.commitment}</p>
-                        <p>Trabalho em equipe:{leaguerData.team_work}</p>
-                        <p>Crescimento:{leaguerData.skillset_growth}</p>
-                        <p>Liderança:{leaguerData.leadership}</p>
-                        <p>Pontualidade:{leaguerData.punctuality}</p>
-                        <p>Trabalhar sob pressão:{leaguerData.work_under_pressure}</p>
-                        <p>Participação:{leaguerData.participation}</p>
-                        <p>Tarefas administrativas:{leaguerData.administrative_tasks}</p>
-                        <p>Destaques:{leaguerData.highlights_leaguer}</p>
-                        <p>Comentários:{leaguerData.comment}</p>
-                    </div>
+                    {console.log(evaluationData)}
+                    {/* <div> 
+                        <p>Desempenho:{leaguerData.compiled.comment}</p>
+                        <p>Qualidade de entrega: {leaguerData.compiled.quality_on_delivery}</p>
+                        <p>Proatividade:{leaguerData.compiled.proactivity}</p>
+                        <p>Compromisso:{leaguerData.compiled.commitment}</p>
+                        <p>Trabalho em equipe:{leaguerData.compiled.team_work}</p>
+                        <p>Crescimento:{leaguerData.compiled.skillset_growth}</p>
+                        <p>Liderança:{leaguerData.compiled.leadership}</p>
+                        <p>Pontualidade:{leaguerData.compiled.punctuality}</p>
+                        <p>Trabalhar sob pressão:{leaguerData.compiled.work_under_pressure}</p>
+                        <p>Participação:{leaguerData.compiled.participation}</p>
+                        <p>Tarefas administrativas:{leaguerData.compiled.administrative_tasks}</p>
+                        <p>Destaques:{leaguerData.compiled.highlights_leaguer}</p>
+                        <p>Comentários:{leaguerData.compiled.comment}</p>
+                    </div> */}
                     <form onSubmit={onForm}>
 
 

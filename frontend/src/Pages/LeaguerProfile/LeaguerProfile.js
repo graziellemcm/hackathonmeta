@@ -9,7 +9,7 @@ import Vector from "../../Components/img/Vector.png"
 import Labs from "../../Components/img/Labs.png"
 import Mentor from "../../Components/img/Mentor.png"
 import { Button } from "@mui/material";
-import { goEditLeaguer, goToNewEvaluation } from "../../Router/coordinator";
+import { goEditLeaguer, goToNewEvaluation, goToCompilation } from "../../Router/coordinator";
 import { useNavigate, useParams } from "react-router-dom";
 import useRequestData from "../../Hooks/useRequestData";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
@@ -20,9 +20,9 @@ export default function LeaguerProfile() {
     const navigate = useNavigate()
     const params = useParams();
     const [leaguerData, loading] = useRequestData([], `${base_Url}/leaguer/get/${params.id}`)
-    const [evaluationData, loadingEvaluation]= useGetEvaluation(leaguerData.email)
-    console.log(evaluationData)
-    
+    const [evaluationData, loadingEvaluation] = useGetEvaluation(leaguerData.email)
+   
+
     return (
 
         <div>
@@ -32,27 +32,34 @@ export default function LeaguerProfile() {
                 <div>
                     <Button >HISTORICO</Button>
                     <Button
-                    onClick={()=>{
-                        goEditLeaguer(navigate,params.id)
-                    }}
+                        onClick={() => {
+                            goEditLeaguer(navigate, params.id)
+                        }}
                     >EDITAR LEAGUER</Button>
                     <Button
                         onClick={() => goToNewEvaluation(navigate)}
 
                     >  Criar nova avaliação</Button>
+                    <Button
+
+                        onClick={() => {
+                            goToCompilation(navigate, params.id, leaguerData.email)
+                        }}
+                    >Compilação
+                    </Button>
                 </div>
 
             </HeaderProfile>
 
             <LeaguerCardHeader>
-                <PhotoProfile src={leaguerData.photo_leaguer}/>
+                <PhotoProfile src={leaguerData.photo_leaguer} />
                 <NameProfile>{leaguerData.name}</NameProfile>
                 <TeamProfile> <TeamImg src={Vector}></TeamImg>{leaguerData.class_name}</TeamProfile>
                 <PhaseProfile> <Star src={Labs} ></Star> {leaguerData.phase}</PhaseProfile>
                 <MentorProfile><Star src={Mentor}></Star> Gabrieli Silva</MentorProfile>
-               
 
-               
+
+
 
 
             </LeaguerCardHeader>
