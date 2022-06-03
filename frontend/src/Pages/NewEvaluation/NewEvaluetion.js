@@ -1,18 +1,13 @@
 import { Button, TextField, Typography } from "@mui/material";
-import axios from "axios";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header/Header";
-import { base_Url } from "../../Constants/base_Url";
 import useForm from "../../Hooks/useForm";
 import { Background, Center, Layout, Logometa } from "./styled";
 import metalogin from "../../Components/img/metalogin.png"
+import { newEvaluation } from "../../Services/User";
 
 
 export default function NewEvaluation() {
-    const navigate = useNavigate();
-    const isTokenSet = localStorage.getItem("token");
-
     const { form, onChangeForm, clearForm } = useForm({
 
         email_leaguer: "",
@@ -23,28 +18,8 @@ export default function NewEvaluation() {
 
     const onNewEvaluation = (e) => {
         e.preventDefault();
-
-    };
-
-    const newEvaluation = () => {
-        const body = form;
-        
-        axios
-            .post(base_Url + "/feedback/create", body,
-            {
-                    
-                headers: {
-                    authorization: isTokenSet
-                }
-            })
-            .then((res) => {
-                clearForm();
-                localStorage.setItem("token", res.data.token);
-                alert("Nova avaliação criada!");
-            })
-            .catch((err) => {
-            alert(` ${err.response.data.error}`)
-            });
+        clearForm()
+        newEvaluation(form)
     };
 
 
@@ -87,7 +62,7 @@ export default function NewEvaluation() {
                                 margin="dense"
                                 type={"text"}
                             />
-                            <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={newEvaluation} > Enviar</Button>
+                            <Button fullWidth color="primary" variant="contained" type={"submit"} > Enviar</Button>
                         </form>
                     </Center>
                 </Layout>

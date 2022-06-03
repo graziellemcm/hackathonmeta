@@ -6,7 +6,9 @@ import { base_Url } from "../../Constants/base_Url";
 import { Logometa, Background } from "../LeaguerRegistration/styled";
 import { Center, Layout } from "../SignUp/styled";
 import metalogin from "../../Components/img/metalogin.png"
-import { Button, TextField, Typography } from "@mui/material"
+import { Button, FormControl, InputLabel, Menu, MenuItem, Select, TextField, Typography } from "@mui/material"
+import useRequestData from "../../Hooks/useRequestData";
+import { registration } from "../../Services/User";
 
 
 
@@ -28,31 +30,42 @@ export default function LeaguerRegistration() {
         name_class: ""
     });
 
+
+
+    const dataTeam = useRequestData([], `${base_Url}/team/all`)
+    const dataResponsible = useRequestData([], `${base_Url}/responsible/getAll`)
+    console.log(dataResponsible)
+
+    const selectTeam = dataTeam && dataTeam.map(team => {
+        return <MenuItem value={team.team_name}>{team.team_name}</MenuItem>
+    })
+
+    const selectAdmin = dataResponsible && dataResponsible.filter(responsible => {
+        return responsible.role === "ADMIN"
+    }).map(admin => {
+        return <MenuItem value={admin.id}>{admin.name}</MenuItem>
+    })
+
+    const selectMentor = dataResponsible && dataResponsible.filter(responsible => {
+        return responsible.role === "MENTOR"
+    }).map(mentor => {
+        return <MenuItem value={mentor.id}>{mentor.name}</MenuItem>
+    })
+
+    const selectGestor = dataResponsible && dataResponsible.filter(responsible => {
+        return responsible.role === "GESTOR"
+    }).map(gestor => {
+        return <MenuItem value={gestor.id}>{gestor.name}</MenuItem>
+    })
+
+
     const onRegistration = (e) => {
         e.preventDefault();
         clearForm()
+        registration(form)
     };
 
-    const registration = () => {
-        const body = form;
-        console.log(body)
-        axios
-            .post(base_Url + "/leaguer/create", body,
 
-            {
-                
-                headers: {
-                    authorization: isTokenSet
-                }
-            })
-            .then((res) => {
-                localStorage.setItem("token", res.data.token);
-                alert("Cadastro realizado!");
-            })
-            .catch((err) => {
-                alert(`${err.response.data}`)
-            });
-    };
     return (
         <>
             <Header />
@@ -68,7 +81,7 @@ export default function LeaguerRegistration() {
                                 onChange={onChangeForm}
                                 label={"Nome completo"}
                                 variant={"outlined"}
-                                sx={{ width: 350, marginBottom: 1 }}
+                                sx={{ width: 350, marginBottom: -0.1 }}
                                 margin="dense"
                                 required
                                 autoFocus
@@ -87,11 +100,53 @@ export default function LeaguerRegistration() {
                                 type={"email"}
                             />
 
+                            <FormControl>
+                                <InputLabel id="team">Turma</InputLabel>
+                                <Select
+                                    labelId="team-label"
+                                    id="team"
+                                    name={"name_class"}
+                                    value={form.name_class}
+                                    onChange={onChangeForm}
+                                    label={"Turma"}
+                                    variant={"outlined"}
+                                    sx={{ width: 350, marginBottom: 1 }}
+                                    margin="dense"
+                                    type={"text"}
+                                    autoComplete={"on"}
+                                    required
+                                >
+                                    {selectTeam}
+                                </Select>
+                            </FormControl>
+
+                            <FormControl>
+                                <InputLabel id="phase">Fase</InputLabel>
+                                <Select
+                                    labelId="phase-label"
+                                    id="phase"
+                                    name={"phase"}
+                                    value={form.phase}
+                                    onChange={onChangeForm}
+                                    label={"Fase"}
+                                    variant={"outlined"}
+                                    sx={{ width: 350, marginBottom: 1 }}
+                                    margin="dense"
+                                    type={"text"}
+                                    autoComplete={"on"}
+                                    required
+                                >
+                                    <MenuItem value={"Introdução"}>Introdução</MenuItem>
+                                    <MenuItem value={"Labs"}>Labs</MenuItem>
+                                    <MenuItem value={"Beta"}>Beta</MenuItem>
+                                </Select>
+                            </FormControl>
+
                             <TextField
-                                name={"name_class"}
-                                value={form.name_class}
+                                name={"position"}
+                                value={form.position}
                                 onChange={onChangeForm}
-                                label={"Turma"}
+                                label={"Função ex: Estagiário"}
                                 variant={"outlined"}
                                 sx={{ width: 350, marginBottom: 1 }}
                                 margin="dense"
@@ -100,18 +155,6 @@ export default function LeaguerRegistration() {
                                 required
                             />
 
-                            <TextField
-                                name={"phase"}
-                                value={form.phase}
-                                onChange={onChangeForm}
-                                label={"Fase"}
-                                variant={"outlined"}
-                                sx={{ width: 350, marginBottom: 1 }}
-                                margin="dense"
-                                type={"text"}
-                                autoComplete={"on"}
-                                required
-                            />
                             <TextField
                                 name={"technologies"}
                                 value={form.technologies}
@@ -124,6 +167,7 @@ export default function LeaguerRegistration() {
                                 autoComplete={"on"}
                                 required
                             />
+
                             <TextField
                                 name={"languages"}
                                 value={form.languages}
@@ -136,71 +180,89 @@ export default function LeaguerRegistration() {
                                 autoComplete={"on"}
                                 required
                             />
-                            <TextField
-                                name={"id_admin"}
-                                value={form.id_admin}
-                                onChange={onChangeForm}
-                                label={"Administrador"}
-                                variant={"outlined"}
-                                sx={{ width: 350, marginBottom: 1 }}
-                                margin="dense"
-                                type={"text"}
-                                
-                            />
-                            <TextField
-                                name={"id_mentor"}
-                                value={form.id_mentor}
-                                onChange={onChangeForm}
-                                label={"Mentor"}
-                                variant={"outlined"}
-                                sx={{ width: 350, marginBottom: 1 }}
-                                margin="dense"
-                                type={"text"}
-                                autoComplete={"on"}
-                            />
-                            <TextField
-                                name={"id_manager"}
-                                value={form.id_manager}
-                                onChange={onChangeForm}
-                                label={"Gestor"}
-                                variant={"outlined"}
-                                sx={{ width: 350, marginBottom: 1 }}
-                                margin="dense"
-                                type={"text"}
-                                autoComplete={"on"}
-                            />
 
-                            <TextField
-                                name={"hiring_model"}
-                                value={form.hiring_model}
-                                onChange={onChangeForm}
-                                label={"Tipo de contrato"}
-                                variant={"outlined"}
-                                sx={{ width: 350, marginBottom: 1 }}
-                                margin="dense"
-                                type={"text"}
-                                autoComplete={"on"}
-                            />
+                            <FormControl>
+                                <InputLabel id="admin">Administrador</InputLabel>
+                                <Select
+                                    labelId="admin-label"
+                                    id="admin"
+                                    name={"id_admin"}
+                                    value={form.id_admin}
+                                    onChange={onChangeForm}
+                                    label={"Administrador"}
+                                    variant={"outlined"}
+                                    sx={{ width: 350, marginBottom: 1 }}
+                                    margin="dense"
+                                    type={"text"}
+                                >
+                                    {selectAdmin}
+                                </Select>
+                            </FormControl>
 
-                            <TextField
-                                name={"position"}
-                                value={form.position}
-                                onChange={onChangeForm}
-                                label={"Função ex: Estagiário"}
-                                variant={"outlined"}
-                                sx={{ width: 350, marginBottom: 3 }}
-                                margin="dense"
-                                type={"text"}
-                                autoComplete={"on"}
-                                required
-                            />
+                            <FormControl>
+                                <InputLabel id="mentor">Mentor</InputLabel>
+                                <Select
+                                    labelId="mentor-label"
+                                    id="mentor"
+                                    name={"id_mentor"}
+                                    value={form.id_mentor}
+                                    onChange={onChangeForm}
+                                    label={"Mentor"}
+                                    variant={"outlined"}
+                                    sx={{ width: 350, marginBottom: 1 }}
+                                    margin="dense"
+                                    type={"text"}
+                                    autoComplete={"on"}
+                                >
+                                    {selectMentor}
+                                </Select>
+                            </FormControl>
+
+                            <FormControl>
+                                <InputLabel id="manager">Gestor</InputLabel>
+                                <Select
+                                    labelId="manager-label"
+                                    id="manager"
+                                    name={"id_manager"}
+                                    value={form.id_manager}
+                                    onChange={onChangeForm}
+                                    label={"Gestor"}
+                                    variant={"outlined"}
+                                    sx={{ width: 350, marginBottom: 1 }}
+                                    margin="dense"
+                                    type={"text"}
+                                    autoComplete={"on"}
+                                >
+                                    {selectGestor}
+                                </Select>
+                            </FormControl>
+                            <FormControl>
+                                <InputLabel id="hiring_model">Tipo de Contrato</InputLabel>
+                                <Select
+                                    id="hiring_model"
+                                    labelId="hiring_model-label"
+                                    name={"hiring_model"}
+                                    value={form.hiring_model}
+                                    onChange={onChangeForm}
+                                    label={"Tipo de contrato"}
+                                    variant={"outlined"}
+                                    sx={{ width: 350, marginBottom: 3 }}
+                                    margin="dense"
+                                    type={"text"}
+                                    autoComplete={"on"}
+                                >
+                                    <MenuItem value={"clt"}>CLT</MenuItem>
+                                    <MenuItem value={"pj"}>PJ</MenuItem>
+                                </Select>
+                            </FormControl>
+                           
 
 
-                            <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={registration} > Cadastrar Leaguer</Button>
+                            <Button fullWidth color="primary" variant="contained" type={"submit"} > Cadastrar Leaguer</Button>
                         </form>
                     </Center>
                 </Layout>
-            </Background>
+            </Background >
         </>
 
     );
