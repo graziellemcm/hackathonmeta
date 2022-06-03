@@ -6,9 +6,10 @@ import { Alert, Button, Rating, TextField, Typography } from "@mui/material"
 import { Center, Layout, DivButton, Title, DivStar } from "./styled";
 import { base_Url } from "../../Constants/base_Url";
 import axios from "axios";
+import { useProtectedPage } from "../../Hooks/useProtectedPage";
 
 export default function Form() {
-    const navigate = useNavigate();
+    useProtectedPage()
     const isTokenSet = localStorage.getItem("token");
 
     const { form, onChangeForm } = useForm({

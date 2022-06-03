@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
@@ -6,14 +5,15 @@ import { base_Url } from "../../Constants/base_Url";
 import { Logometa, Background } from "../LeaguerRegistration/styled";
 import { Center, Layout } from "../SignUp/styled";
 import metalogin from "../../Components/img/metalogin.png"
-import { Button, FormControl, InputLabel, Menu, MenuItem, Select, TextField, Typography } from "@mui/material"
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material"
 import useRequestData from "../../Hooks/useRequestData";
 import { registration } from "../../Services/User";
+import { useProtectedPage } from "../../Hooks/useProtectedPage";
 
 
 
 export default function LeaguerRegistration() {
-    const isTokenSet = localStorage.getItem("token");
+    useProtectedPage()
 
     const { form, onChangeForm, clearForm } = useForm({
         photo_leaguer: "",
@@ -32,9 +32,9 @@ export default function LeaguerRegistration() {
 
 
 
-    const dataTeam = useRequestData([], `${base_Url}/team/all`)
-    const dataResponsible = useRequestData([], `${base_Url}/responsible/getAll`)
-    console.log(dataResponsible)
+    const dataTeam = useRequestData([], `${base_Url}/team/all`)[0]
+    const dataResponsible = useRequestData([], `${base_Url}/responsible/getAll`)[0]
+   
 
     const selectTeam = dataTeam && dataTeam.map(team => {
         return <MenuItem value={team.team_name}>{team.team_name}</MenuItem>
@@ -61,8 +61,7 @@ export default function LeaguerRegistration() {
 
     const onRegistration = (e) => {
         e.preventDefault();
-        clearForm()
-        registration(form)
+        registration(form, clearForm)
     };
 
 

@@ -7,13 +7,14 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function Headers() {
+  
   const navigate = useNavigate()
   return (
     <div>
 
       <Header>
 
-        <LogoImage src={meta} />
+        <LogoImage src={meta} onClick={() => goToHomePage(navigate)} />
 
         <DivHeader>
 

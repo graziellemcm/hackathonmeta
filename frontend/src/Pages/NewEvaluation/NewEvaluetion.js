@@ -5,9 +5,11 @@ import useForm from "../../Hooks/useForm";
 import { Background, Center, Layout, Logometa } from "./styled";
 import metalogin from "../../Components/img/metalogin.png"
 import { newEvaluation } from "../../Services/User";
+import { useProtectedPage } from "../../Hooks/useProtectedPage";
 
 
 export default function NewEvaluation() {
+    useProtectedPage()
     const { form, onChangeForm, clearForm } = useForm({
 
         email_leaguer: "",

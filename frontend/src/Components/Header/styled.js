@@ -16,4 +16,5 @@ export const DivHeader = styled.div`
 justify-content: end;
 align-items: center;
 align-self: center;
+margin-right: 16px;
 `

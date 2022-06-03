@@ -65,7 +65,7 @@ export const newEvaluation = (body) => {
       });
 };
 
-export const registration = (body) => {
+export const registration = (body, clearForm) => {
   
   axios
       .post(base_Url + "/leaguer/create", body,
@@ -76,6 +76,7 @@ export const registration = (body) => {
           })
       .then((res) => {
           alert("Cadastro realizado!");
+          clearForm()
       })
       .catch((err) => {
           alert(`${err.response.data}`);
