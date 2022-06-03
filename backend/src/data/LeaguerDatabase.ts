@@ -44,12 +44,11 @@ export class LeaguerDatabase extends BaseDatabase {
     }
   }
   public async getLeaguerById(id: string): Promise<Leaguer> {
-  
     try {
       const result = await this.connection(LeaguerDatabase.TABLE_NAME)
         .select("*")
         .where({ id: id });
-   
+
       return result[0] && Leaguer.toLeaguerModel(result[0]);
     } catch (err: any) {
       throw new Error(err.sqlMessage || err.message);
@@ -74,14 +73,12 @@ export class LeaguerDatabase extends BaseDatabase {
       position = "${leaguer.position}",
       hiring_model = "${leaguer.hiring_model}",
       name = "${leaguer.name}",
-      email = "${leaguer.email}", 
       phase = "${leaguer.phase}", 
       technologies = "${leaguer.technologies}", 
       languages = "${leaguer.languages}", 
       id_mentor = "${leaguer.id_mentor}", 
       id_manager = "${leaguer.id_manager}", 
-      id_admin = "${leaguer.id_admin}", 
-      name_class = "${leaguer.name_class}"
+      id_admin = "${leaguer.id_admin}"
       WHERE id = "${idLeaguer}"
     `);
   };
