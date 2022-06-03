@@ -7,8 +7,9 @@ const useRequestData = (initialData, url) => {
   const [loading, setLoading] = useState(false)
 
   const getData = (url) => {
-    const token = localStorage.getItem('token')
-    const headers = { headers: { auth: token } }
+    
+    const headers = { headers: { authorization: localStorage.getItem("token") } }
+
     setLoading(true)
 
     axios.get(url, headers)

@@ -1,17 +1,11 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GlobalContext } from "./GlobalContext";
-import { base_Url } from "../../Constants/base_Url";
+import useRequestData from "../Hooks/useRequestData";
+import { base_Url } from "../Constants/base_Url";
 
 
 const GlobalState = (props) => {
   const [leaguersData, loading, getLeaguersData] = useRequestData([], `${base_Url}/leaguer/getAll`);
-  
-  const [evaluation, setEvaluation] = useState([])
-  const [leaguers, setLeaguers] = useState([])
-  const navigate = useNavigate();
-  const [search, setSearch] = useState('')
-  const [infoLeaguers, setInfoLeaguers] = useState([])
  
   
 const data = {
@@ -24,9 +18,9 @@ const data = {
   
   return (
     <GlobalContext.Provider
-      value={{
-        
-      }}>
+      value={
+        data
+      }>
       {props.children}
     </GlobalContext.Provider>
   );

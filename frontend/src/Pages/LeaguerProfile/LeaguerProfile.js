@@ -1,4 +1,3 @@
-import { base_Url } from "../../Constants/base_Url";
 import React from "react";
 import Header from "../../Components/Header/Header";
 import { CardProfileLeaguer, CardWorkingSince, Center, CenterTitle, H5, HeaderProfile, Layout, LeaguerCardHeader, MentorProfile, ULLeaguer } from "./styled";
@@ -11,17 +10,23 @@ import Mentor from "../../Components/img/Mentor.png"
 import workingsince from "../../Components/img/workingsince.png"
 import { Button } from "@mui/material";
 import { goToNewEvaluation } from "../../Router/coordinator";
-
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import useRequestData from "../../Hooks/useRequestData";
+import { base_Url } from "../../Constants/base_Url";
 
-export default function LeaguerProfile(props) {
+export default function LeaguerProfile() {
     const navigate = useNavigate()
   
-   
-    const isTokenSet = localStorage.getItem("token")
     const params = useParams();
+    
+
+    const [leaguerData, loading] = useRequestData([], `${base_Url}/leaguer/get/${params.id}`)
+
+    console.log(params)
+
+    // const leaguer = leaguerData && leaguerData.map
 
     return (
 
