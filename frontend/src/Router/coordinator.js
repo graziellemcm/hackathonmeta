@@ -10,8 +10,8 @@ export const goToSignUp = (navigate) => {
 export const goToSignUpTeam = (navigate) => {
     navigate("/signup-team");
 };
-export const goToLeaguerProfile = (navigate) => {
-    navigate("/leaguerProfile");
+export const goToLeaguerProfile = (navigate, id) => {
+    navigate(`/leaguer/get/${id}`);
 };
 export const goToLeaguerRegistration = (navigate) => {
     navigate("/leaguerRegistration");

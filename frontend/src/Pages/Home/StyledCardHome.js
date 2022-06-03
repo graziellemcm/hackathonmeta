@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+export const HomeStyled = styled.div`
+display: grid;
+grid-template-columns: 1fr 3fr 1fr;
+
+`;
+
 export const CardHome = styled.div`
 display: grid;
 grid-template-columns: 1fr 3fr 1fr;
@@ -20,9 +26,8 @@ flex-direction: column;
 background-color: white;
 justify-content: start;
 
-
-
 `;
+
 export const H1Filter = styled.h1`
 display: flex;
 background-color: white;

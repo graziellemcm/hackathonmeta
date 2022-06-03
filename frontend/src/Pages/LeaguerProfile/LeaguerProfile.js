@@ -1,7 +1,7 @@
-
+import { base_Url } from "../../Constants/base_Url";
 import React from "react";
 import Header from "../../Components/Header/Header";
-import {  CardProfileLeaguer, CardWorkingSince, Center, CenterTitle, H5, HeaderProfile, Layout, LeaguerCardHeader, MentorProfile, ULLeaguer } from "./styled";
+import { CardProfileLeaguer, CardWorkingSince, Center, CenterTitle, H5, HeaderProfile, Layout, LeaguerCardHeader, MentorProfile, ULLeaguer } from "./styled";
 import { NameProfile, Phase, PhaseProfile, PhotoProfile, Star, TeamImg, TeamProfile, WorkingSinceProfile } from "./styled";
 import './styled.css';
 import star from "../../Components/img/star.png"
@@ -9,37 +9,20 @@ import Vector from "../../Components/img/Vector.png"
 import Labs from "../../Components/img/Labs.png"
 import Mentor from "../../Components/img/Mentor.png"
 import workingsince from "../../Components/img/workingsince.png"
-import { Button } from "@mui/material"; 
-import { goToFormPage } from "../../Router/coordinator";
+import { Button } from "@mui/material";
+import { goToNewEvaluation } from "../../Router/coordinator";
 
-export default function LeaguerProfile() {
-    //   const navigate = useNavigate();
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-    //   //form
-    //   const { form, onChangeForm, clearForm } = useForm({
-    //     email: "",
-    //     password: "",
-    //   });
-    //   const onLogin = (e) => {
-    //     e.preventDefault();
-    //   };
+export default function LeaguerProfile(props) {
+    const navigate = useNavigate()
+  
+   
+    const isTokenSet = localStorage.getItem("token")
+    const params = useParams();
 
-    //   //login endpoint
-    //   const loginUser = () => {
-    //     const body = form;
-    //     const url = base_Url + "/user/login";
-    //     axios
-    //       .post(url, body)
-    //       .then((res) => {
-    //         clearForm();
-    //         localStorage.setItem("token", res.data.token);
-    //         navigate("/agro/user/wallet");
-    //       })
-    //       .catch((err) => {
-    //         console.log(err);
-    //         alert("Email ou senha incorreta, por favor tente novamente.");
-    //       });
-    //   };
     return (
 
         <div>
@@ -47,16 +30,10 @@ export default function LeaguerProfile() {
             <HeaderProfile>
                 <Button >INICIO</Button>
                 <div>
-
                     <Button >HISTORICO</Button>
-
                     <Button
-                   onClick={() => {
-                    goToFormPage();
-                  }}
-                    
-                    
-                    
+                        onClick={() => goToNewEvaluation(navigate)}
+
                     >  Criar nova avaliação</Button>
                 </div>
 
@@ -65,7 +42,7 @@ export default function LeaguerProfile() {
             <LeaguerCardHeader>
                 <Phase>LABS</Phase>
                 <PhotoProfile src="https://cdn.discordapp.com/attachments/889885483402928130/980812774672334868/foto.png" />
-                <NameProfile>Luana Ferreira</NameProfile>
+                <NameProfile>{ }</NameProfile>
                 <TeamProfile> <TeamImg src={Vector}></TeamImg> Turma Piloto</TeamProfile>
                 <PhaseProfile> <Star src={Labs} ></Star> Labs</PhaseProfile>
                 <MentorProfile><Star src={Mentor}></Star> Gabrieli Silva</MentorProfile>
@@ -140,13 +117,13 @@ export default function LeaguerProfile() {
                     </ULLeaguer>
 
                     <ULLeaguer>
-                        Comprometimento 
-                       <div>
+                        Comprometimento
+                        <div>
                             <Star src={star}></Star>
                             <Star src={star}></Star>
                             <Star src={star}></Star>
                             <Star src={star}></Star>
-                       </div>
+                        </div>
                     </ULLeaguer>
 
                     <ULLeaguer>
@@ -155,8 +132,8 @@ export default function LeaguerProfile() {
                     </ULLeaguer>
 
                     <ULLeaguer>
-                        Desenvolvimento de habilidades 
-                       <Star src={star}></Star>
+                        Desenvolvimento de habilidades
+                        <Star src={star}></Star>
                     </ULLeaguer>
 
                     <ULLeaguer>

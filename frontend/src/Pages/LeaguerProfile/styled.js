@@ -13,6 +13,7 @@ export const Star = styled.img`
 height: 16px;
 
 `
+
 export const TeamImg = styled.img`
 height: 12px;
 
