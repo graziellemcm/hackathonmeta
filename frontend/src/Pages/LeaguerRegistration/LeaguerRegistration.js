@@ -8,6 +8,7 @@ import { Center, Layout } from "../SignUp/styled";
 import metalogin from "../../Components/img/metalogin.png"
 import { Button, FormControl, InputLabel, Menu, MenuItem, Select, TextField, Typography } from "@mui/material"
 import useRequestData from "../../Hooks/useRequestData";
+import { registration } from "../../Services/User";
 
 
 
@@ -58,26 +59,10 @@ export default function LeaguerRegistration() {
     })
 
 
-    const registration = () => {
-        const body = form;
-        axios
-            .post(base_Url + "/leaguer/create", body,
-                {
-                    headers: {
-                        authorization: isTokenSet
-                    }
-                })
-            .then((res) => {
-                alert("Cadastro realizado!");
-            })
-            .catch((err) => {
-                alert(`${err.response.data}`);
-            });
-    };
-
     const onRegistration = (e) => {
         e.preventDefault();
         clearForm()
+        registration(form)
     };
 
 
@@ -273,7 +258,7 @@ export default function LeaguerRegistration() {
                            
 
 
-                            <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={registration} > Cadastrar Leaguer</Button>
+                            <Button fullWidth color="primary" variant="contained" type={"submit"} > Cadastrar Leaguer</Button>
                         </form>
                     </Center>
                 </Layout>
