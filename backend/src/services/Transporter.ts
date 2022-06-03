@@ -43,7 +43,7 @@ export async function transporter(emails: string[]) {
 		</p>
 	</br>
     <a
-      href="https://nifty-comfort.surge.sh/"
+      href="https://misty-furniture.surge.sh/"
       target="_blank"
       style="text-decoration: none; color:mediumblue;"
     >
