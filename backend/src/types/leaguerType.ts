@@ -18,12 +18,10 @@ export type editLeaguerType = {
   position?: string;
   hiring_model?: string;
   name?: string;
-  email?: string;
   phase?: string;
   technologies?: string;
   languages?: string;
   id_mentor?: string;
   id_manager?: string;
   id_admin?: string;
-  name_class?: string;
 };

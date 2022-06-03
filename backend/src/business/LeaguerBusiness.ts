@@ -153,7 +153,7 @@ export class LeaguerBusiness {
       if (!leaguers) {
         throw new Error("Id inválido.");
       }
-  
+
       return leaguers;
     } catch (error: any) {
       throw new Error(error.message);
@@ -169,14 +169,12 @@ export class LeaguerBusiness {
       position,
       hiring_model,
       name,
-      email,
       phase,
       technologies,
       languages,
       id_mentor,
       id_manager,
       id_admin,
-      name_class,
     } = input;
 
     if (!idLeaguer) {
@@ -200,14 +198,12 @@ export class LeaguerBusiness {
       position,
       hiring_model,
       name,
-      email,
       phase,
       technologies,
       languages,
       id_mentor,
       id_manager,
       id_admin,
-      name_class,
     };
 
     await leaguerDatabase.editLeaguer(leaguer, idLeaguer);
