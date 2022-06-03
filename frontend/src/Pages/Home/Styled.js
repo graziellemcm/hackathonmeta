@@ -53,8 +53,7 @@ border-radius: 10px;
 align-items: center;
 justify-content: space-around;
 box-shadow:0 0 2rem -1rem rgba(0,0,0,.05);
-.hover{
-cursor: pointer;}
+cursor: pointer;
 `
 export const CardLeaguer = styled.div`
 

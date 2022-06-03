@@ -16,7 +16,8 @@ height: 16px;
 
 export const TeamImg = styled.img`
 height: 12px;
-
+margin-right: 4px;
+margin-top: 8px;
 `
 export const HeaderProfile = styled.div`
 display: flex;

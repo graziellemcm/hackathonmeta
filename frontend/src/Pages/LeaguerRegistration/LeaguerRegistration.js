@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
 import { base_Url } from "../../Constants/base_Url";
@@ -30,11 +30,11 @@ export default function LeaguerRegistration() {
         name_class: ""
     });
 
-
+    const [image, setImage] = useState(null)
 
     const dataTeam = useRequestData([], `${base_Url}/team/all`)[0]
     const dataResponsible = useRequestData([], `${base_Url}/responsible/getAll`)[0]
-   
+
 
     const selectTeam = dataTeam && dataTeam.map(team => {
         return <MenuItem value={team.team_name}>{team.team_name}</MenuItem>
@@ -64,6 +64,9 @@ export default function LeaguerRegistration() {
         registration(form, clearForm)
     };
 
+    const downloadImg = e => {
+      setImage(URL.createObjectURL(e.target.files[0]))
+    }
 
     return (
         <>
@@ -171,7 +174,7 @@ export default function LeaguerRegistration() {
                                 name={"languages"}
                                 value={form.languages}
                                 onChange={onChangeForm}
-                                label={"Linguagens"}
+                                label={"Idiomas"}
                                 variant={"outlined"}
                                 sx={{ width: 350, marginBottom: 1 }}
                                 margin="dense"
@@ -254,7 +257,11 @@ export default function LeaguerRegistration() {
                                     <MenuItem value={"pj"}>PJ</MenuItem>
                                 </Select>
                             </FormControl>
-                           
+                            <div>
+                                {/* <IMG src={image !== null ? image : } /> */}
+                                <input id="arquivo" accept=".png,.jpeg,.jpg" type='file' name="photo" value={form.photo_leaguer} onChange={onChangeForm}></input>
+                            </div>
+
 
 
                             <Button fullWidth color="primary" variant="contained" type={"submit"} > Cadastrar Leaguer</Button>
