@@ -32,11 +32,13 @@ export default function SignUp() {
       .post(base_Url + "/responsible/signup", body)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        alert("Cadastro realizado!");
+        // alert("Cadastro realizado!");
+
         goToHomePage(navigate);
       })
       .catch((err) => {
         alert(` ${err.response.data.error}`)
+        console.log(err.response.data.error)
       });
   };
   return (
