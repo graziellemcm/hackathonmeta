@@ -6,10 +6,7 @@ import { USER_ROLES } from "../model/User_Roles";
 import { FeedbackInputDTO } from "../model/Feedback";
 
 export class FeedbackBusiness {
-  async createFeedback(
-    input: FeedbackInputDTO,
-    token_headers: string
-  ): Promise<string> {
+  async createFeedback(input: FeedbackInputDTO): Promise<void> {
     try {
       //generating id
       const idGenerator = new Idgenerator();
@@ -36,11 +33,6 @@ export class FeedbackBusiness {
       ) {
         throw new Error("Email inválido.");
       }
-      if (!token_headers) {
-        throw new Error(
-          "Esse endpoint requer um token no headers authorization."
-        );
-      }
 
       //validating user creator email
       const responsibleDatabase = new ResponsibleDatabase();
@@ -49,21 +41,6 @@ export class FeedbackBusiness {
       );
       if (!isRegisteredUser) {
         throw new Error("Usuário não cadastrado.");
-      }
-
-      //token authentication
-      const authenticator = new Authenticator();
-      const tokenData = authenticator.getTokenData(token_headers);
-
-      //validating user role
-      if (
-        tokenData.role !== USER_ROLES.ADMIN &&
-        tokenData.role !== USER_ROLES.MENTOR &&
-        tokenData.role !== USER_ROLES.GESTOR
-      ) {
-        throw new Error(
-          "Somente administradores,gestores e mentores podem criar novas avaliações."
-        );
       }
 
       //creating feedback
@@ -75,13 +52,6 @@ export class FeedbackBusiness {
         input.email_evaluators,
         created_at
       );
-
-      //token generator
-      const tokenGen = authenticator.generateToken({
-        id: id,
-        role: tokenData.role,
-      });
-      return tokenGen;
     } catch (error: any) {
       throw new Error(error.message);
     }
