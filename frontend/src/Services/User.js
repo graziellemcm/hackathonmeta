@@ -81,3 +81,4 @@ export const registration = (body) => {
           alert(`${err.response.data}`);
       });
 };
+

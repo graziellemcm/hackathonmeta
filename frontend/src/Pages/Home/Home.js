@@ -1,40 +1,25 @@
 import Header from "../../Components/Header/Header";
 import { CardFilter, CardHome, CardLeaguer, FilterImg, H1Filter, HomeHeader, LeaguerCardHeader, MentorImg } from "./StyledCardHome"
-import React, {  useMemo, useState } from "react";
+import React, {  useContext, useMemo, useState } from "react";
 import { TextField } from "@mui/material";
 import filtro from "../../Components/img/filtro.png"
 import { Star, TeamImg } from "../../Pages/LeaguerProfile/styled";
 import Vector from "../../Components/img/Vector.png"
 import Labs from "../../Components/img/Labs.png"
 import Mentor from "../../Components/img/Mentor.png"
-import { getLeaguerById } from "../../Services/get";
 import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../../Global/GlobalContext";
+import { goToLeaguerProfile } from "../../Router/coordinator";
 
 export const Home = () => {
   const navigate = useNavigate();
+  const data = useContext(GlobalContext)
   const [search, setSearch] = useState('')
-  
-  const goProfile = (id) => {
-    navigate(`/leaguer/get/${id}`)
-  }
 
-  const infoLeaguer = infoLeaguers.map((info) => {
 
-    return (
-      info.id
-    )
-  });
-  // Return an object with specific informatio
-  const objectLeaguer = leaguers.map((leaguer) => {
-    return {
-      name: leaguer.name,
-      fase: leaguer.phase,
-      turma: leaguer.name_class,
-    }
-  });
   const filter = useMemo(() => {
     const lowerSearch = search.toLowerCase();
-    return objectLeaguer.filter((listarLeaguers) => {
+    return data.leaguersData.filter((listarLeaguers) => {
       if (!search) {
         return true
       }
@@ -45,21 +30,22 @@ export const Home = () => {
     }
     );
 
-  }, [search, leaguers])
+  }, [search, data])
 
-  const leaguerCardFiltered = filter.map((rendLeaguer) => (
-    <LeaguerCardHeader onClick={() => {
-      getLeaguerById(infoLeaguer);
-      goProfile(infoLeaguer);
+  const leaguerCardFiltered = filter.map((rendLeaguer) => {
+    return(
+    <LeaguerCardHeader key= {rendLeaguer.id} onClick={() => {
+
+      goToLeaguerProfile(navigate, rendLeaguer.id);
 
     }}>
 
       <CardLeaguer> <TeamImg src={Vector}></TeamImg> {rendLeaguer.name}</CardLeaguer>
-      <CardLeaguer> <Star src={Labs}></Star> {rendLeaguer.fase}</CardLeaguer>
-      <CardLeaguer> <MentorImg src={Mentor}></MentorImg>{rendLeaguer.turma}</CardLeaguer>
+      <CardLeaguer> <Star src={Labs}></Star> {rendLeaguer.phase}</CardLeaguer>
+      <CardLeaguer> <MentorImg src={Mentor}></MentorImg>{rendLeaguer.name_class}</CardLeaguer>
     </LeaguerCardHeader>
-  ))
-  console.log("filter", filter)
+  )})
+
 
 
   const onChangeSearch = (event) => {
@@ -87,7 +73,6 @@ export const Home = () => {
         <ul>
           {leaguerCardFiltered}
         </ul>
-        <div>asd</div>
       </CardHome>
     </div>
 
