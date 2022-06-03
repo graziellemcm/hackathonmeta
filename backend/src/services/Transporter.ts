@@ -1,6 +1,6 @@
 // const nodemailer = require("nodemailer");
 import nodemailer from "nodemailer";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -43,7 +43,7 @@ export async function transporter(emails: string[]) {
 		</p>
 	</br>
     <a
-      href="https://www.google.com/"
+      href="https://nifty-comfort.surge.sh/"
       target="_blank"
       style="text-decoration: none; color:mediumblue;"
     >
