@@ -24,5 +24,4 @@ export type editLeaguerType = {
   id_mentor?: string;
   id_manager?: string;
   id_admin?: string;
-  name_class?: string;
 };
