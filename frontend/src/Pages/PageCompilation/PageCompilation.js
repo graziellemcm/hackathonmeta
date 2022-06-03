@@ -7,16 +7,19 @@ import { Center, Layout, DivButton, Title, DivStar } from "./styled";
 import { base_Url } from "../../Constants/base_Url";
 import axios from "axios";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
+import { useParams } from "react-router-dom";
+import useRequestData from "../../Hooks/useRequestData";
 
 export default function PageCompilation
     () {
     useProtectedPage()
+    const params = useParams();
     const isTokenSet = localStorage.getItem("token");
+    const [leaguerData, loading] = useRequestData([], `${base_Url}/evaluation/leaguer/averaged/${params.id}`)
 
     const { form, onChangeForm } = useForm({
-        leaguer_email: "",
-        email_creator_feedback: "",
-        email_evaluator: "",
+        email_creator_compiled: "",
+        email_leaguer: "",
         performance: "",
         quality_on_delivery: "",
         proactivity: "",
@@ -36,12 +39,12 @@ export default function PageCompilation
 
     };
 
-    const send = () => {
+    const sendCompilation = () => {
         const body = { ...form, performance: Number(form.performance), quality_on_delivery: Number(form.quality_on_delivery), proactivity: Number(form.proactivity), commitment: Number(form.commitment), team_work: Number(form.team_work), skillset_growth: Number(form.skillset_growth), leadership: Number(form.leadership), punctuality: Number(form.punctuality), work_under_pressure: Number(form.work_under_pressure), participation: Number(form.participation), administrative_tasks: Number(form.administrative_tasks) };
-        console.log(body)
+        
         axios
 
-            .post(base_Url + "/evaluation/create", body,
+            .post(base_Url + "/compiled/create", body,
 
                 {
 
@@ -52,7 +55,7 @@ export default function PageCompilation
             )
             .then((resposta) => {
 
-                alert("Feedback realizado!");
+                alert("Compilação realizada!");
             })
             .catch((erro) =>
                 alert(` ${erro.response.data.error}`)
@@ -63,18 +66,35 @@ export default function PageCompilation
             <Header />
             <Layout>
                 <Center>
+                    <Title>
+                        <Typography variant="h5"><b>Feedbacks recebidos</b></Typography>
 
+                    </Title>
+                    <div>
+                        <p>Desempenho:{leaguerData.performance}</p>
+                        <p>Qualidade de entrega:{leaguerData.quality_on_delivery}</p>
+                        <p>Proatividade:{leaguerData.proactivity}</p>
+                        <p>Compromisso:{leaguerData.commitment}</p>
+                        <p>Trabalho em equipe:{leaguerData.team_work}</p>
+                        <p>Crescimento:{leaguerData.skillset_growth}</p>
+                        <p>Liderança:{leaguerData.leadership}</p>
+                        <p>Pontualidade:{leaguerData.punctuality}</p>
+                        <p>Trabalhar sob pressão:{leaguerData.work_under_pressure}</p>
+                        <p>Participação:{leaguerData.participation}</p>
+                        <p>Tarefas administrativas:{leaguerData.administrative_tasks}</p>
+                        <p>Destaques:{leaguerData.highlights_leaguer}</p>
+                        <p>Comentários:{leaguerData.comment}</p>
+                    </div>
                     <form onSubmit={onForm}>
-                        <Title>
-                            <Typography variant="h5"><b>Feedbacks recebidos do Leaguer</b></Typography>
-                        </Title>
+
+
                         <Title>
                             <Typography variant="h5"><b>Compilação do Feedback</b></Typography>
                         </Title>
 
                         <TextField
-                            name={"email_evaluator"}
-                            value={form.email_evaluator}
+                            name={"email_creator_compiled"}
+                            value={form.email_creator_compiled}
                             onChange={onChangeForm}
                             label={"Digite seu email"}
                             variant={"outlined"}
@@ -84,23 +104,10 @@ export default function PageCompilation
                             autoFocus
                             type={"email"}
                         />
-                        <TextField
-                            name={"email_creator_feedback"}
-                            value={form.email_creator_feedback}
-                            onChange={onChangeForm}
-                            label={"Digite o email do criador da avaliação"}
-                            variant={"outlined"}
-                            sx={{ width: 350, marginBottom: 3 }}
-                            margin="dense"
-                            required
-                            autoFocus
-                            type={"email"}
-                        />
-
 
                         <TextField
-                            name={"leaguer_email"}
-                            value={form.leaguer_email}
+                            name={"email_leaguer"}
+                            value={form.email_leaguer}
                             onChange={onChangeForm}
                             label={"Digite o email do leaguer"}
                             variant={"outlined"}
@@ -266,7 +273,7 @@ export default function PageCompilation
                                 sx={{ width: 350, marginBottom: 3 }}
                                 margin="dense"
                                 type={"text"}
-
+                                required
                             />
                             <TextField
                                 name={"comment"}
@@ -281,7 +288,7 @@ export default function PageCompilation
                             />
                         </DivStar>
                         <DivButton>
-                            <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={send}> Enviar</Button>
+                            <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={sendCompilation}> Enviar</Button>
                         </DivButton>
                     </form>
 
