@@ -70,7 +70,7 @@ export default function PageCompilation
                         <Typography variant="h5"><b>Feedbacks recebidos</b></Typography>
 
                     </Title>
-                    <div>
+                    <div> {console.log(leaguerData)}
                         <p>Desempenho:{leaguerData.performance}</p>
                         <p>Qualidade de entrega:{leaguerData.quality_on_delivery}</p>
                         <p>Proatividade:{leaguerData.proactivity}</p>

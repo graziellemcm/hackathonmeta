@@ -2,7 +2,7 @@ import React from "react";
 import { DivHeader, Header, LogoImage } from "./styled";
 import meta from "../img/meta.png"
 import { Button } from "@mui/material";
-import { goToHomePage, goToSignUp } from "../../Router/coordinator";
+import { goToHomePage, goToSignUpTeam, goToLeaguerRegistration, goToCompilation } from "../../Router/coordinator";
 import { useNavigate } from "react-router-dom";
 
 
@@ -26,14 +26,29 @@ export default function Headers() {
             }}
           >Home
           </Button>
-
           <Button
             color="white"
 
             onClick={() => {
-              goToSignUp(navigate)
+              goToLeaguerRegistration(navigate)
             }}
-          >Cadastro
+          >Cadastro do Leaguer
+          </Button>
+          <Button
+            color="white"
+
+            onClick={() => {
+              goToSignUpTeam(navigate)
+            }}
+          >Cadastro da Turma
+          </Button>
+          <Button
+            color="white"
+
+            onClick={() => {
+              goToCompilation(navigate)
+            }}
+          >Compilação
           </Button>
 
         </DivHeader>

@@ -67,7 +67,7 @@ export const Home = () => {
 
     <div>
       <Header />
-      <HomeHeader onClick={() => goToLeaguerRegistration(navigate)}>CADASTRO DE LEAGUER</HomeHeader>
+      <HomeHeader >Buscar</HomeHeader>
       <CardFilter>
 
         <TextField
