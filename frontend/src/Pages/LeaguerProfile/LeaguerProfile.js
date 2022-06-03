@@ -1,3 +1,4 @@
+import { base_Url } from "../../Constants/base_Url";
 import React from "react";
 import Header from "../../Components/Header/Header";
 import { CardProfileLeaguer, CardWorkingSince, Center, CenterTitle, H5, HeaderProfile, Layout, LeaguerCardHeader, MentorProfile, ULLeaguer } from "./styled";
@@ -10,23 +11,16 @@ import Mentor from "../../Components/img/Mentor.png"
 import workingsince from "../../Components/img/workingsince.png"
 import { Button } from "@mui/material";
 import { goToNewEvaluation } from "../../Router/coordinator";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useRequestData from "../../Hooks/useRequestData";
-import { base_Url } from "../../Constants/base_Url";
+import { useProtectedPage } from "../../Hooks/useProtectedPage";
 
 export default function LeaguerProfile() {
+    useProtectedPage()
     const navigate = useNavigate()
-  
     const params = useParams();
-    
-
     const [leaguerData, loading] = useRequestData([], `${base_Url}/leaguer/get/${params.id}`)
-
-    console.log(params)
-
-    // const leaguer = leaguerData && leaguerData.map
+    
 
     return (
 
@@ -45,10 +39,10 @@ export default function LeaguerProfile() {
             </HeaderProfile>
 
             <LeaguerCardHeader>
-                <Phase>LABS</Phase>
+                <Phase>{leaguerData.phase}</Phase>
                 <PhotoProfile src="https://cdn.discordapp.com/attachments/889885483402928130/980812774672334868/foto.png" />
-                <NameProfile>{ }</NameProfile>
-                <TeamProfile> <TeamImg src={Vector}></TeamImg> Turma Piloto</TeamProfile>
+                <NameProfile>{ leaguerData.name}</NameProfile>
+                <TeamProfile> <TeamImg src={Vector}></TeamImg>{leaguerData.class_name}</TeamProfile>
                 <PhaseProfile> <Star src={Labs} ></Star> Labs</PhaseProfile>
                 <MentorProfile><Star src={Mentor}></Star> Gabrieli Silva</MentorProfile>
                 <WorkingSinceProfile><Star src={workingsince}></Star> Leaguer desde 2010</WorkingSinceProfile>

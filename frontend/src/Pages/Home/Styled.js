@@ -28,11 +28,6 @@ justify-content: start;
 
 `;
 
-export const H1Filter = styled.h1`
-display: flex;
-background-color: white;
-justify-content: center;
-`;
 
 export const ListLeaguers = styled.h1`
 display: flex;
@@ -46,15 +41,17 @@ justify-content: center;
 
 
 `;
-export const LeaguerCardHeader = styled.div`
+export const LeaguerCard = styled.div`
 display:flex;
-flex-direction: column;
+flex-direction: row;
 background-color:#f5f5f5 ;
 /* grid-gap: 5rem; */
 padding:2.5rem;
-margin: 0px 8px 8px 8px;
+margin: 8px 8px 8px 8px;
 color: black;
 border-radius: 10px;
+align-items: center;
+justify-content: space-around;
 box-shadow:0 0 2rem -1rem rgba(0,0,0,.05);
 .hover{
 cursor: pointer;}

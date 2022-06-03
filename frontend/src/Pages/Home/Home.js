@@ -1,19 +1,20 @@
 import Header from "../../Components/Header/Header";
-import { CardFilter, CardHome, CardLeaguer, FilterImg, H1Filter, HomeHeader, LeaguerCardHeader, MentorImg } from "./StyledCardHome"
-import React, {  useContext, useMemo, useState } from "react";
-import { TextField } from "@mui/material";
-import filtro from "../../Components/img/filtro.png"
-import { Star, TeamImg } from "../../Pages/LeaguerProfile/styled";
-import Vector from "../../Components/img/Vector.png"
-import Labs from "../../Components/img/Labs.png"
-import Mentor from "../../Components/img/Mentor.png"
+import { CardFilter, CardHome, CardLeaguer, HomeHeader, LeaguerCard } from "./Styled"
+import React, { useContext, useMemo, useState } from "react";
+import { Avatar, CircularProgress, InputAdornment, TextField, Typography } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../Global/GlobalContext";
-import { goToLeaguerProfile } from "../../Router/coordinator";
+import { goToLeaguerProfile, goToLeaguerRegistration } from "../../Router/coordinator";
+import { useProtectedPage } from "../../Hooks/useProtectedPage";
 
 export const Home = () => {
+  useProtectedPage()
+
   const navigate = useNavigate();
+
   const data = useContext(GlobalContext)
+  
   const [search, setSearch] = useState('')
 
 
@@ -29,22 +30,26 @@ export const Home = () => {
       return false
     }
     );
-
   }, [search, data])
 
   const leaguerCardFiltered = filter.map((rendLeaguer) => {
-    return(
-    <LeaguerCardHeader key= {rendLeaguer.id} onClick={() => {
-
-      goToLeaguerProfile(navigate, rendLeaguer.id);
-
-    }}>
-
-      <CardLeaguer> <TeamImg src={Vector}></TeamImg> {rendLeaguer.name}</CardLeaguer>
-      <CardLeaguer> <Star src={Labs}></Star> {rendLeaguer.phase}</CardLeaguer>
-      <CardLeaguer> <MentorImg src={Mentor}></MentorImg>{rendLeaguer.name_class}</CardLeaguer>
-    </LeaguerCardHeader>
-  )})
+    return (
+      <LeaguerCard
+        key={rendLeaguer.id}
+        onClick={() => goToLeaguerProfile(navigate, rendLeaguer.id)}
+        sx={{ width: 350, marginBottom: 3, alignSelf: "center" }}
+      >
+        <div>
+          <Avatar alt={rendLeaguer.nam} src={rendLeaguer.photo_leaguer} sx={{ width: 56, height: 56 }} />
+        </div>
+        <div>
+          <Typography variant="h1" fontSize={18}><></>{rendLeaguer.name}</Typography>
+          <Typography variant="h1" fontSize={16}><></>{rendLeaguer.phase}</Typography>
+          <Typography variant="h1" fontSize={16}><></>{rendLeaguer.name_class}</Typography>
+        </div>
+      </LeaguerCard>
+    )
+  })
 
 
 
@@ -57,22 +62,30 @@ export const Home = () => {
 
     <div>
       <Header />
-      <HomeHeader>LISTA DE LEAGUERS</HomeHeader>
+      <HomeHeader onClick={() => goToLeaguerRegistration(navigate)}>CADASTRO DE LEAGUER</HomeHeader>
+      <CardFilter>
+
+        <TextField
+
+          sx={{ width: 350, marginBottom: 3, alignSelf: "center" }}
+          placeholder="Busque por nome do Leaguer"
+          onChange={onChangeSearch}
+          name={'searching'}
+          variant="outlined"
+          value={search}
+          id="input-with-icon-textfield"
+          autoFocus
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </CardFilter>
       <CardHome>
-        <CardFilter>
-          <H1Filter>  Filtro <FilterImg src={filtro} ></FilterImg> </H1Filter>
-          <TextField
-            type={'text'}
-            onChange={onChangeSearch}
-            value={search}
-            margin={"none"}
-            variant="filled"
-            sx={{ width: 300, alignSelf: "center" }}
-          ></TextField>
-        </CardFilter>
-        <ul>
-          {leaguerCardFiltered}
-        </ul>
+        {data.loading ? <CircularProgress sx={{ m: "40vh auto" }} /> : leaguerCardFiltered}
       </CardHome>
     </div>
 
