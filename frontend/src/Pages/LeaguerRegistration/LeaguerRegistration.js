@@ -65,7 +65,7 @@ export default function LeaguerRegistration() {
     };
 
     const downloadImg = e => {
-      setImage(URL.createObjectURL(e.target.files[0]))
+        setImage(URL.createObjectURL(e.target.files[0]))
     }
 
     return (
@@ -257,12 +257,23 @@ export default function LeaguerRegistration() {
                                     <MenuItem value={"pj"}>PJ</MenuItem>
                                 </Select>
                             </FormControl>
-                            <div>
-                                {/* <IMG src={image !== null ? image : } /> */}
-                                <input id="arquivo" accept=".png,.jpeg,.jpg" type='file' name="photo" value={form.photo_leaguer} onChange={onChangeForm}></input>
+                            <TextField
+                                name={"photo_leaguer"}
+                                value={form.photo_leaguer}
+                                onChange={onChangeForm}
+                                label={"Inserir url da imagem"}
+                                variant={"outlined"}
+                                sx={{ width: 350, marginBottom: 1 }}
+                                margin="dense"
+                                type={"text"}
+                            />
+                            {/* <div>
+                                <label for="photo_leaguer">Inserir uma foto</label>
+                                <br></br>
+                                <input type="file" id="photo_leaguer" name="photo_leaguer" accept=".jpg, .jpeg, .png" onChange={onChangeForm}/>
                             </div>
 
-
+ */}
 
                             <Button fullWidth color="primary" variant="contained" type={"submit"} > Cadastrar Leaguer</Button>
                         </form>

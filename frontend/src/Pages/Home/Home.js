@@ -44,7 +44,8 @@ export const Home = () => {
         sx={{ width: 350, marginBottom: 3, alignSelf: "center" }}
       >
         <div>
-          <Avatar alt={rendLeaguer.name} src={"https://cdn.discordapp.com/attachments/889885483402928130/980812774672334868/foto.png"} sx={{ width: 56, height: 56 }} />
+          <Avatar alt={rendLeaguer.name} src={rendLeaguer.photo_leaguer} sx={{ width: 56, height: 56 }} />
+       {console.log(rendLeaguer.photo_leaguer)}
         </div>
         <div>
           <Typography variant="h1" fontSize={18}>{rendLeaguer.name}</Typography>

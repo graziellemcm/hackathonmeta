@@ -25,3 +25,6 @@ export const goToNewEvaluation = (navigate) => {
 export const goToAdmPage = (navigate) => {
     navigate("/pagina do adm certo");
 };
+export const goToCompilation = (navigate, id) => {
+    navigate(`/compilation/${id}`);
+};

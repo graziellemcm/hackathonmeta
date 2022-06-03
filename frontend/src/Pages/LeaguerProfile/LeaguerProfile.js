@@ -41,7 +41,7 @@ export default function LeaguerProfile() {
 
             <LeaguerCardHeader>
                 <Phase>{leaguerData.phase}</Phase>
-                <PhotoProfile src="https://cdn.discordapp.com/attachments/889885483402928130/980812774672334868/foto.png" />
+                <PhotoProfile src={leaguerData.photo_leaguer}/>
                 <NameProfile>{leaguerData.name}</NameProfile>
                 <TeamProfile> <TeamImg src={Vector}></TeamImg>{leaguerData.class_name}</TeamProfile>
                 <PhaseProfile> <Star src={Labs} ></Star> {leaguerData.phase}</PhaseProfile>
