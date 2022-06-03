@@ -1,49 +1,25 @@
-import axios from "axios";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
-import { base_Url } from "../../Constants/base_Url";
 import { Center, Layout, LogoImage, Background } from "./styled";
 import metaAzull from "../../Components/img/metaAzull.png"
 import { Button, TextField } from "@mui/material"
-import {goToHomePage} from "../../Router/coordinator"
+import { signUpTeam } from "../../Services/User";
 
 
 
 export default function SignUpTeam() {
-  const navigate = useNavigate();
-  const isTokenSet = localStorage.getItem("token");
-
   const { form, onChangeForm, clearForm } = useForm({
     team_name: ""
   });
+
   const onSignUpTeam = (e) => {
     e.preventDefault();
     clearForm();
+    signUpTeam(form)
   };
- 
-  const signUp = () => {
-        
-        axios
-        
-            .post(base_Url + "/team/create", form,
-            
-                {
-                    
-                    headers: {
-                        authorization: isTokenSet
-                    }
-                }
-            )
-            .then((resposta) => {
-                
-                alert("Cadastro de turma realizado!");
-            })
-            .catch((erro) =>
-             alert(`${erro.response.data}`)
-            )
-    }
+  
+  
   return (
     <div>
       <Header />
@@ -70,7 +46,7 @@ export default function SignUpTeam() {
             />
       
             <div>
-              <Button fullWidth color="primary" variant="contained" type={"submit"} onClick={signUp} > Enviar</Button>
+              <Button fullWidth color="primary" variant="contained" type={"submit"}> Enviar</Button>
 
             </div>
           </form>
