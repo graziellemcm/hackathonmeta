@@ -10,7 +10,6 @@ import Exit from "../Exit/Exit";
 
 export default function Form() {
   const navigate = useNavigate();
-  const isTokenSet = localStorage.getItem("token");
   const [isFormFilled, setIsFormFilled] = useState(false);
 
   const { form, onChangeForm } = useForm({
@@ -55,13 +54,7 @@ export default function Form() {
 
       .post(
         base_Url + "/evaluation/create",
-        body,
-
-        {
-          headers: {
-            authorization: isTokenSet,
-          },
-        }
+        body
       )
       .then((resposta) => {
         alert("Feedback realizado!");
