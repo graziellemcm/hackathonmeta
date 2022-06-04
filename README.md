@@ -50,14 +50,14 @@ Visual Studio Code
 
 ##### 1- Clonar o repositório
 
-  ❯ git clone [https://gitlab.com/graziellemcm/hackathonmeta](https://gitlab.com/graziellemcm/hackathonmeta)
+  ❯ git clone <a href="https://gitlab.com/graziellemcm/hackathonmeta">Repositório 📈</a>
 
 ##### 2- Entrar no diretório
   ❯ cd frontend
 
 ##### 3- Para instalar as dependências e iniciar o projeto, você pode utilizar NPM:
   ###### Versões do node e npm:
-  node: v16.15.0
+  node: v16.15.0 <br>
   npm:8.3.2
 
   ###### Instalar as dependências
