@@ -16,7 +16,7 @@ Aplicação fornece uma API para criação, edição e compilação de feedbacks
 
 ### Veja o projeto: 
 Website principal: <a href="#">Feedbacks Meta 🎯</a> <br>
-Formulário de avaliação: <a href="https://misty-furniture.surge.sh/">Formulário de avaliação 📝</a> <br>
+Formulário de avaliação: <a href="https://smiling-slope.surge.sh/">Formulário de avaliação 📝</a> <br>
 Documentação da API: <a href="https://documenter.getpostman.com/view/19296644/Uz5FJGUr#d26fe043-95ae-4ce3-8dff-8d705f40f5c0">API</a>
 
 
