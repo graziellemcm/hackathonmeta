@@ -28,21 +28,32 @@ export class ResponsibleDatabase extends BaseDatabase {
     try {
       const user = await this.connection(ResponsibleDatabase.TABLE_NAME)
         .select("*")
-        .where({ email:email });
+        .where({ email: email });
       return user[0] && Responsibles.toShowModel(user[0]);
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
+      throw new Error(error.sqlMessage || error.message);
+    }
+  }
+  public async findUserById(id: string) {
+    try {
+      const user = await this.connection(ResponsibleDatabase.TABLE_NAME)
+        .select("*")
+        .where({ id: id });
+      return user[0] && Responsibles.toShowModel(user[0]);
+    } catch (error: any) {
+      console.log(error);
       throw new Error(error.sqlMessage || error.message);
     }
   }
 
-  editRole = async(id:string, role:string)=> {
+  editRole = async (id: string, role: string) => {
     await this.connection.raw(`
     UPDATE responsible_meta
       SET role = "${role}"
       WHERE id = "${id}"
     `);
-  }
+  };
 
   public async getAllResponsibles(): Promise<Responsibles[]> {
     try {
@@ -50,7 +61,9 @@ export class ResponsibleDatabase extends BaseDatabase {
         .select("*")
         .from(ResponsibleDatabase.TABLE_NAME);
 
-      return result.map((responsibles) => Responsibles.toShowModel(responsibles));
+      return result.map((responsibles) =>
+        Responsibles.toShowModel(responsibles)
+      );
     } catch (e: any) {
       throw new Error(e.sqlMessage || e.message);
     }

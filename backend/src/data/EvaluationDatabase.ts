@@ -126,4 +126,39 @@ export class EvaluationDatabase extends BaseDatabase {
       throw new Error(err.sqlMessage || err.message);
     }
   };
+
+  getEvaluationsByLeaguerId = async (id: string): Promise<Evaluation[]> => {
+    try {
+      const leaguer = await this.connection("leaguer_meta")
+        .select("email")
+        .where({ id: id });
+
+      const result = await this.connection(EvaluationDatabase.TABLE_NAME)
+        .select("*")
+        .from(EvaluationDatabase.TABLE_NAME)
+        .where({ leaguer_email: leaguer[0].email });
+      return result.map((evaluations) =>
+        Evaluation.toEvaluationModel(evaluations)
+      );
+    } catch (err: any) {
+      throw new Error(err.sqlMessage || err.message);
+    }
+  };
+  getEvaluationsByCreatorId = async (id: string): Promise<Evaluation[]> => {
+    try {
+      const responsible_creator = await this.connection("responsible_meta")
+        .select("email")
+        .where({ id: id });
+
+      const result = await this.connection(EvaluationDatabase.TABLE_NAME)
+        .select("*")
+        .from(EvaluationDatabase.TABLE_NAME)
+        .where({ email_creator_feedback: responsible_creator[0].email });
+      return result.map((evaluations) =>
+        Evaluation.toEvaluationModel(evaluations)
+      );
+    } catch (err: any) {
+      throw new Error(err.sqlMessage || err.message);
+    }
+  };
 }

@@ -73,7 +73,38 @@ export class EvaluationController {
       res.status(400).send({ error: error.message });
     }
   }
+  async getEvaluationsByLeaguerId(req: Request, res: Response) {
+    try {
+      //inputs req
+      const token_headers = req.headers.authorization as string;
+      const id = req.params.id;
 
+      //getting evaluations from databank
+      const evaluations = await evaluationBusiness.getEvaluationsByLeaguerId(
+        id,
+        token_headers
+      );
+      res.status(200).send(evaluations);
+    } catch (error: any) {
+      res.status(400).send({ error: error.message });
+    }
+  }
+  async getEvaluationsByCreatorId(req: Request, res: Response) {
+    try {
+      //inputs req
+      const token_headers = req.headers.authorization as string;
+      const id = req.params.id;
+
+      //getting evaluations from databank
+      const evaluations = await evaluationBusiness.getEvaluationsByCreatorId(
+        id,
+        token_headers
+      );
+      res.status(200).send(evaluations);
+    } catch (error: any) {
+      res.status(400).send({ error: error.message });
+    }
+  }
   getAveragedEvaluationsById = async (
     req: Request,
     res: Response
