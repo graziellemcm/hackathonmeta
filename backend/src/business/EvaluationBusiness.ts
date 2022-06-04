@@ -10,9 +10,7 @@ const authenticator = new Authenticator();
 const evaluationDatabase = new EvaluationDatabase();
 
 export class EvaluationBusiness {
-  async createEvaluation(
-    input: EvaluationInputDTO
-  ): Promise<void> {
+  async createEvaluation(input: EvaluationInputDTO): Promise<void> {
     try {
       //generating id
       const idGenerator = new Idgenerator();
@@ -52,7 +50,7 @@ export class EvaluationBusiness {
       ) {
         throw new Error("Email inválido.");
       }
-     
+
       //validating user creator email
       const responsibleDatabase = new ResponsibleDatabase();
       const isRegisteredUser = await responsibleDatabase.findUserByEmail(
@@ -183,12 +181,114 @@ export class EvaluationBusiness {
         tokenData.role !== USER_ROLES.MENTOR &&
         tokenData.role !== USER_ROLES.GESTOR
       ) {
-        throw new Error("Somente administradores podem ver avaliações.");
+        throw new Error(
+          "Somente administradores, gestores e mentores podem ver avaliações."
+        );
       }
       //fetching feedback
 
       const evaluations = await evaluationDatabase.getEvaluationsByEmailLeaguer(
         leaguer_email
+      );
+      if (!evaluations) {
+        throw new Error("Avaliação não cadastrada.");
+      }
+      return evaluations;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+  async getEvaluationsByLeaguerId(
+    id: string,
+    token_headers: string
+  ): Promise<Evaluation[] | undefined> {
+    try {
+      //verifying params and token
+      if (!id) {
+        throw new Error("Insira um id válido nos params.");
+      }
+
+      if (!token_headers) {
+        throw new Error(
+          "Esse endpoint requer um token no headers authorization."
+        );
+      }
+
+      //validating leaguer id
+      const leaguerDatabase = new LeaguerDatabase();
+      const isRegisteredLeaguer = await leaguerDatabase.getLeaguerById(id);
+      if (!isRegisteredLeaguer) {
+        throw new Error("Usuário não cadastrado.");
+      }
+
+      //token authentication
+      const tokenData = authenticator.getTokenData(token_headers);
+
+      //validating user role
+      if (
+        tokenData.role !== USER_ROLES.ADMIN &&
+        tokenData.role !== USER_ROLES.MENTOR &&
+        tokenData.role !== USER_ROLES.GESTOR
+      ) {
+        throw new Error(
+          "Somente administradores, gestores e mentores podem ver avaliações."
+        );
+      }
+
+      //fetching feedback
+      const evaluations = await evaluationDatabase.getEvaluationsByLeaguerId(
+        id
+      );
+      if (!evaluations) {
+        throw new Error("Avaliação não cadastrada.");
+      }
+      return evaluations;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+  async getEvaluationsByCreatorId(
+    id: string,
+    token_headers: string
+  ): Promise<Evaluation[] | undefined> {
+    try {
+      //verifying params and token
+      if (!id) {
+        throw new Error("Insira um id válido nos params.");
+      }
+
+      if (!token_headers) {
+        throw new Error(
+          "Esse endpoint requer um token no headers authorization."
+        );
+      }
+
+      //validating responsible id
+      const responsibleDatabase = new ResponsibleDatabase();
+      const isRegisteredResponsible = await responsibleDatabase.findUserById(
+        id
+      );
+      if (!isRegisteredResponsible) {
+        throw new Error("Usuário não cadastrado.");
+      }
+
+      //token authentication
+      const tokenData = authenticator.getTokenData(token_headers);
+
+      //validating user role
+      if (
+        tokenData.role !== USER_ROLES.ADMIN &&
+        tokenData.role !== USER_ROLES.MENTOR &&
+        tokenData.role !== USER_ROLES.GESTOR
+      ) {
+        throw new Error(
+          "Somente administradores, gestores e mentores podem ver avaliações."
+        );
+      }
+
+      //fetching feedback
+      const evaluations = await evaluationDatabase.getEvaluationsByCreatorId(
+        id
       );
       if (!evaluations) {
         throw new Error("Avaliação não cadastrada.");
