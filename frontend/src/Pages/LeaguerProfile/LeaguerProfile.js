@@ -1,5 +1,5 @@
 import { base_Url } from "../../Constants/base_Url";
-import React from "react";
+import React, { useMemo } from "react";
 import Header from "../../Components/Header/Header";
 import { CardProfileLeaguer, CardWorkingSince, Center, CenterTitle, H5, HeaderProfile, Layout, LeaguerCardHeader, MentorProfile, ULLeaguer } from "./styled";
 import { NameProfile, Phase, PhaseProfile, PhotoProfile, Star, TeamImg, TeamProfile } from "./styled";
@@ -12,7 +12,14 @@ import { goEditLeaguer, goToCompilation, goToNewEvaluation } from "../../Router/
 import { useNavigate, useParams } from "react-router-dom";
 import useRequestData from "../../Hooks/useRequestData";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
-import { useGetEvaluation } from "../../Hooks/useGetEvaluation";
+
+
+
+const INITIAL_AVERAGED = {
+    compiled: {
+
+    }
+}
 
 export default function LeaguerProfile() {
     useProtectedPage()
@@ -20,12 +27,13 @@ export default function LeaguerProfile() {
     const params = useParams();
     const [leaguerData, loadingLeaguer] = useRequestData({}, `${base_Url}/leaguer/get/${params.id}`)
     const data = useRequestData([], `${base_Url}/evaluation/leaguer/${params.id}`)[0]
-    const [averaged, loadingAverage] = useRequestData({}, `${base_Url}/evaluation/leaguer/averaged/${params.id}`)
+    const [averagedData, loadingAverage] = useRequestData({}, `${base_Url}/evaluation/leaguer/averaged/${params.id}`)
 
     const [compiled, loadingCompiled] = useRequestData([], `${base_Url}/compiled/get/${params.id}`)
+    
 
-    console.log(compiled)
-
+    const averaged = useMemo(() => {return averagedData}, [averagedData])
+    console.log(averaged)
     return (
 
         <div>
@@ -110,35 +118,35 @@ export default function LeaguerProfile() {
 
 
 
-                {/* {loadingAverage ? <CircularProgress sx={{ m: "40vh auto" }} /> : 
+                {loadingAverage ? <CircularProgress sx={{ m: "40vh auto" }} /> : 
                     <CardWorkingSince>
                 <Typography variant="h2" fontSize={20} sx={{ m: 1, }} >Média das avaliações quantitativas</Typography> 
                     <div>
                         <Typography variant="h2" fontSize={16}>Desempenho:</Typography>
-                        <Rating name="performance" defaultValue={averaged.compiled.performance} precision={0.25} readOnly />
+                        <Rating name="performance" value={averaged.complied && averaged.compiled.performance} precision={0.25} readOnly />
                         <Typography variant="h2" fontSize={16}>Qualidade de entrega:</Typography>
-                        <Rating name="quality_on_delivery" defaultValue={averaged.compiled.quality_on_delivery} precision={0.25} readOnly />
+                        <Rating name="quality_on_delivery" value={averaged.complied && averaged.compiled.quality_on_delivery} precision={0.25} readOnly />
                         <Typography variant="h2" fontSize={16}>Proatividade: </Typography>
-                        <Rating name="proactivity" defaultValue={averaged.compiled.proactivity} precision={0.25} readOnly />
+                        <Rating name="proactivity" value={averaged.complied && averaged.compiled.proactivity} precision={0.25} readOnly />
                         <Typography variant="h2" fontSize={16}>Compromisso:</Typography>
-                        <Rating name="commitment" defaultValue={averaged.compiled.commitment} precision={0.25} readOnly />
+                        <Rating name="commitment" value={averaged.complied && averaged.compiled.commitment} precision={0.25} readOnly />
                         <Typography variant="h2" fontSize={16}>Trabalho em equipe:</Typography>
-                        <Rating name="team_work" defaultValue={averaged.compiled.team_work} precision={0.25} readOnly />
+                        <Rating name="team_work" value={averaged.complied && averaged.compiled.team_work} precision={0.25} readOnly />
                         <Typography variant="h2" fontSize={16}>Crescimento: </Typography>
-                        <Rating name="skillset_growth" defaultValue={averaged.compiled.skillset_growth} precision={0.25} readOnly />
+                        <Rating name="skillset_growth" value={averaged.complied && averaged.compiled.skillset_growth} precision={0.25} readOnly />
                         <Typography variant="h2" fontSize={16}>Liderança: </Typography>
-                        <Rating name="leadership" defaultValue={averaged.compiled.leadership} precision={0.25} readOnly />
+                        <Rating name="leadership" value={averaged.complied && averaged.compiled.leadership} precision={0.25} readOnly />
                         <Typography variant="h2" fontSize={16}>Pontualidade:</Typography>
-                        <Rating name="punctuality" defaultValue={averaged.compiled.punctuality} precision={0.25} readOnly />
+                        <Rating name="punctuality" value={averaged.complied && averaged.compiled.punctuality} precision={0.25} readOnly />
                         <Typography variant="h2" fontSize={16}>Trabalhar sob pressão: </Typography>
-                        <Rating name="work_under_pressure" defaultValue={averaged.compiled.work_under_pressure} precision={0.25} readOnly />
+                        <Rating name="work_under_pressure" value={averaged.complied && averaged.compiled.work_under_pressure} precision={0.25} readOnly />
                         <Typography variant="h2" fontSize={16}>Participação: </Typography>
-                        <Rating name="participation" defaultValue={averaged.compiled.participation} precision={0.25} readOnly />
+                        <Rating name="participation" value={averaged.complied && averaged.compiled.participation} precision={0.25} readOnly />
                         <Typography variant="h2" fontSize={16}>Tarefas administrativas: </Typography>
-                        <Rating name="administrative_tasks" defaultValue={averaged.compiled.administrative_tasks} precision={0.25} readOnly />
+                        <Rating name="administrative_tasks" value={ averaged.compiled.administrative_tasks} precision={0.25} readOnly />
                         </div>
                          </CardWorkingSince>
-                    }  */}
+                    } 
 
             </Layout>
 
