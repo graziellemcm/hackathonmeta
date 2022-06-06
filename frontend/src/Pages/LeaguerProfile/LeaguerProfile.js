@@ -3,28 +3,25 @@ import React from "react";
 import Header from "../../Components/Header/Header";
 import { CardProfileLeaguer, CardWorkingSince, Center, CenterTitle, H5, HeaderProfile, Layout, LeaguerCardHeader, MentorProfile, ULLeaguer } from "./styled";
 import { NameProfile, Phase, PhaseProfile, PhotoProfile, Star, TeamImg, TeamProfile } from "./styled";
-import './styled.css';
 import star from "../../Components/img/star.png"
 import Vector from "../../Components/img/Vector.png"
 import Labs from "../../Components/img/Labs.png"
 import Mentor from "../../Components/img/Mentor.png"
-import { Button } from "@mui/material";
-import { goEditLeaguer, goToNewEvaluation, goToCompilation } from "../../Router/coordinator";
+import { Avatar, Button } from "@mui/material";
+import { goEditLeaguer, goToNewEvaluation } from "../../Router/coordinator";
 import { useNavigate, useParams } from "react-router-dom";
 import useRequestData from "../../Hooks/useRequestData";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
-
+import { useGetEvaluation } from "../../Hooks/useGetEvaluation";
 
 export default function LeaguerProfile() {
     useProtectedPage()
     const navigate = useNavigate()
     const params = useParams();
-    const [leaguerData, loading] = useRequestData({}, `${base_Url}/leaguer/get/${params.id}`)
-    const [data] = useRequestData(undefined, `${base_Url}/evaluation/leaguer/${params.id}`)
+    const [leaguerData, loading] = useRequestData([], `${base_Url}/leaguer/get/${params.id}`)
+    const [evaluationData, loadingEvaluation]= useGetEvaluation(leaguerData.email)
+    console.log(evaluationData)
     
-    console.log(data);
-
-
     return (
 
         <div>
@@ -34,34 +31,28 @@ export default function LeaguerProfile() {
                 <div>
                     <Button >HISTORICO</Button>
                     <Button
-                        onClick={() => {
-                            goEditLeaguer(navigate, params.id)
-                        }}
+                    onClick={()=>{
+                        goEditLeaguer(navigate,params.id)
+                    }}
                     >EDITAR LEAGUER</Button>
                     <Button
                         onClick={() => goToNewEvaluation(navigate)}
 
                     >  Criar nova avaliação</Button>
-                    <Button
-
-                        onClick={() => {
-                            goToCompilation(navigate, params.id, leaguerData.email)
-                        }}
-                    >Compilação
-                    </Button>
                 </div>
 
             </HeaderProfile>
 
             <LeaguerCardHeader>
-                <PhotoProfile src={leaguerData.photo_leaguer} />
+                <Phase>{leaguerData.phase}</Phase>
+                <Avatar sx={{ width: 100, height: 100 }} src={leaguerData.photo_leaguer} />
                 <NameProfile>{leaguerData.name}</NameProfile>
                 <TeamProfile> <TeamImg src={Vector}></TeamImg>{leaguerData.class_name}</TeamProfile>
                 <PhaseProfile> <Star src={Labs} ></Star> {leaguerData.phase}</PhaseProfile>
-                <MentorProfile><Star src={Mentor}></Star> Gabrieli Silva</MentorProfile>
+                
+               
 
-
-
+               
 
 
             </LeaguerCardHeader>
