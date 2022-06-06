@@ -6,18 +6,18 @@ Aplicação fornece uma API para criação, edição e compilação de feedbacks
 - `Funcionalidade 1`: Poder fazer login, cadastro e cadastro de leaguers.
 - `Funcionalidade 2`: Poder criar uma turma.
 - `Funcionalidade 3`: Poder editar o cadastro de um leaguer.
-- `Funcionalidade 4`: Poder deletar um leaguer.
-- `Funcionalidade 5`: Poder visualizar todas as turmas.
-- `Funcionalidade 6`: Poder visualizar todos as usuários (responsáveis).
-- `Funcionalidade 7`: Poder visualizar a média das avaliações dos leaguers.
-- `Funcionalidade 8`: Poder criar uma avaliação de leaguer e envia-la via email para os respectivos avaliadores.
-- `Funcionalidade 9`: Poder acessar as avaliações já preenchidas que foram enviadas via email.
-- `Funcionalidade 10`: Poder criar uma avaliação final compilada.
-- `Funcionalidade 11`: Poder visualizar a avaliação final compilada.
+- `Funcionalidade 4`: Poder visualizar todas as turmas.
+- `Funcionalidade 5`: Poder visualizar todos as usuários (responsáveis).
+- `Funcionalidade 6`: Poder visualizar a média das avaliações dos leaguers.
+- `Funcionalidade 7`: Poder criar uma avaliação de leaguer e envia-la via email para os respectivos avaliadores.
+- `Funcionalidade 8`: Poder acessar as avaliações já preenchidas que foram enviadas via email.
+- `Funcionalidade 9`: Poder criar uma avaliação final compilada.
+- `Funcionalidade 10`: Poder visualizar a avaliação final compilada.
 
 ### Veja o projeto: 
-Site: LINK DO PROJETO <br>
-Documentação da API: https://documenter.getpostman.com/view/19296644/Uz5FJGUr#d26fe043-95ae-4ce3-8dff-8d705f40f5c0
+Website principal: <a href="#">Feedbacks Meta 🎯</a> <br>
+Formulário de avaliação: <a href="https://smiling-slope.surge.sh/">Formulário de avaliação 📝</a> <br>
+Documentação da API: <a href="https://documenter.getpostman.com/view/19296644/Uz5FJGUr#d26fe043-95ae-4ce3-8dff-8d705f40f5c0">API</a>
 
 
  ### Lista com linguagens, frameworks e/ou tecnologias usadas
@@ -50,14 +50,14 @@ Visual Studio Code
 
 ##### 1- Clonar o repositório
 
-  ❯ git clone [https://gitlab.com/graziellemcm/hackathonmeta](https://gitlab.com/graziellemcm/hackathonmeta)
+  ❯ git clone <a href="https://gitlab.com/graziellemcm/hackathonmeta">Repositório 📈</a>
 
 ##### 2- Entrar no diretório
   ❯ cd frontend
 
 ##### 3- Para instalar as dependências e iniciar o projeto, você pode utilizar NPM:
   ###### Versões do node e npm:
-  node: v16.15.0
+  node: v16.15.0 <br>
   npm:8.3.2
 
   ###### Instalar as dependências
