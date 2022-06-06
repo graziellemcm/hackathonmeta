@@ -51,19 +51,12 @@ export default function LeaguerProfile() {
 
             </HeaderProfile>
 
-            <LeaguerCardHeader>
-                <Phase>{leaguerData.phase}</Phase>
-                <Avatar sx={{ width: 100, height: 100 }} src={leaguerData.photo_leaguer} />
+            {loadingLeaguer ? <CircularProgress sx={{ m: "40vh auto" , position:'center'}} /> : <LeaguerCardHeader>
+                <Avatar src={leaguerData.photo_leaguer} sx={{ width: 80, height: 80 }} />
                 <NameProfile>{leaguerData.name}</NameProfile>
                 <TeamProfile> <TeamImg src={Vector}></TeamImg>{leaguerData.class_name}</TeamProfile>
                 <PhaseProfile> <Star src={Labs} ></Star> {leaguerData.phase}</PhaseProfile>
-
-
-
-
-
-
-            </LeaguerCardHeader>
+            </LeaguerCardHeader>}
 
             <Layout>
 
