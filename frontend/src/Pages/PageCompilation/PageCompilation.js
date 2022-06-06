@@ -1,27 +1,22 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import useForm from "../../Hooks/useForm";
 import { Alert, Button, Rating, TextField, Typography } from "@mui/material"
-import { Center, Layout, DivButton, Title, DivStar } from "./styled";
+import { Center, Layout, DivButton, Title, DivStar, CardEvaluation } from "./styled";
 import { base_Url } from "../../Constants/base_Url";
 import axios from "axios";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
 import { useParams } from "react-router-dom";
 import useRequestData from "../../Hooks/useRequestData";
-import { useGetEvaluation } from "../../Hooks/useGetEvaluation";
-import { GlobalContext } from "../../Global/GlobalContext";
+import { sendCompilation } from "../../Services/User";
 
 
-export default function PageCompilation
-    () {
+export default function PageCompilation() {
+
     useProtectedPage()
     const params = useParams();
-    const isTokenSet = localStorage.getItem("token");
-    const leaguerData = useRequestData([], `${base_Url}/evaluation/leaguer/averaged/${params.id}`)
-    const evaluationData = useGetEvaluation(leaguerData.email)[0]
-    const data = useContext(GlobalContext)
-    
+
     const { form, onChangeForm } = useForm({
         email_creator_compiled: "",
         email_leaguer: "",
@@ -41,31 +36,34 @@ export default function PageCompilation
     });
     const onForm = (e) => {
         e.preventDefault();
-
+        sendCompilation(form)
     };
 
-    const sendCompilation = () => {
-        const body = { ...form, performance: Number(form.performance), quality_on_delivery: Number(form.quality_on_delivery), proactivity: Number(form.proactivity), commitment: Number(form.commitment), team_work: Number(form.team_work), skillset_growth: Number(form.skillset_growth), leadership: Number(form.leadership), punctuality: Number(form.punctuality), work_under_pressure: Number(form.work_under_pressure), participation: Number(form.participation), administrative_tasks: Number(form.administrative_tasks) };
-        
-        axios
+    const [data] = useRequestData(undefined, `${base_Url}/evaluation/leaguer/${params.id}`)
 
-            .post(base_Url + "/compiled/create", body,
+    const evaluation = data && data.map(e => {
+        return (
+            
+                <div>
+                    <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>{e.comment}</Typography>
+                    <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>{e.quality_on_delivery}</Typography>
+                    <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>{e.proactivity}</Typography>
+                    <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>{e.commitment}</Typography>
+                    <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>{e.team_work}</Typography>
+                    <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>{e.skillset_growth}</Typography>
+                    <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>{e.leadership}</Typography>
+                    <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>{e.punctuality}</Typography>
+                    <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>{e.work_under_pressure}</Typography>
+                    <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>{e.participation}</Typography>
+                    <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>{e.administrative_tasks}</Typography>
+                    <Typography variant="h2" sx={{m: 2, p: 1, whiteSpace: 'nowrap'}} fontSize={16}>{e.highlights_leaguer}</Typography>
+                    <Typography variant="h2" sx={{m: 2, p: 1, whiteSpace: 'nowrap'}} fontSize={16}>{e.comment}</Typography>
+                </div>
+           
+        )
+    })
 
-                {
-
-                    headers: {
-                        authorization: isTokenSet
-                    }
-                }
-            )
-            .then((resposta) => {
-
-                alert("Compilação realizada!");
-            })
-            .catch((erro) =>
-                alert(` ${erro.response.data.error}`)
-            )
-    }
+    console.log(data)
     return (
         <div>
             <Header />
@@ -73,26 +71,26 @@ export default function PageCompilation
                 <Center>
                     <Title>
                         <Typography variant="h5"><b>Feedbacks recebidos</b></Typography>
-
                     </Title>
-                    {console.log(evaluationData)}
-                    {/* <div> 
-                        <p>Desempenho:{leaguerData.compiled.comment}</p>
-                        <p>Qualidade de entrega: {leaguerData.compiled.quality_on_delivery}</p>
-                        <p>Proatividade:{leaguerData.compiled.proactivity}</p>
-                        <p>Compromisso:{leaguerData.compiled.commitment}</p>
-                        <p>Trabalho em equipe:{leaguerData.compiled.team_work}</p>
-                        <p>Crescimento:{leaguerData.compiled.skillset_growth}</p>
-                        <p>Liderança:{leaguerData.compiled.leadership}</p>
-                        <p>Pontualidade:{leaguerData.compiled.punctuality}</p>
-                        <p>Trabalhar sob pressão:{leaguerData.compiled.work_under_pressure}</p>
-                        <p>Participação:{leaguerData.compiled.participation}</p>
-                        <p>Tarefas administrativas:{leaguerData.compiled.administrative_tasks}</p>
-                        <p>Destaques:{leaguerData.compiled.highlights_leaguer}</p>
-                        <p>Comentários:{leaguerData.compiled.comment}</p>
-                    </div> */}
+                    <CardEvaluation> 
+                    <div>
+                <Typography variant="h2" sx={{m: 2, p: 1, flexWrap:'nowrap'}} fontSize={16}>Desempenho:</Typography>
+                <Typography variant="h2" sx={{m: 2, p: 1, whiteSpace: 'nowrap'}} fontSize={16}>Qualidade de entrega: </Typography>
+                <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>Proatividade:</Typography>
+                <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>Compromisso:</Typography>
+                <Typography variant="h2" sx={{m: 2, p: 1, whiteSpace: 'nowrap'}} fontSize={16}>Trabalho em equipe:</Typography>
+                <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>Crescimento:</Typography>
+                <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>Liderança:</Typography>
+                <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>Pontualidade:</Typography>
+                <Typography variant="h2" sx={{m: 2, p: 1, whiteSpace: 'nowrap'}} fontSize={16}>Trabalhar sob pressão:</Typography>
+                <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>Participação:</Typography>
+                <Typography variant="h2" sx={{m: 2, p: 1, whiteSpace: 'nowrap'}} fontSize={16}>Tarefas administrativas:</Typography>
+                <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>Destaques:</Typography>
+                <Typography variant="h2" sx={{m: 2, p: 1}} fontSize={16}>Comentários:</Typography>
+            </div>
+                    {evaluation}
+                    </CardEvaluation>
                     <form onSubmit={onForm}>
-
 
                         <Title>
                             <Typography variant="h5"><b>Compilação do Feedback</b></Typography>

@@ -14,6 +14,7 @@ export const Layout = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
+
 `
 export const Title = styled.div`
 display: flex;
@@ -31,4 +32,8 @@ display: flex;
 flex-direction: column;
 `
 
+export const CardEvaluation = styled.div`
+display: flex;
+flex-direction: row;
+`
 

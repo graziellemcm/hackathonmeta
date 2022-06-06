@@ -21,7 +21,7 @@ margin-top: 8px;
 `
 export const HeaderProfile = styled.div`
 display: flex;
-justify-content: space-between;
+justify-content: space-evenly;
 margin-right: 8px;
 margin-left: 8px;
 box-shadow:0 0 2rem -1rem rgba(0,0,0,.05);

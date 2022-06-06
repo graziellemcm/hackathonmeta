@@ -88,3 +88,26 @@ export const editLeaguer = (body, clearForm, id, navigate) => {
       alert(`${err.response.data}`);
     });
 };
+
+export const sendCompilation = (form) => {
+  const body = { ...form, performance: Number(form.performance), quality_on_delivery: Number(form.quality_on_delivery), proactivity: Number(form.proactivity), commitment: Number(form.commitment), team_work: Number(form.team_work), skillset_growth: Number(form.skillset_growth), leadership: Number(form.leadership), punctuality: Number(form.punctuality), work_under_pressure: Number(form.work_under_pressure), participation: Number(form.participation), administrative_tasks: Number(form.administrative_tasks) };
+  
+  axios
+
+      .post(base_Url + "/compiled/create", body,
+
+          {
+
+              headers: {
+                  authorization: localStorage.getItem("token")
+              }
+          }
+      )
+      .then((resposta) => {
+
+          alert("Compilação realizada!");
+      })
+      .catch((erro) =>
+          alert(` ${erro.response.data.error}`)
+      )
+}
