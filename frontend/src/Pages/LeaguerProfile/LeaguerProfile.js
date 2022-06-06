@@ -13,15 +13,17 @@ import { goEditLeaguer, goToNewEvaluation, goToCompilation } from "../../Router/
 import { useNavigate, useParams } from "react-router-dom";
 import useRequestData from "../../Hooks/useRequestData";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
-import { useGetEvaluation } from "../../Hooks/useGetEvaluation";
+
 
 export default function LeaguerProfile() {
     useProtectedPage()
     const navigate = useNavigate()
     const params = useParams();
-    const [leaguerData, loading] = useRequestData([], `${base_Url}/leaguer/get/${params.id}`)
-    const [evaluationData, loadingEvaluation] = useGetEvaluation(leaguerData.email)
-   
+    const [leaguerData, loading] = useRequestData({}, `${base_Url}/leaguer/get/${params.id}`)
+    const [data] = useRequestData(undefined, `${base_Url}/evaluation/leaguer/${params.id}`)
+    
+    console.log(data);
+
 
     return (
 
