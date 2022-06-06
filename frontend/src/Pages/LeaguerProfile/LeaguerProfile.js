@@ -118,7 +118,7 @@ export default function LeaguerProfile() {
 
 
 
-                {loadingAverage ? <CircularProgress sx={{ m: "40vh auto" }} /> : 
+                {/* {loadingAverage ? <CircularProgress sx={{ m: "40vh auto" }} /> : 
                     <CardWorkingSince>
                 <Typography variant="h2" fontSize={20} sx={{ m: 1, }} >Média das avaliações quantitativas</Typography> 
                     <div>
@@ -146,7 +146,7 @@ export default function LeaguerProfile() {
                         <Rating name="administrative_tasks" value={ averaged.compiled.administrative_tasks} precision={0.25} readOnly />
                         </div>
                          </CardWorkingSince>
-                    } 
+                    }  */}
 
             </Layout>
 
